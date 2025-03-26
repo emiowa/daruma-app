@@ -9,13 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.13.0",
+    "@typescript-eslint/parser": "^8.13.0",
     "next": "14.2.15",
+    "node": "^22.11.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
+    "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emiowa/daruma-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emiowa/daruma-app/issues"
+  },
+  "homepage": "https://github.com/emiowa/daruma-app#readme"
 }
