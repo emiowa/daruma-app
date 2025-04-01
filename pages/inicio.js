@@ -2,7 +2,7 @@
 import Head from 'next/head';
 // import "../styles/globals.css"
 
-function Iniciarsession() {
+function Inicio() {
   return (
     <>
       <Head>
@@ -11,8 +11,8 @@ function Iniciarsession() {
         <title >Estudiar</title>
         <meta name='description' content='私たちはグラン戸田住人' />
       </Head>
-      <div>Iniciarsession</div>
+      <div>Inicio</div>
     </>
   )
 }
-export default Iniciarsession;
+export default Inicio;
