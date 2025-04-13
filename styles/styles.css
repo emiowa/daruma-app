@@ -1,3 +1,27 @@
-.shadow {
-  @apply shadow-[3px_3px_0px_0px_rgba(0, 0, 0, 0.7)];
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content {
+  @apply rounded-md border border-solid border-black
+}
+
+.icons-s {
+  @apply mt-0.5
+}
+
+.icons-m {
+  @apply mt-1
+}
+
+;
+
+@layer utilities {
+  .shadow-large {
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.7);
+  }
+
+  .shadow-small {
+    box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.7);
+  }
 }
