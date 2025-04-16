@@ -11,6 +11,8 @@ import VocabularioFila from '@/components/VocabularioFila';
 import { FaArrowRight } from "react-icons/fa";
 
 function Estudiar() {
+  const articuloNum = 6
+  const vocabularioNum = 5
   const cardData = [
     {
       id: 1,
@@ -170,7 +172,7 @@ function Estudiar() {
             </div>
             <div className='flex flex-wrap gap-3 mt-3 '>
               {
-                cardData.slice(0, 6).map((item) => (
+                cardData.slice(0, articuloNum).map((item) => (
                   <ArticulosTarjetas liked={item.liked} title={item.title} id={item.id} description={item.description} imageUrl={item.imageUrl} checked={item.checked} />
                 ))
               }
@@ -186,11 +188,11 @@ function Estudiar() {
               </div>
             </div>
             {
-              vocabulario.slice(0, 5).map((item, index) => (
+              vocabulario.slice(0, vocabularioNum).map((item, index) => (
                 <>
                   <VocabularioFila palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                   {
-                    index < 4 &&
+                    index < vocabularioNum - 1 &&
                     <div className='w-full mt-1.5 h-[1px] bg-main-grey'></div>
                   }
                 </>
