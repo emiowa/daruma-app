@@ -7,7 +7,8 @@ import BotonAudioDatoCurioso from '@/components/botones/BotonAudioDatoCurioso';
 import BotonAudioVocabulario from '@/components/botones/BotonAudioVocabulario';
 import LinkVerTodosArticulos from '@/components/links/LinkVerTodosArticulos';
 import ArticulosTarjetas from '@/components/ArticulosTarjetas';
-
+import VocabularioFila from '@/components/VocabularioFila';
+import { FaArrowRight } from "react-icons/fa";
 
 function Estudiar() {
   const cardData = [
@@ -70,7 +71,8 @@ function Estudiar() {
       </Head>
       <div className='w-full' >
         <div className='flex justify-center h-56'>
-          <div className='bg-main-red w-[250px] content shadow-large pt-10 px-3 pb-4 flex flex-col gap-6'>
+          {/* --------------------------------------points-------------------------------------- */}
+          <div className='bg-main-orange w-[250px] content shadow-large pt-10 px-3 pb-4 flex flex-col gap-6'>
             <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
               <p className='text-4xl'>200</p>
               <p className='text-xm ml-1'>ポイント</p>
@@ -92,6 +94,7 @@ function Estudiar() {
               </div>
             </div>
           </div>
+          {/* --------------------------------------tips-------------------------------------- */}
           <div className='content shadow-large  bg-main-white w-[560px] ml-3 pt-3 pl-5 relative overflow-hidden'>
             <Image
               src="/images/sushi.png"
@@ -101,7 +104,7 @@ function Estudiar() {
               className='absolute top-0 right-0'
             />
             <div className='w-[290px]'>
-              <p className='text-2xl'>まめちしき</p>
+              <p className='titles'>まめちしき</p>
               <div className='text-xs'>
                 <p className='mt-5'>知っていましたか...</p>
                 <p className='mt-5 '>女性の手は男性よりも熱く、魚の鮮度を損なう可能性があると言われているため、日本では寿司を握る女性の職人がほとんどいません。</p>
@@ -114,9 +117,10 @@ function Estudiar() {
           </div>
         </div>
         <div className='flex w-full justify-center mt-8'>
-          <div className='bg-main-blue w-[570px] h-[650px] content px-4 py-6 shadow-large'>
-            <div className='flex justify-between'>
-              <p className='text-main-background text-3xl'>きじ</p>
+          {/* --------------------------------------articulo-------------------------------------- */}
+          <div className='bg-main-blue w-[570px] h-[650px] content p-4 shadow-large'>
+            <div className='flex justify-between items-center'>
+              <p className='text-main-background titles'>きじ</p>
               <LinkVerTodosArticulos />
             </div>
             <div className='flex flex-wrap gap-3 mt-3 '>
@@ -127,7 +131,18 @@ function Estudiar() {
               }
             </div>
           </div>
-          <div className='bg-main-white w-[240px] h-[400px] ml-3 content shadow-large'></div>
+
+          {/* --------------------------------------vocabulario-------------------------------------- */}
+          <div className='bg-main-white w-[240px] h-[400px] ml-3 content px-3 py-5 shadow-large'>
+            <div className='flex items-center justify-between'>
+              <p className='titles'>ごい</p>
+              <div className='flex'>
+                <a href='/' className='underline text-[11px]'>Ver mi vocabulario</a>
+                <FaArrowRight className='ml-1' />
+                <VocabularioFila />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

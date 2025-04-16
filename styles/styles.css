@@ -14,6 +14,10 @@
   @apply mt-1
 }
 
+.titles {
+  @apply text-3xl
+}
+
 
 ;
 

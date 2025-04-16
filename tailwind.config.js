@@ -3,7 +3,7 @@
 // tailwind.config.js
 const colors = {
   main: {
-    red: '#F26749',
+    orange: '#F26749',
     blue: '#214ECF',
     background: '#F6EFDD',
     white: "#FDFBF5",

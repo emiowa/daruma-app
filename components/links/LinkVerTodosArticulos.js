@@ -6,7 +6,7 @@ const LinkVerTodosArticulos = () => {
   return (
     <>
       <div className='flex text-main-background text-sm'>
-        <a href='/' className='underline'>Ver todos los artículos</a>
+        <a href='/' className='underline text-[11px]'>Ver todos los artículos</a>
         <FaArrowRight className='icons-m ml-4' />
       </div>
     </>
