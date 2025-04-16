@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .content {
-  @apply rounded-md border border-solid border-black
+  @apply rounded-md border border-solid border-main-grey
 }
 
 .icons-s {
@@ -27,6 +27,6 @@
   }
 
   .shadow-small {
-    box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 2.5px 2.5px 0px 0px rgba(0, 0, 0, 0.7);
   }
 }

@@ -61,6 +61,51 @@ function Estudiar() {
       liked: false
     }
   ]
+
+  const vocabulario = [
+    {
+      id: 1,
+      palabra: "語彙",
+      hiragana: "ごい",
+      traduccion: "Vocabulario",
+      audio: "/sounds/goi.mp4"
+    },
+    {
+      id: 2,
+      palabra: "豆知識",
+      hiragana: "まめちしき",
+      traduccion: "Curiosidades",
+      audio: "/sounds/goi2.mp4"
+    },
+    {
+      id: 3,
+      palabra: "記事",
+      hiragana: "きじ",
+      traduccion: "Articulos",
+      audio: "/sounds/goi.mp4"
+    },
+    {
+      id: 4,
+      palabra: "台所",
+      hiragana: "だいどころ",
+      traduccion: "Cocina",
+      audio: "/sounds/goi2.mp4"
+    },
+    {
+      id: 5,
+      palabra: "玄関",
+      hiragana: "げんかん",
+      traduccion: "Entorada de la casa",
+      audio: "/sounds/goi.mp4"
+    },
+    {
+      id: 6,
+      palabra: "dummy",
+      hiragana: "だみー",
+      traduccion: "dummy",
+      audio: "/sounds/go2.mp4"
+    },
+  ]
   return (
     <>
       <Head>
@@ -131,7 +176,6 @@ function Estudiar() {
               }
             </div>
           </div>
-
           {/* --------------------------------------vocabulario-------------------------------------- */}
           <div className='bg-main-white w-[240px] h-[400px] ml-3 content px-3 py-5 shadow-large'>
             <div className='flex items-center justify-between'>
@@ -139,9 +183,19 @@ function Estudiar() {
               <div className='flex'>
                 <a href='/' className='underline text-[11px]'>Ver mi vocabulario</a>
                 <FaArrowRight className='ml-1' />
-                <VocabularioFila />
               </div>
             </div>
+            {
+              vocabulario.slice(0, 5).map((item, index) => (
+                <>
+                  <VocabularioFila palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
+                  {
+                    index < 4 &&
+                    <div className='w-full mt-1.5 h-[1px] bg-main-grey'></div>
+                  }
+                </>
+              ))
+            }
           </div>
         </div>
       </div>
