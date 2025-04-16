@@ -10,7 +10,56 @@ import ArticulosTarjetas from '@/components/ArticulosTarjetas';
 
 
 function Estudiar() {
-
+  const cardData = [
+    {
+      id: 1,
+      title: "広島の有名な島",
+      description: "広島には、充実した体験をしたい人にとって必須の観光地となっている島があります。",
+      imageUrl: '/images/hiroshima.png',
+      checked: true,
+      liked: true
+    },
+    {
+      id: 2,
+      title: "日本の桜の木",
+      description: "桜には、ただ美しいピンク色の木だけではなく、より深い意味があります。",
+      imageUrl: '/images/sakura.png',
+      checked: false,
+      liked: false
+    },
+    {
+      id: 3,
+      title: "納豆って知っていますか？",
+      description: "日本で最も健康的な食べ物の一つだが、外国人の間で最も嫌われている食べ物。",
+      imageUrl: '/images/natto.png',
+      checked: true,
+      liked: false
+    },
+    {
+      id: 4,
+      title: "納豆って知っていますか？",
+      description: "日本で最も健康的な食べ物の一つだが、外国人の間で最も嫌われている食べ物。",
+      imageUrl: '/images/natto.png',
+      checked: true,
+      liked: false
+    },
+    {
+      id: 5,
+      title: "広島の有名な島",
+      description: "広島には、充実した体験をしたい人にとって必須の観光地となっている島があります。",
+      imageUrl: '/images/hiroshima.png',
+      checked: false,
+      liked: true
+    },
+    {
+      id: 6,
+      title: "日本の桜の木",
+      description: "桜には、ただ美しいピンク色の木だけではなく、より深い意味があります。",
+      imageUrl: '/images/sakura.png',
+      checked: false,
+      liked: false
+    }
+  ]
   return (
     <>
       <Head>
@@ -65,13 +114,17 @@ function Estudiar() {
           </div>
         </div>
         <div className='flex w-full justify-center mt-8'>
-          <div className='bg-main-blue w-[570px] h-[700px] content p-4 shadow-large'>
+          <div className='bg-main-blue w-[570px] h-[650px] content px-4 py-6 shadow-large'>
             <div className='flex justify-between'>
               <p className='text-main-background text-3xl'>きじ</p>
               <LinkVerTodosArticulos />
             </div>
-            <div className='flex mt-3'>
-              <ArticulosTarjetas />
+            <div className='flex flex-wrap gap-3 mt-3 '>
+              {
+                cardData.slice(0, 6).map((item) => (
+                  <ArticulosTarjetas liked={item.liked} title={item.title} id={item.id} description={item.description} imageUrl={item.imageUrl} checked={item.checked} />
+                ))
+              }
             </div>
           </div>
           <div className='bg-main-white w-[240px] h-[400px] ml-3 content shadow-large'></div>

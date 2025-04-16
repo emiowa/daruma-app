@@ -6,7 +6,9 @@ const colors = {
     red: '#F26749',
     blue: '#214ECF',
     background: '#F6EFDD',
-    white: "#FDFBF5"
+    white: "#FDFBF5",
+    grey: "#2C4B56",
+    pink: "#FF746B"
   },
 }
 
