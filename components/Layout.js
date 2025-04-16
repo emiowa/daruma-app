@@ -5,7 +5,7 @@ import Footer from "./Footer"
 
 export default function Layout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#F6EFDD]">
+    <div className="flex flex-col min-h-screen bg-main-background">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="" type="image/svg+xml" />

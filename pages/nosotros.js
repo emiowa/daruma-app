@@ -11,7 +11,7 @@ function Nosotros() {
         <title >OAH Architecture</title>
         <meta name='description' content='私たちはグラン戸田住人' />
       </Head>
-      <div className='bg-[#F6EFDD]'>
+      <div className='bg-main-background'>
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import LinkPaginasHeader from "./links/LinkPaginasHeader";
 
 export default function Header() {
   return (
-    <div className="p-4 bg-[#F6EFDD]">
+    <div className="p-4 bg-main-background">
       <div className="flex justify-between">
         <Image
           src="/images/daruma.png"

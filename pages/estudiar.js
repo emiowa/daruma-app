@@ -2,9 +2,11 @@
 import Head from 'next/head';
 import { IoEyeOutline, IoBookOutline } from "react-icons/io5";
 import { VscFlame } from "react-icons/vsc";
-import { AiOutlineSound } from "react-icons/ai";
-import { MdTranslate } from "react-icons/md";
 import Image from 'next/image';
+import BotonAudioDatoCurioso from '@/components/botones/BotonAudioDatoCurioso';
+import BotonAudioVocabulario from '@/components/botones/BotonAudioVocabulario';
+import LinkVerTodosArticulos from '@/components/links/LinkVerTodosArticulos';
+import ArticulosTarjetas from '@/components/ArticulosTarjetas';
 
 
 function Estudiar() {
@@ -19,29 +21,29 @@ function Estudiar() {
       </Head>
       <div className='w-full' >
         <div className='flex justify-center h-56'>
-          <div className='bg-[#F26749] w-[240px] content shadow-large pt-10 px-3 pb-4 flex flex-col gap-6'>
-            <div className='flex text-[#F6EFDD] items-end ml-2'>
+          <div className='bg-main-red w-[250px] content shadow-large pt-10 px-3 pb-4 flex flex-col gap-6'>
+            <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
               <p className='text-4xl'>200</p>
               <p className='text-xm ml-1'>ポイント</p>
             </div>
-            <div className='bg-[#FDFBF5] w-full h-20 shadow-small content text-xs p-1'>
+            <div className='bg-main-white w-full h-24 shadow-small content  p-2'>
               <div className='flex'>
-                <IoEyeOutline className='icons-s' />
-                <p className='ml-1'>Artículos leídos: 10</p>
+                <IoEyeOutline className='text-[15px] ' />
+                <p className='ml-1 text-[11px] font-semibold'>Artículos leídos: 10</p>
               </div>
-              <div className='flex-col '>
+              <div className='flex-col ml-2 mt-4'>
                 <div className='flex'>
-                  <IoBookOutline className='icons-s' />
-                  <p className='ml-1'>Artículos para principiantes: 8</p>
+                  <IoBookOutline className='icons-s text-[15px]' />
+                  <p className='ml-1 text-[11px]'>Artículos para principiantes: 8</p>
                 </div>
-                <div className='flex'>
-                  <VscFlame className='icons-s' />
-                  <p className='ml-1'>Artículos para avanzados: 2</p>
+                <div className='flex mt-1'>
+                  <VscFlame className='icons-s text-[15px]' />
+                  <p className='ml-1 text-[11px]'>Artículos para avanzados: 2</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className='content shadow-large  bg-[#FDFBF5] w-[560px] ml-3 pt-3 pl-5 relative overflow-hidden'>
+          <div className='content shadow-large  bg-main-white w-[560px] ml-3 pt-3 pl-5 relative overflow-hidden'>
             <Image
               src="/images/sushi.png"
               alt="sushi"
@@ -56,21 +58,23 @@ function Estudiar() {
                 <p className='mt-5 '>女性の手は男性よりも熱く、魚の鮮度を損なう可能性があると言われているため、日本では寿司を握る女性の職人がほとんどいません。</p>
               </div>
               <div className='flex text-xs absolute bottom-5'>
-                <div className='flex'>
-                  <MdTranslate className='icons-s' />
-                  <p className='ml-1 underline'>Ver traducción al español</p>
-                </div>
-                <div className='flex ml-3'>
-                  <AiOutlineSound className='icons-s' />
-                  <p className='ml-1 underline'>Escuchar audio</p>
-                </div>
+                <BotonAudioVocabulario />
+                <BotonAudioDatoCurioso />
               </div>
             </div>
           </div>
         </div>
         <div className='flex w-full justify-center mt-8'>
-          <div className='bg-[#214ECF] w-[550px] h-[700px] content shadow-large'></div>
-          <div className='bg-[#FDFBF5] w-[250px] h-[400px] ml-3 content shadow-large'></div>
+          <div className='bg-main-blue w-[570px] h-[700px] content p-4 shadow-large'>
+            <div className='flex justify-between'>
+              <p className='text-main-background text-3xl'>きじ</p>
+              <LinkVerTodosArticulos />
+            </div>
+            <div className='flex mt-3'>
+              <ArticulosTarjetas />
+            </div>
+          </div>
+          <div className='bg-main-white w-[240px] h-[400px] ml-3 content shadow-large'></div>
         </div>
       </div>
     </>
