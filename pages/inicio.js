@@ -1,6 +1,6 @@
 
+import BouncingLogo from '@/components/LogoBounce';
 import Head from 'next/head';
-// import "../styles/globals.css"
 
 function Inicio() {
   return (
@@ -11,7 +11,14 @@ function Inicio() {
         <title >Estudiar</title>
         <meta name='description' content='私たちはグラン戸田住人' />
       </Head>
-      <div>Inicio</div>
+      <div className='w-full'>
+        {/* ------------------------------------------------saludo------------------------------------------------ */}
+        <BouncingLogo />
+        {/* ------------------------------------------------chochin------------------------------------------------ */}
+        < div ></ div>
+        {/* ------------------------------------------------articulos------------------------------------------------ */}
+        < div ></ div>
+      </div >
     </>
   )
 }
