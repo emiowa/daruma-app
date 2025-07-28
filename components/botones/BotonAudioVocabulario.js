@@ -3,10 +3,10 @@ import React from 'react';
 import { MdTranslate } from "react-icons/md";
 
 
-const BotonAudioVocabulario = () => {
+const BotonAudioVocabulario = ({ handleToggleLanguage }) => {
   return (
     <>
-      <div className='flex'>
+      <div className='flex' onClick={() => handleToggleLanguage()}>
         <MdTranslate className='icons-s' />
         <p className='ml-1 underline'>Ver traducción al español</p>
       </div>

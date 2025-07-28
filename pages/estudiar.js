@@ -8,6 +8,7 @@ import LinkVerTodosArticulos from '@/components/links/LinkVerTodosArticulos';
 import ArticulosTarjetas from '@/components/ArticulosTarjetas';
 import VocabularioFila from '@/components/VocabularioFila';
 import { FaArrowRight } from "react-icons/fa";
+import { useState } from 'react';
 
 function Estudiar() {
   const articuloNum = 6
@@ -159,6 +160,13 @@ function Estudiar() {
       audio: "/sounds/go2.mp4"
     },
   ]
+
+  const [isJapones, setIsJapones] = useState(true)
+  const handleToggleLanguage = () => {
+    setIsJapones(prev => !prev)
+  }
+
+
   return (
     <>
       <Head>
@@ -200,13 +208,28 @@ function Estudiar() {
               className='absolute top-0 right-0 w-42 md:w-52 lg:w-72'
             />
             <div className='w-[290px] md:w-[250px] lg:w-[340px]'>
-              <p className='text-xl font-bold md:text-2xl lg:text-4xl'>まめちしき</p>
+              <p className='text-xl font-bold md:text-2xl lg:text-4xl'>
+                {isJapones
+                  ? "まめちしき"
+                  : "Curiosidades"
+                }
+              </p>
               <div className='text-[10px] md:text-[10px] lg:text-[14px]'>
-                <p className='mt-5 md:mt-4 lg:mt-6'>知っていましたか...</p>
-                <p className='mt-5 md:mt-4 lg:mt-6'>女性の手は男性よりも熱く、魚の鮮度を損なう可能性があると言われているため、日本では寿司を握る女性の職人がほとんどいません。</p>
+                <p className='mt-5 md:mt-4 lg:mt-6'>
+                  {isJapones
+                    ? "知っていましたか..."
+                    : "¿Sabías que...?"
+                  }</p>
+                <p className='mt-5 md:mt-4 lg:mt-6'>
+                  {isJapones
+                    ? "女性の手は男性よりも熱く、魚の鮮度を損なう可能性があると言われているため、日本では寿司を握る女性の職人がほとんどいません。"
+                    : "Hay muy pocas chefs de sushi en Japón porque se dice que las manos de las mujeres están más calientes que las de los hombres y pueden arruinar la frescura del pescado."
+                  }
+                </p>
+
               </div>
               <div className='flex text-[11px] absolute bottom-5 lg:text-[14px]'>
-                <BotonAudioVocabulario />
+                <BotonAudioVocabulario handleToggleLanguage={handleToggleLanguage} />
                 <BotonAudioDatoCurioso />
               </div>
             </div>
