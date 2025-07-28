@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 const LinkVerTodosArticulos = () => {
   return (
     <>
-      <div className='flex text-main-background text-sm'>
+      <div className='flex text-main-grey text-sm'>
         <a href='/' className='underline text-[11px]'>Ver todos los artículos</a>
         <FaArrowRight className='icons-m ml-4' />
       </div>

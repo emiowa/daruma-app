@@ -4,12 +4,13 @@
 const colors = {
   main: {
     orange: '#F26749',
-    blue: '#214ECF',
+    blue: '#B3CED4',
     background: '#F6EFDD',
     white: "#FDFBF5",
     grey: "#2C4B56",
     pink: "#FF746B",
-    nav: "#2C94B3"
+    nav: "#2C94B3",
+    yellow: "#E4B036"
   },
 }
 

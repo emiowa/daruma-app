@@ -4,8 +4,8 @@ import React from 'react';
 const BotonHeader = ({ href, text, className }) => {
   return (
     <>
-      <Link href={`/${href}`} className="ml-2">
-        <button className={`p-3 content shadow-small ${className}`}>{text}</button>
+      <Link href={`/${href}`}>
+        <button className={`p-1 md:p-2 content bg-main-white shadow-small ${className}`}>{text}</button>
       </Link>
     </>
   );
