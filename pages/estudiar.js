@@ -170,7 +170,7 @@ function Estudiar() {
       <div className='w-full md:w-[720px] lg:w-[1000px]' >
         <div className='flex justify-center h-40 md:h-48 lg:h-64'>
           {/* --------------------------------------points-------------------------------------- */}
-          <div className='bg-main-orange md:w-[230px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>
+          <div className='bg-main-orange md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>
             <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
               <p className='text-4xl md:text-4xl lg:text-5xl'>200</p>
               <p className='text-xm md:text-xm ml-1 md:ml-1'>ポイント</p>
@@ -193,7 +193,7 @@ function Estudiar() {
             </div>
           </div>
           {/* --------------------------------------tips-------------------------------------- */}
-          <div className='content shadow-large  bg-main-white w-[450px] md:w-[490px] lg:w-[680px] ml-3 pt-3 lg:pt-5 pl-5 lg:pl-7 md:pl-4 relative overflow-hidden'>
+          <div className='content shadow-large  bg-main-white w-[450px] md:w-[510px] lg:w-[680px] ml-3 pt-3 lg:pt-5 pl-5 lg:pl-7 md:pl-4 relative overflow-hidden'>
             <img
               src="/images/sushi.png"
               alt="sushi"
