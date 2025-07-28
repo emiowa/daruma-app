@@ -17,8 +17,8 @@ const VocabularioFila = ({ palabra, hiragana, traduccion, audio }) => {
   };
   return (
     <div className='mt-3'>
-      <div className='flex items-center justify-between mx-2'>
-        <div className='flex-col text-[10px]'>
+      <div className='flex items-center justify-between mx-2 lg:mx-4'>
+        <div className='flex-col text-[10px] lg:text-[15px]'>
           <p>{palabra}</p>
           <p>{hiragana}</p>
           <p>{traduccion}</p>

@@ -20,10 +20,10 @@ const LinkPaginasHeader = () => {
       <div
         onMouseEnter={() => setShowNav(true)}
         onMouseLeave={() => setShowNav(false)}
-        className="fixed p-2 top-0 z-50 w-16 md:w-20 lg:w-24 h-16 md:h-20 lg:h-28 left-1/2 transform -translate-x-1/2 rounded-full bg-main-nav cursor-pointer"
+        className="fixed p-2 top-0 z-50 w-16 md:w-20 lg:w-28 h-16 md:h-20 lg:h-28 left-1/2 transform -translate-x-1/2 rounded-full bg-main-nav cursor-pointer"
       >
         <img
-          className=' absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 md:w-12 lg:w-16'
+          className=' absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 md:w-12 lg:w-20'
           alt='daruma_icon'
           src='/images/daruma_logo_transparent.png'
         />
@@ -31,10 +31,10 @@ const LinkPaginasHeader = () => {
       <nav
         onMouseEnter={() => setShowNav(true)}
         onMouseLeave={() => setShowNav(false)}
-        className={`fixed top-0 left-0 w-full h-14 md:h-16 lg:h-20 bg-main-nav shadow-md z-40 transition-transform duration-300 ${hasScrolled && !showNav ? '-translate-y-full' : 'translate-y-0'
+        className={`fixed top-0 left-0 w-full h-14 md:h-16 lg:h-24 bg-main-nav shadow-md z-40 transition-transform duration-300 ${hasScrolled && !showNav ? '-translate-y-full' : 'translate-y-0'
           }`}
       >
-        <div className='w-full h-16 md:h-16 lg:h-20 flex justify-between items-center p-3'>
+        <div className='w-full h-16 md:h-16 lg:h-24 flex justify-between items-center p-3'>
           <div>
             <BotonHeader href={"inicio"} text={"inicio"} className="bg-main-yellow ml-0" />
             <BotonHeader href={"estudiar"} text={"Vamos a estudiar japonés"} className="ml-5" />
