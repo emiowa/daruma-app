@@ -10,8 +10,8 @@ const ArticulosTarjetas = ({ title, imageUrl, checked, label, star }) => {
 
   return (
     <>
-      <div className='w-[170px] md:w-[146px] lg:w-[195px] h-[200px] md:h-[185px] lg:h-[255px] rounded lg:rounded-lg mb-4 bg-main-white shadow-small text-main-grey overflow-hidden'>
-        <div className="relative w-full h-[90px] md:h-[90px] lg:h-[120px] overflow-hidden">
+      <div className='w-[170px] md:w-[146px] lg:w-[220px] h-[200px] md:h-[185px] lg:h-[285px] rounded lg:rounded-lg mb-4 bg-main-white shadow-small text-main-grey overflow-hidden'>
+        <div className="relative w-full h-[90px] md:h-[90px] lg:h-[135px] overflow-hidden">
           <Image
             src={imageUrl}
             alt="Hiroshima"
@@ -19,27 +19,27 @@ const ArticulosTarjetas = ({ title, imageUrl, checked, label, star }) => {
             className="object-cover"
           />
           {checked &&
-            <FaRegCircleCheck className='absolute top-2 right-2 z-10 text-sm bg-[#82B590] rounded-full ' />
+            <FaRegCircleCheck className='absolute top-2 lg:w-6 lg:h-6 right-2 z-10 bg-[#82B590] rounded-full ' />
           }
         </div>
         <div className='pt-2 lg:pt-4 px-2 lg:px-3 md:h-[95px] lg:h-[135px] relative' >
           <div className='flex justify-between'>
-            <div className={`${label.bg} md:text-[9px] lg:text-[12px] md:px-1 lg:px-2 rounded`}>{label.text}</div>
+            <div className={`${label.bg} md:text-[9px] lg:text-[14px] md:px-1 lg:px-3 rounded`}>{label.text}</div>
             <div className='flex relative'>
               <div className="flex gap-1 text-yellow-400">
                 {Array.from({ length: 3 }).map((_, i) =>
                   i < star ? (
-                    <FaStar key={i} className="text-sm lg:text-lg" />
+                    <FaStar key={i} className="text-sm lg:text-xl" />
                   ) : (
-                    <FaRegStar key={i} className="text-sm lg:text-lg" />
+                    <FaRegStar key={i} className="text-sm lg:text-xl" />
                   )
                 )}
               </div>
             </div>
           </div>
-          <p className='text-[11px] font-bold mt-2 lg:mt-6 lg:text-[13px]'>{title}</p>
-          <div className='absolute bottom-1 lg:bottom-2 right-2  text-sm flex '>
-            <a href='/' className='underline text-[9px] lg:text-[12px]'>Leer artículo</a>
+          <p className='text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'>{title}</p>
+          <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
+            <a href='/' className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
             <FaArrowRight className='icons-m ml-1 text-[13px]' />
           </div>
 

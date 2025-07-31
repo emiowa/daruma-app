@@ -473,8 +473,8 @@ function Articulos() {
         <meta name='description' content='記事' />
       </Head>
       <>
-        <div className='md:mt-20 bg-main-blue w-[570px] md:w-[700px] lg:w-[660px] content md:pt-28 md:pb-10 lg:p-6 shadow-large relative'>
-          <div className='text-main-grey font-bold md:text-6xl lg:text-4xl absolute md:-top-16 md:left-8 space-y-3'>
+        <div className='md:mt-20 bg-main-blue w-[570px] md:w-[700px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 lg:p-6 shadow-large relative'>
+          <div className='text-main-grey font-bold md:text-6xl lg:text-7xl absolute md:-top-16 lg:-top-[75px] md:left-8 space-y-3'>
             <div>き</div>
             <div>じ</div>
           </div>
