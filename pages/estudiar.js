@@ -5,7 +5,7 @@ import { VscFlame } from "react-icons/vsc";
 import BotonAudioDatoCurioso from '@/components/botones/BotonAudioDatoCurioso';
 import BotonAudioVocabulario from '@/components/botones/BotonAudioVocabulario';
 import LinkVerTodosArticulos from '@/components/links/LinkVerTodosArticulos';
-import ArticulosTarjetas from '@/components/ArticulosTarjetas';
+import ArticulosTarjetas from '@/components/estudiar/ArticulosTarjetas';
 import VocabularioFila from '@/components/VocabularioFila';
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from 'react';
@@ -226,7 +226,6 @@ function Estudiar() {
                     : "Hay muy pocas chefs de sushi en Japón porque se dice que las manos de las mujeres están más calientes que las de los hombres y pueden arruinar la frescura del pescado."
                   }
                 </p>
-
               </div>
               <div className='flex text-[11px] absolute bottom-5 lg:text-[14px]'>
                 <BotonAudioVocabulario handleToggleLanguage={handleToggleLanguage} />
