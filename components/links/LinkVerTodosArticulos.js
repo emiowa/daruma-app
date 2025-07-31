@@ -6,7 +6,7 @@ const LinkVerTodosArticulos = () => {
   return (
     <>
       <div className='flex text-main-grey text-sm'>
-        <a href='/' className='underline text-[11px] lg:text-[14px]'>Ver todos los artículos</a>
+        <a href='/estudiar/articulos' className='underline text-[11px] lg:text-[14px]'>Ver todos los artículos</a>
         <FaArrowRight className='icons-m ml-4' />
       </div>
     </>
