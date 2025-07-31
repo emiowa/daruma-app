@@ -244,7 +244,7 @@ function Estudiar() {
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
               {
                 cardData.slice(0, articuloNum).map((item) => (
-                  <ArticulosTarjetas liked={item.liked} title={item.title} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} />
+                  <ArticulosTarjetas title={item.title} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
                 ))
               }
             </div>
