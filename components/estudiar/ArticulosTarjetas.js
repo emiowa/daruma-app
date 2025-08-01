@@ -48,8 +48,8 @@ const ArticulosTarjetas = ({ title, imageUrl, checked, label, star, page }) => {
             </div>
           </div>
           :
-          <div className='w-[170px] md:w-[146px] lg:w-[220px] h-[200px] md:h-[185px] lg:h-[285px] rounded lg:rounded-lg mb-4 bg-main-white shadow-small text-main-grey overflow-hidden'>
-            <div className="relative w-full h-[90px] md:h-[90px] lg:h-[135px] overflow-hidden">
+          <div className='w-[170px] md:w-[156px] lg:w-[220px] h-[200px] md:h-[200px] lg:h-[285px] rounded lg:rounded-lg mb-4 bg-main-white shadow-small text-main-grey overflow-hidden'>
+            <div className="relative w-full h-[90px] md:h-[100px] lg:h-[135px] overflow-hidden">
               <Image
                 src={imageUrl}
                 alt="Hiroshima"
