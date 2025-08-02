@@ -9,163 +9,17 @@ import ArticulosTarjetas from '@/components/estudiar/ArticulosTarjetas';
 import VocabularioFila from '@/components/VocabularioFila';
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from 'react';
+import CardData from "@/data/cards.json"
+import Vocabulario from "@/data/vocabulario.json"
 
 function Estudiar() {
   const articuloNum = 6
   const vocabularioNum = 5
-  const cardData = [
-    {
-      id: 1,
-      title: (
-        <>
-          <ruby>広島<rt>ひろしま</rt></ruby>の<ruby>有名<rt>ゆうめい</rt></ruby>な<ruby>島<rt>しま</rt></ruby>
-        </>
-      ),
-      imageUrl: '/images/hiroshima.png',
-      checked: true,
-      liked: true,
-      label: {
-        text: "cultura",
-        bg: "bg-main-orange"
-      },
-      star: 2
-    },
-    {
-      id: 2,
-      title: (
-        <>
-          <ruby>日本<rt>にほん</rt></ruby>の<ruby>桜<rt>さくら</rt></ruby>の<ruby>木<rt>き</rt></ruby>
-        </>
-      ),
-      imageUrl: '/images/sakura.png',
-      checked: false,
-      liked: false,
-      label: {
-        text: "comida",
-        bg: "bg-main-yellow"
-      },
-      star: 2
-    },
-    {
-      id: 3,
-      title: (
-        <>
-          <ruby>納豆<rt>なっとう</rt></ruby>って<ruby>知<rt>し</rt></ruby>っていますか？
-        </>
-      ),
-      imageUrl: '/images/natto.png',
-      checked: true,
-      liked: false,
-      label: {
-        text: "comida",
-        bg: "bg-main-yellow"
-      },
-      star: 1
-    },
-    {
-      id: 4,
-      title: (
-        <>
-          <ruby>納豆<rt>なっとう</rt></ruby>って<ruby>知<rt>し</rt></ruby>っていますか？
-        </>
-      ),
-      imageUrl: '/images/natto.png',
-      checked: true,
-      liked: false,
-      label: {
-        text: "idioma",
-        bg: "bg-main-blue"
-      },
-      star: 3
-    },
-    {
-      id: 5,
-      title: (
-        <>
-          <ruby>広島<rt>ひろしま</rt></ruby>の<ruby>有名<rt>ゆうめい</rt></ruby>な<ruby>島<rt>しま</rt></ruby>
-        </>
-      ),
-      imageUrl: '/images/hiroshima.png',
-      checked: false,
-      liked: true,
-      label: {
-        text: "comida",
-        bg: "bg-main-yellow"
-      },
-      star: 1
-    },
-    {
-      id: 6,
-      title: (
-        <>
-          <ruby>日本<rt>にほん</rt></ruby>の<ruby>桜<rt>さくら</rt></ruby>の<ruby>木<rt>き</rt></ruby>
-        </>
-      ),
-      imageUrl: '/images/sakura.png',
-      checked: false,
-      liked: false,
-      label: {
-        text: "viaje",
-        bg: "bg-main-pink"
-      },
-      star: 3
-    }
-  ]
-
-  const vocabulario = [
-    {
-      id: 1,
-      palabra: "語彙",
-      hiragana: "ごい",
-      traduccion: "Vocabulario",
-      audio: "/sounds/goi.mp4",
-      label: {
-        text: "cultura",
-        bg: "bg-main-orange"
-      }
-    },
-    {
-      id: 2,
-      palabra: "豆知識",
-      hiragana: "まめちしき",
-      traduccion: "Curiosidades",
-      audio: "/sounds/goi2.mp4"
-    },
-    {
-      id: 3,
-      palabra: "記事",
-      hiragana: "きじ",
-      traduccion: "Articulos",
-      audio: "/sounds/goi.mp4"
-    },
-    {
-      id: 4,
-      palabra: "台所",
-      hiragana: "だいどころ",
-      traduccion: "Cocina",
-      audio: "/sounds/goi2.mp4"
-    },
-    {
-      id: 5,
-      palabra: "玄関",
-      hiragana: "げんかん",
-      traduccion: "Entorada de la casa",
-      audio: "/sounds/goi.mp4"
-    },
-    {
-      id: 6,
-      palabra: "dummy",
-      hiragana: "だみー",
-      traduccion: "dummy",
-      audio: "/sounds/go2.mp4"
-    },
-  ]
 
   const [isJapones, setIsJapones] = useState(true)
   const handleToggleLanguage = () => {
     setIsJapones(prev => !prev)
   }
-
 
   return (
     <>
@@ -243,8 +97,8 @@ function Estudiar() {
             </div>
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
               {
-                cardData.slice(0, articuloNum).map((item) => (
-                  <ArticulosTarjetas title={item.title} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
+                CardData.slice(0, articuloNum).map((item) => (
+                  <ArticulosTarjetas title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
                 ))
               }
             </div>
@@ -260,7 +114,7 @@ function Estudiar() {
             </div>
             <div className='lg:mt-8'>
               {
-                vocabulario.slice(0, vocabularioNum).map((item, index) => (
+                Vocabulario.slice(0, vocabularioNum).map((item, index) => (
                   <>
                     <VocabularioFila palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {

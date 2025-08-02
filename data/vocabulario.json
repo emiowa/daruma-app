@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "palabra": "語彙",
+    "hiragana": "ごい",
+    "traduccion": "Vocabulario",
+    "audio": "/sounds/goi.mp4"
+  },
+  {
+    "id": 2,
+    "palabra": "豆知識",
+    "hiragana": "まめちしき",
+    "traduccion": "Curiosidades",
+    "audio": "/sounds/goi2.mp4"
+  },
+  {
+    "id": 3,
+    "palabra": "記事",
+    "hiragana": "きじ",
+    "traduccion": "Articulos",
+    "audio": "/sounds/goi.mp4"
+  },
+  {
+    "id": 4,
+    "palabra": "台所",
+    "hiragana": "だいどころ",
+    "traduccion": "Cocina",
+    "audio": "/sounds/goi2.mp4"
+  },
+  {
+    "id": 5,
+    "palabra": "玄関",
+    "hiragana": "げんかん",
+    "traduccion": "Entorada de la casa",
+    "audio": "/sounds/goi.mp4"
+  },
+  {
+    "id": 6,
+    "palabra": "dummy",
+    "hiragana": "だみー",
+    "traduccion": "dummy",
+    "audio": "/sounds/go2.mp4"
+  }
+]

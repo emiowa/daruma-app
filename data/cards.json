@@ -1,0 +1,952 @@
+[
+  {
+    "id": 1,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": true,
+    "label": {
+      "text": "cultura",
+      "bg": "bg-main-orange"
+    },
+    "star": 2
+  },
+  {
+    "id": 2,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 2
+  },
+  {
+    "id": 3,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 4,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "idioma",
+      "bg": "bg-main-blue"
+    },
+    "star": 3
+  },
+  {
+    "id": 5,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 1,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": true,
+    "label": {
+      "text": "cultura",
+      "bg": "bg-main-orange"
+    },
+    "star": 2
+  },
+  {
+    "id": 2,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 2
+  },
+  {
+    "id": 3,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 4,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "idioma",
+      "bg": "bg-main-blue"
+    },
+    "star": 3
+  },
+  {
+    "id": 5,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 1,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": true,
+    "label": {
+      "text": "cultura",
+      "bg": "bg-main-orange"
+    },
+    "star": 2
+  },
+  {
+    "id": 2,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 2
+  },
+  {
+    "id": 3,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 4,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "idioma",
+      "bg": "bg-main-blue"
+    },
+    "star": 3
+  },
+  {
+    "id": 5,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 2,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 2
+  },
+  {
+    "id": 3,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 4,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "idioma",
+      "bg": "bg-main-blue"
+    },
+    "star": 3
+  },
+  {
+    "id": 5,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 6,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "viaje",
+      "bg": "bg-main-pink"
+    },
+    "star": 3
+  },
+  {
+    "id": 2,
+    "title": "日本の桜の木",
+    "titleRuby": [
+      {
+        "text": "日本",
+        "ruby": "にほん"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "桜",
+        "ruby": "さくら"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "木",
+        "ruby": "き"
+      }
+    ],
+    "imageUrl": "/images/sakura.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 2
+  },
+  {
+    "id": 3,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  },
+  {
+    "id": 4,
+    "title": "納豆って知っていますか？",
+    "titleRuby": [
+      {
+        "text": "納豆",
+        "ruby": "なっとう"
+      },
+      {
+        "text": "って",
+        "ruby": ""
+      },
+      {
+        "text": "知",
+        "ruby": "し"
+      },
+      {
+        "text": "っていますか？",
+        "ruby": ""
+      }
+    ],
+    "imageUrl": "/images/natto.png",
+    "checked": true,
+    "label": {
+      "text": "idioma",
+      "bg": "bg-main-blue"
+    },
+    "star": 3
+  },
+  {
+    "id": 5,
+    "title": "広島の有名な島",
+    "titleRuby": [
+      {
+        "text": "広島",
+        "ruby": "ひろしま"
+      },
+      {
+        "text": "の",
+        "ruby": ""
+      },
+      {
+        "text": "有名",
+        "ruby": "ゆうめい"
+      },
+      {
+        "text": "な",
+        "ruby": ""
+      },
+      {
+        "text": "島",
+        "ruby": "しま"
+      }
+    ],
+    "imageUrl": "/images/hiroshima.png",
+    "checked": false,
+    "label": {
+      "text": "comida",
+      "bg": "bg-main-yellow"
+    },
+    "star": 1
+  }
+]

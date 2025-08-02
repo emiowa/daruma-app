@@ -6,8 +6,19 @@ import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
 
-const ArticulosTarjetas = ({ title, imageUrl, checked, label, star, page }) => {
-
+const ArticulosTarjetas = ({ title, titleRuby, imageUrl, checked, id, label, star, page }) => {
+  function RubyText({ parts, className }) {
+    return (
+      <div className={className}>
+        {parts.map((part, index) =>
+          <ruby key={index}>
+            {part.text}
+            <rt>{part.ruby}</rt>
+          </ruby>
+        )}
+      </div>
+    );
+  }
   return (
     <>
       {
@@ -39,12 +50,11 @@ const ArticulosTarjetas = ({ title, imageUrl, checked, label, star, page }) => {
                   </div>
                 </div>
               </div>
-              <p className='text-[11px] font-bold mt-2 lg:mt-5 lg:text-[14px]'>{title}</p>
+              <RubyText parts={titleRuby} className={'text-[11px] font-bold mt-2 lg:mt-5 lg:text-[14px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
-                <a href='/' className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
+                <a href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
               </div>
-
             </div>
           </div>
           :
@@ -75,9 +85,9 @@ const ArticulosTarjetas = ({ title, imageUrl, checked, label, star, page }) => {
                   </div>
                 </div>
               </div>
-              <p className='text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'>{title}</p>
+              <RubyText parts={titleRuby} className={'text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
-                <a href='/' className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
+                <a href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
               </div>
             </div>
