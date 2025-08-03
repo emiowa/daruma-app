@@ -81,9 +81,9 @@ function Estudiar() {
                   }
                 </p>
               </div>
-              <div className='flex text-[11px] absolute bottom-5 lg:text-[14px]'>
+              <div className='flex text-[11px] absolute bottom-5 lg:text-[14px] '>
                 <BotonAudioVocabulario handleToggleLanguage={handleToggleLanguage} />
-                <BotonAudioDatoCurioso />
+                <BotonAudioDatoCurioso audio={"/sounds/goi.mp4"} />
               </div>
             </div>
           </div>

@@ -9,7 +9,6 @@ import { AiOutlineSound } from "react-icons/ai";
 const VocabularioFila = ({ palabra, hiragana, traduccion, audio }) => {
 
   const audioRef = useRef(null);
-
   const handlePlay = () => {
     if (audioRef.current) {
       audioRef.current.play();
