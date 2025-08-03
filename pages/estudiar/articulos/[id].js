@@ -20,8 +20,6 @@ function ArticuloIndividual() {
   const handleDisplayFurigana = () => {
     if (isJapones) setDisplayFrigana(prev => !prev);
   }
-  console.log(isJapones, "isjapones")
-  console.log(displayFurigana, "displayFurigana")
   return (
     <>
       <Head>
