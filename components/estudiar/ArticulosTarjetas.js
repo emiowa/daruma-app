@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { RubyText } from "@/lib/renderRuby"
 
 
-const ArticulosTarjetas = ({ title, titleRuby, imageUrl, checked, id, label, star, page }) => {
+const ArticulosTarjetas = ({ titleRuby, imageUrl, checked, id, label, star, page }) => {
 
   return (
     <>
@@ -65,18 +65,18 @@ const ArticulosTarjetas = ({ title, titleRuby, imageUrl, checked, id, label, sta
               <div className='flex justify-between'>
                 <div className={`${label.bg} md:text-[9px] lg:text-[14px] md:px-1 lg:px-3 rounded`}>{label.text}</div>
                 <div className='flex relative'>
-                  <div className="flex gap-1 text-yellow-400">
+                  <div className="flex gap-1 text-yellow-400 text-sm lg:text-xl">
                     {Array.from({ length: 3 }).map((_, i) =>
                       i < star ? (
-                        <FaStar key={i} className="text-sm lg:text-xl" />
+                        <FaStar key={i} />
                       ) : (
-                        <FaRegStar key={i} className="text-sm lg:text-xl" />
+                        <FaRegStar key={i} />
                       )
                     )}
                   </div>
                 </div>
               </div>
-              <RubyText parts={titleRuby} className={'text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'} />
+              <RubyText parts={titleRuby} isFurigana className={'text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
                 <Link href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
