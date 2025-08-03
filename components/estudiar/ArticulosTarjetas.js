@@ -4,21 +4,12 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import Link from 'next/link';
+import { RubyText } from "@/lib/renderRuby"
 
 
 const ArticulosTarjetas = ({ title, titleRuby, imageUrl, checked, id, label, star, page }) => {
-  function RubyText({ parts, className }) {
-    return (
-      <div className={className}>
-        {parts.map((part, index) =>
-          <ruby key={index}>
-            {part.text}
-            <rt>{part.ruby}</rt>
-          </ruby>
-        )}
-      </div>
-    );
-  }
+
   return (
     <>
       {
@@ -52,7 +43,7 @@ const ArticulosTarjetas = ({ title, titleRuby, imageUrl, checked, id, label, sta
               </div>
               <RubyText parts={titleRuby} className={'text-[11px] font-bold mt-2 lg:mt-5 lg:text-[14px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
-                <a href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
+                <Link href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
               </div>
             </div>
@@ -87,7 +78,7 @@ const ArticulosTarjetas = ({ title, titleRuby, imageUrl, checked, id, label, sta
               </div>
               <RubyText parts={titleRuby} className={'text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
-                <a href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</a>
+                <Link href={`/estudiar/articulos/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
               </div>
             </div>

@@ -1,10 +1,13 @@
 
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import ArticuloData from "/data/cards.json"
 
-function ArticuloIndividual({ label, id }) {
-
-
+function ArticuloIndividual() {
+  const router = useRouter()
+  const { id } = router.query
+  const data = ArticuloData.find(item => item.id === Number(id))
   return (
     <>
       <Head>
@@ -17,8 +20,7 @@ function ArticuloIndividual({ label, id }) {
         <div className='w-full md:mt-20 text-main-grey font-bold md:text-5xl lg:text-7xl space-y-3 text-center'>タイトル</div>
         <div className='md:mt-10 bg-main-blue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-4 lg:px-6 shadow-large flex justify-around'>
           <div className='flex justify-between'>
-            <p>{id}</p>
-            <div>{id}</div>
+            <div>{data.title}</div>
           </div>
         </div>
       </div>
