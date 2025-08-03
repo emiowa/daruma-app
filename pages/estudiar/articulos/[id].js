@@ -57,7 +57,7 @@ function ArticuloIndividual() {
         }
         <div className='flex'>
           <BotonSwichDisplay booleanItem={isJapones} func={handleTraduccion} className={"bg-main-purple md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
-          <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-purple md:w-40"} defaultText={"Mostrar furigana"} changedText={"Sacar furigana"} />
+          <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-purple md:w-40"} defaultText={"Sacar furigana"} changedText={"Mostrar furigana"} />
         </div>
       </div>
     </>
