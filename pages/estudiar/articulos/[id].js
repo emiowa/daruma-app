@@ -48,14 +48,16 @@ function ArticuloIndividual() {
             </div>
           </div>
         </div>
-        {isJapones ?
-          <RubyText displayFurigana={displayFurigana} parts={data.textRuby} className={'text-[16px] font-bold mt-2 lg:mt-6 lg:text-[16px]'} />
-          :
-          <div className='text-[16px] font-bold mt-2 lg:mt-6 lg:text-[16px]'>{data.spanishText}</div>
-        }
+        <div className='flex justify-center md:min-h-[450px] '>
+          <RubyText
+            displayFurigana={displayFurigana}
+            isJapones={isJapones} parts={data.textRuby}
+            spanishText={data.spanishText}
+            className={"md:px-36 md:py-10 text-[16px] font-bold mt-2 lg:mt-6 lg:text-[16px] "} />
+        </div>
         <div className='flex'>
-          <BotonSwichDisplay booleanItem={isJapones} func={handleTraduccion} className={"bg-main-purple md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
-          <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-purple md:w-40"} defaultText={"Sacar furigana"} changedText={"Mostrar furigana"} />
+          <BotonSwichDisplay booleanItem={isJapones} func={handleTraduccion} className={"bg-main-purple md:w-40 md:ml-3"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
+          <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-purple md:w-40 md:ml-3"} defaultText={"Sacar furigana"} changedText={"Mostrar furigana"} />
         </div>
       </div>
     </>
