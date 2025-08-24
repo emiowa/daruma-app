@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-const BotonHeader = ({ href, text, className }) => {
+const Boton = ({ href, text, className }) => {
   return (
     <>
       <Link href={`/${href}`}>
@@ -10,4 +10,4 @@ const BotonHeader = ({ href, text, className }) => {
     </>
   );
 };
-export default BotonHeader;
+export default Boton;
