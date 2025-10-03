@@ -7,7 +7,7 @@ import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
 import ButtonSwichDisplay from '@/components/buttons/ButtonSwichDisplay';
 import { useState } from 'react';
-import vocabData from '@/data/Vocabulario.json'
+import vocabData from '@/data/vocabulary.json'
 import ButtonPager from '@/components/buttons/ButtonPager';
 
 function IndividualArticle() {
@@ -18,9 +18,8 @@ function IndividualArticle() {
   const [isJapanese, setIsJapanese] = useState(true)
 
   const data = ArticleData.find(item => item.id === Number(id))
-  const vocabAry = data.Vocabulario
+  const vocabAry = data.vocabulary
   const vocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
-  console.log(vocabList)
 
   const handleTraduccion = () => {
     setIsJapanese(prev => !prev)
@@ -70,7 +69,7 @@ function IndividualArticle() {
         </div>
         <div className='flex justify-between md:p-3'>
           <div className='flex'>
-            <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
+            <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
             <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
           <ButtonPager>
@@ -81,15 +80,15 @@ function IndividualArticle() {
           </ButtonPager>
         </div>
         <div className='md:mt-10 relative flex bg-main-lightBlue w-[570px] md:p-9  md:w-[720px] lg:w-[1000px] content md:px-9 lg:px-6 shadow-large'>
-          <div className='absolute top-4 left-4'>Vocabulario:</div>
+          <div className='absolute top-4 left-4'>Vocabulary:</div>
           <div className='ml-16 flex flex-wrap [&>*:nth-child(-n+2)]:mt-0'>
             {vocabList.map((item) =>
               <div className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
                 <div className=''>
-                  <div className=' '>{item.palabra}</div>
-                  <div className=' '>{item.traduccion}</div>
+                  <div className=''>{item.palabra}</div>
+                  <div className=''>{item.traduccion}</div>
                 </div>
-                <button className='w-[30px] h-[30px] rounded-full border'>{item.isAdded ? "+" : "-"}</button>
+                <button className='w-[30px] h-[30px] rounded-full border border-black'>{item.isAdded ? "+" : "-"}</button>
               </div>
             )}
           </div>

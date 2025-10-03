@@ -10,11 +10,11 @@ import VocabularyRow from '@/components/VocabularyRow';
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from 'react';
 import CardData from "@/data/cards.json"
-import Vocabulario from "@/data/vocabulario.json"
+import Vocabulary from "@/data/vocabulary.json"
 
 function Study() {
   const articleNum = 6
-  const vocabularioNum = 5
+  const vocabularyNum = 5
 
   const [isJapanese, setIsJapanese] = useState(true)
   const handleToggleLanguage = () => {
@@ -103,22 +103,22 @@ function Study() {
               }
             </div>
           </div>
-          {/* --------------------------------------vocabulario-------------------------------------- */}
+          {/* --------------------------------------vocabulary-------------------------------------- */}
           <div className='bg-main-white w-[240px] md:w-[240px] lg:w-[300px] h-[400px] md:h-[400px] lg:h-[550px] ml-3 content px-3 py-5 shadow-large'>
             <div className='flex items-center justify-between'>
               <p className='font-bold md:text-2xl lg:text-4xl lg:ml-3'>ごい</p>
               <div className='flex'>
-                <a href='/study/vocabulario' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulario</a>
+                <a href='/study/vocabulary' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulary</a>
                 <FaArrowRight className='ml-1' />
               </div>
             </div>
             <div className='lg:mt-8'>
               {
-                Vocabulario.slice(0, vocabularioNum).map((item, index) => (
+                Vocabulary.slice(0, vocabularyNum).map((item, index) => (
                   <>
                     <VocabularyRow palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {
-                      index < vocabularioNum - 1 &&
+                      index < vocabularyNum - 1 &&
                       <div className='w-full mt-1.5 h-[1px] md:h-[1px] bg-main-grey'></div>
                     }
                   </>
