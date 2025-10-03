@@ -90,7 +90,7 @@ function Estudiar() {
         </div>
         <div className='flex w-full justify-center mt-8 lg:mt-20'>
           {/* --------------------------------------articulo-------------------------------------- */}
-          <div className='bg-main-blue w-[570px] md:w-[570px] lg:w-[660px] h-[650px] md:h-[500px] lg:h-[750px] content p-4 lg:p-6 shadow-large'>
+          <div className='bg-main-lightBlue w-[570px] md:w-[570px] lg:w-[660px] h-[650px] md:h-[500px] lg:h-[750px] content p-4 lg:p-6 shadow-large'>
             <div className='flex justify-between items-center'>
               <p className='text-main-grey font-bold md:text-2xl lg:text-4xl'>きじ</p>
               <LinkVerTodosArticulos />

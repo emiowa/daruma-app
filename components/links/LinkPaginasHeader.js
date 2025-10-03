@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import Boton from '../botones/Boton';
+import BotonNav from '../botones/BotonNav';
 
 const LinkPaginasHeader = () => {
 
@@ -36,12 +36,12 @@ const LinkPaginasHeader = () => {
       >
         <div className='w-full md:w-[750px] lg:w-[980px] h-16 md:h-16 lg:h-24 flex justify-between items-center p-3'>
           <div>
-            <Boton href={"inicio"} text={"inicio"} className="bg-main-yellow ml-0" />
-            <Boton href={"estudiar"} text={"Vamos a estudiar japonés"} className="ml-5" />
+            <BotonNav href={"inicio"} text={"inicio"} className="bg-main-yellow ml-0" />
+            <BotonNav href={"estudiar"} text={"Vamos a estudiar japonés"} className="ml-5" />
           </div>
           <div>
-            <Boton href={"iniciar-sesion"} text={"iniciar sesión"} />
-            <Boton href={"registrarse"} text={"Registrarse"} className={"ml-5 "} />
+            <BotonNav href={"iniciar-sesion"} text={"iniciar sesión"} />
+            <BotonNav href={"registrarse"} text={"Registrarse"} className={"ml-5 "} />
           </div>
         </div>
       </nav>

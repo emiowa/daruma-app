@@ -4,41 +4,79 @@
     "palabra": "語彙",
     "hiragana": "ごい",
     "traduccion": "Vocabulario",
-    "audio": "/sounds/goi.mp4"
+    "audio": "/sounds/goi.mp4",
+    "isAdded": true
   },
   {
     "id": 2,
     "palabra": "豆知識",
     "hiragana": "まめちしき",
     "traduccion": "Curiosidades",
-    "audio": "/sounds/goi2.mp4"
+    "audio": "/sounds/goi2.mp4",
+    "isAdded": true
   },
   {
     "id": 3,
     "palabra": "記事",
     "hiragana": "きじ",
     "traduccion": "Articulos",
-    "audio": "/sounds/goi.mp4"
+    "audio": "/sounds/goi.mp4",
+    "isAdded": false
   },
   {
     "id": 4,
     "palabra": "台所",
     "hiragana": "だいどころ",
     "traduccion": "Cocina",
-    "audio": "/sounds/goi2.mp4"
+    "audio": "/sounds/goi2.mp4",
+    "isAdded": true
   },
   {
     "id": 5,
     "palabra": "玄関",
     "hiragana": "げんかん",
     "traduccion": "Entorada de la casa",
-    "audio": "/sounds/goi.mp4"
+    "audio": "/sounds/goi.mp4",
+    "isAdded": false
   },
   {
     "id": 6,
     "palabra": "dummy",
     "hiragana": "だみー",
     "traduccion": "dummy",
-    "audio": "/sounds/go2.mp4"
+    "audio": "/sounds/go2.mp4",
+    "isAdded": false
+  },
+  {
+    "id": 7,
+    "palabra": "充実した",
+    "hiragana": "じゅうじつ",
+    "traduccion": "compliendo",
+    "audio": "/sounds/go2.mp4",
+    "isAdded": true
+  },
+  {
+    "id": 8,
+    "palabra": "必須",
+    "hiragana": "ひっす",
+    "traduccion": "Requerido",
+    "audio": "/sounds/go2.mp4",
+    "isAdded": false
+  },
+  {
+    "id": 9,
+    "palabra": "体験",
+    "hiragana": "たいけん",
+    "traduccion": "Experiencia",
+    "audio": "/sounds/go2.mp4",
+    "isAdded": false
+  },
+  {
+    "id": 10,
+    "palabra": "観光地",
+    "hiragana": "かんこうち",
+    "traduccion": "Lugar turistico",
+    "audio": "/sounds/go2.mp4",
+    "isAdded": false
   }
 ]

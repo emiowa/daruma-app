@@ -18,7 +18,7 @@ function Vocabulario() {
           <div>ご</div>
           <div>い</div>
         </div>
-        <div className='md:mt-10 bg-main-blue w-[570px] md:w-[720px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large'>
+        <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large'>
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center'>
           </div>
         </div>

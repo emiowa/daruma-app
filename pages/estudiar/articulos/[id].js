@@ -7,22 +7,32 @@ import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
 import BotonSwichDisplay from '@/components/botones/BotonSwichDisplay';
 import { useState } from 'react';
-import Boton from '@/components/botones/Boton';
+import vocabData from '@/data/Vocabulario.json'
+import BotonPager from '@/components/botones/BotonPager';
 
 function ArticuloIndividual() {
   const router = useRouter()
   const { id } = router.query
-  if (!id) return <p>Loading...</p>;
-  const data = ArticuloData.find(item => item.id === Number(id))
-  if (!data) return <p>記事が見つかりません</p>;
+
   const [displayFurigana, setDisplayFrigana] = useState(false)
   const [isJapones, setIsJapones] = useState(true)
+
+  const data = ArticuloData.find(item => item.id === Number(id))
+  const vocabAry = data.Vocabulario
+  const vocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
+  console.log(vocabList)
+
   const handleTraduccion = () => {
     setIsJapones(prev => !prev)
   }
+
   const handleDisplayFurigana = () => {
     if (isJapones) setDisplayFrigana(prev => !prev);
   }
+
+  if (!id) return <p>Loading...</p>;
+  if (!data) return <p>記事が見つかりません</p>;
+
   return (
     <>
       <Head>
@@ -33,7 +43,7 @@ function ArticuloIndividual() {
       </Head>
       <div>
         <div className='w-full md:mt-20 text-main-grey font-bold md:text-3xl lg:text-7xl text-center'>{data.title}</div>
-        <div className='md:mt-10 bg-main-blue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between'>
+        <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between'>
           <div className='flex justify-between items-center ' >
             <div>Tema</div>
             <div className={`${data.label.bg} md:text-[15px] lg:text-[12px] md:px-3 lg:px-3 md:ml-5 rounded`}>{data.label.text}</div>
@@ -54,18 +64,38 @@ function ArticuloIndividual() {
         <div className='flex justify-center md:min-h-[450px]'>
           <RubyText
             displayFurigana={displayFurigana}
-            isJapones={isJapones} parts={data.textRuby}
+            isJapones={isJapones} parts={data.paragraph}
             spanishText={data.spanishText}
             className={"md:px-36 md:py-10 text-[16px] font-bold mt-2 lg:mt-6 lg:text-[16px] "} />
         </div>
         <div className='flex justify-between md:p-3'>
           <div className='flex'>
-            <BotonSwichDisplay booleanItem={isJapones} func={handleTraduccion} className={"bg-main-purple md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
-            <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-purple md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
+            <BotonSwichDisplay booleanItem={isJapones} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
+            <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
-          <Boton className="" text={"Tomar el test"} />
+          {/* <BotonLink className="" text={"Tomar el test"} /> */}
+          <BotonPager>
+            <div className='flex'>
+              <div>Tomar el test</div>
+              <div className='ml-3'>→</div>
+            </div>
+          </BotonPager>
         </div>
-      </div>
+        <div className='md:mt-10 relative flex bg-main-lightBlue w-[570px] md:p-9  md:w-[720px] lg:w-[1000px] content md:px-9 lg:px-6 shadow-large'>
+          <div className='absolute top-4 left-4'>Vocabulario:</div>
+          <div className='ml-16 flex flex-wrap [&>*:nth-child(-n+2)]:mt-0'>
+            {vocabList.map((item) =>
+              <div className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
+                <div className=''>
+                  <div className=' '>{item.palabra}</div>
+                  <div className=' '>{item.traduccion}</div>
+                </div>
+                <button className='w-[30px] h-[30px] rounded-full border'>{item.isAdded ? "+" : "-"}</button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div >
     </>
   )
 }
