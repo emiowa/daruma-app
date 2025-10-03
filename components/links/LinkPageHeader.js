@@ -1,8 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
-import BotonNav from '../botones/BotonNav';
+import ButtonNav from '../buttons/ButtonNav';
 
-const LinkPaginasHeader = () => {
+const LinkPageHeader = () => {
 
   const [showNav, setShowNav] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -36,16 +36,16 @@ const LinkPaginasHeader = () => {
       >
         <div className='w-full md:w-[750px] lg:w-[980px] h-16 md:h-16 lg:h-24 flex justify-between items-center p-3'>
           <div>
-            <BotonNav href={"inicio"} text={"inicio"} className="bg-main-yellow ml-0" />
-            <BotonNav href={"estudiar"} text={"Vamos a estudiar japonés"} className="ml-5" />
+            <ButtonNav href={"inicio"} text={"inicio"} className="bg-main-yellow ml-0" />
+            <ButtonNav href={"study"} text={"Vamos a estudiar japonés"} className="ml-5" />
           </div>
           <div>
-            <BotonNav href={"iniciar-sesion"} text={"iniciar sesión"} />
-            <BotonNav href={"registrarse"} text={"Registrarse"} className={"ml-5 "} />
+            <ButtonNav href={"iniciar-sesion"} text={"iniciar sesión"} />
+            <ButtonNav href={"registrarse"} text={"Registrarse"} className={"ml-5 "} />
           </div>
         </div>
       </nav>
     </div>
   );
 };
-export default LinkPaginasHeader;
+export default LinkPageHeader;

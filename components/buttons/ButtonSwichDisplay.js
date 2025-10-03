@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-const BotonSwichDisplay = ({ booleanItem, func, className, defaultText, changedText }) => {
+const ButtonSwichDisplay = ({ booleanItem, func, className, defaultText, changedText }) => {
   return (
     <>
       <div>
@@ -14,4 +14,4 @@ const BotonSwichDisplay = ({ booleanItem, func, className, defaultText, changedT
     </>
   );
 };
-export default BotonSwichDisplay;
+export default ButtonSwichDisplay;

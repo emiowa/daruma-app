@@ -4,7 +4,7 @@ import { AiOutlineSound } from "react-icons/ai";
 
 
 
-const BotonAudioDatoCurioso = ({ audio }) => {
+const ButtonAudioFunFactData = ({ audio }) => {
   const audioRef = useRef(null);
   const handlePlay = () => {
     if (audioRef.current) {
@@ -23,4 +23,4 @@ const BotonAudioDatoCurioso = ({ audio }) => {
     </>
   );
 };
-export default BotonAudioDatoCurioso;
+export default ButtonAudioFunFactData;

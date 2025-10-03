@@ -2,32 +2,32 @@
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import ArticuloData from "/data/cards.json"
+import ArticleData from "/data/cards.json"
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
-import BotonSwichDisplay from '@/components/botones/BotonSwichDisplay';
+import ButtonSwichDisplay from '@/components/buttons/ButtonSwichDisplay';
 import { useState } from 'react';
 import vocabData from '@/data/Vocabulario.json'
-import BotonPager from '@/components/botones/BotonPager';
+import ButtonPager from '@/components/buttons/ButtonPager';
 
-function ArticuloIndividual() {
+function IndividualArticle() {
   const router = useRouter()
   const { id } = router.query
 
   const [displayFurigana, setDisplayFrigana] = useState(false)
-  const [isJapones, setIsJapones] = useState(true)
+  const [isJapanese, setIsJapanese] = useState(true)
 
-  const data = ArticuloData.find(item => item.id === Number(id))
+  const data = ArticleData.find(item => item.id === Number(id))
   const vocabAry = data.Vocabulario
   const vocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
   console.log(vocabList)
 
   const handleTraduccion = () => {
-    setIsJapones(prev => !prev)
+    setIsJapanese(prev => !prev)
   }
 
   const handleDisplayFurigana = () => {
-    if (isJapones) setDisplayFrigana(prev => !prev);
+    if (isJapanese) setDisplayFrigana(prev => !prev);
   }
 
   if (!id) return <p>Loading...</p>;
@@ -38,7 +38,7 @@ function ArticuloIndividual() {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="" type="image/svg+xml" />
-        <title >articulo_individual</title>
+        <title >article_individual</title>
         <meta name='description' content='記事' />
       </Head>
       <div>
@@ -64,22 +64,21 @@ function ArticuloIndividual() {
         <div className='flex justify-center md:min-h-[450px]'>
           <RubyText
             displayFurigana={displayFurigana}
-            isJapones={isJapones} parts={data.paragraph}
+            isJapanese={isJapanese} parts={data.paragraph}
             spanishText={data.spanishText}
             className={"md:px-36 md:py-10 text-[16px] font-bold mt-2 lg:mt-6 lg:text-[16px] "} />
         </div>
         <div className='flex justify-between md:p-3'>
           <div className='flex'>
-            <BotonSwichDisplay booleanItem={isJapones} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
-            <BotonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
+            <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original text"} />
+            <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
-          {/* <BotonLink className="" text={"Tomar el test"} /> */}
-          <BotonPager>
+          <ButtonPager>
             <div className='flex'>
               <div>Tomar el test</div>
               <div className='ml-3'>→</div>
             </div>
-          </BotonPager>
+          </ButtonPager>
         </div>
         <div className='md:mt-10 relative flex bg-main-lightBlue w-[570px] md:p-9  md:w-[720px] lg:w-[1000px] content md:px-9 lg:px-6 shadow-large'>
           <div className='absolute top-4 left-4'>Vocabulario:</div>
@@ -99,4 +98,4 @@ function ArticuloIndividual() {
     </>
   )
 }
-export default ArticuloIndividual;
+export default IndividualArticle;

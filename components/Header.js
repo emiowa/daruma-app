@@ -1,11 +1,11 @@
 import Image from "next/image";
-import LinkPaginasHeader from "./links/LinkPaginasHeader";
+import LinkPageHeader from "./links/LinkPageHeader";
 
 export default function Header() {
   return (
     <div className="bg-main-background">
       <div className="flex justify-between">
-        <LinkPaginasHeader />
+        <LinkPageHeader />
       </div>
     </div>
   );

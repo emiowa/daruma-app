@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-const BotonNav = ({ href, text, className }) => {
+const ButtonNav = ({ href, text, className }) => {
   return (
     <>
       <Link href={`/${href}`}>
@@ -10,5 +10,5 @@ const BotonNav = ({ href, text, className }) => {
     </>
   );
 };
-export default BotonNav;
+export default ButtonNav;
 

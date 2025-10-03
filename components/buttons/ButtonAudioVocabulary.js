@@ -3,7 +3,7 @@ import React from 'react';
 import { MdTranslate } from "react-icons/md";
 
 
-const BotonAudioVocabulario = ({ handleToggleLanguage }) => {
+const ButtonAudioVocabulary = ({ handleToggleLanguage }) => {
   return (
     <>
       <div className='flex cursor-pointer' onClick={() => handleToggleLanguage()}>
@@ -13,4 +13,4 @@ const BotonAudioVocabulario = ({ handleToggleLanguage }) => {
     </>
   );
 };
-export default BotonAudioVocabulario;
+export default ButtonAudioVocabulary;

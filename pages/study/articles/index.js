@@ -1,15 +1,15 @@
 
-import ArticulosTarjetas from '@/components/estudiar/ArticulosTarjetas';
+import ArticleCards from '@/components/study/ArticleCards';
 import Head from 'next/head';
 import { useState } from 'react';
 import CardData from "@/data/cards.json"
 
-function Articulos() {
+function Articles() {
 
-  const inicioArticuloNum = 12
-  const [articuloNum, setArticuloNum] = useState(inicioArticuloNum)
-  const handleArticuloNum = () => {
-    setArticuloNum(prev => prev + inicioArticuloNum)
+  const inicioArticleNum = 12
+  const [articleNum, setArticleNum] = useState(inicioArticleNum)
+  const handleArticleNum = () => {
+    setArticleNum(prev => prev + inicioArticleNum)
   }
 
   return (
@@ -17,7 +17,7 @@ function Articulos() {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="" type="image/svg+xml" />
-        <title >Articulos</title>
+        <title >Articles</title>
         <meta name='description' content='記事' />
       </Head>
       <>
@@ -28,13 +28,13 @@ function Articulos() {
           </div>
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center'>
             {
-              CardData.slice(0, articuloNum).map((item) => (
-                <ArticulosTarjetas title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} />
+              CardData.slice(0, articleNum).map((item) => (
+                <ArticleCards title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} />
               ))
             }
           </div>
-          {CardData.length > articuloNum &&
-            <div className='flex justify-center relative' onClick={() => handleArticuloNum()}>
+          {CardData.length > articleNum &&
+            <div className='flex justify-center relative' onClick={() => handleArticleNum()}>
               <div className='md:m-9 md:w-12 md:h-12 border border-solid border-black rounded-full'>
                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-2xl">
                   +
@@ -47,4 +47,4 @@ function Articulos() {
     </>
   )
 }
-export default Articulos;
+export default Articles;

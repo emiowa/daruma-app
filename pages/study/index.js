@@ -2,23 +2,23 @@
 import Head from 'next/head';
 import { IoEyeOutline, IoBookOutline } from "react-icons/io5";
 import { VscFlame } from "react-icons/vsc";
-import BotonAudioDatoCurioso from '@/components/botones/BotonAudioDatoCurioso';
-import BotonAudioVocabulario from '@/components/botones/BotonAudioVocabulario';
-import LinkVerTodosArticulos from '@/components/links/LinkVerTodosArticulos';
-import ArticulosTarjetas from '@/components/estudiar/ArticulosTarjetas';
-import VocabularioFila from '@/components/VocabularioFila';
+import ButtonAudioFunFactData from '@/components/buttons/ButtonAudioFunFactData';
+import ButtonAudioVocabulary from '@/components/buttons/ButtonAudioVocabulary';
+import SeeEveryArticleLink from '@/components/links/SeeEveryArticleLink';
+import ArticleCards from '@/components/study/ArticleCards';
+import VocabularyRow from '@/components/VocabularyRow';
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from 'react';
 import CardData from "@/data/cards.json"
 import Vocabulario from "@/data/vocabulario.json"
 
-function Estudiar() {
-  const articuloNum = 6
+function Study() {
+  const articleNum = 6
   const vocabularioNum = 5
 
-  const [isJapones, setIsJapones] = useState(true)
+  const [isJapanese, setIsJapanese] = useState(true)
   const handleToggleLanguage = () => {
-    setIsJapones(prev => !prev)
+    setIsJapanese(prev => !prev)
   }
 
   return (
@@ -26,7 +26,7 @@ function Estudiar() {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="" type="image/svg+xml" />
-        <title >Estudiar</title>
+        <title >study</title>
         <meta name='description' content='私たちはグラン戸田住人' />
       </Head>
       <div className='w-full md:w-[720px] lg:w-[1000px]' >
@@ -63,42 +63,42 @@ function Estudiar() {
             />
             <div className='w-[290px] md:w-[250px] lg:w-[340px]'>
               <p className='text-xl font-bold md:text-2xl lg:text-4xl'>
-                {isJapones
+                {isJapanese
                   ? "まめちしき"
                   : "Curiosidades"
                 }
               </p>
               <div className='text-[10px] md:text-[10px] lg:text-[14px]'>
                 <p className='mt-5 md:mt-4 lg:mt-6'>
-                  {isJapones
+                  {isJapanese
                     ? "知っていましたか..."
                     : "¿Sabías que...?"
                   }</p>
                 <p className='mt-5 md:mt-4 lg:mt-6'>
-                  {isJapones
+                  {isJapanese
                     ? "女性の手は男性よりも熱く、魚の鮮度を損なう可能性があると言われているため、日本では寿司を握る女性の職人がほとんどいません。"
                     : "Hay muy pocas chefs de sushi en Japón porque se dice que las manos de las mujeres están más calientes que las de los hombres y pueden arruinar la frescura del pescado."
                   }
                 </p>
               </div>
               <div className='flex text-[11px] absolute bottom-5 lg:text-[14px] '>
-                <BotonAudioVocabulario handleToggleLanguage={handleToggleLanguage} />
-                <BotonAudioDatoCurioso audio={"/sounds/goi.mp4"} />
+                <ButtonAudioVocabulary handleToggleLanguage={handleToggleLanguage} />
+                <ButtonAudioFunFactData audio={"/sounds/goi.mp4"} />
               </div>
             </div>
           </div>
         </div>
         <div className='flex w-full justify-center mt-8 lg:mt-20'>
-          {/* --------------------------------------articulo-------------------------------------- */}
+          {/* --------------------------------------article-------------------------------------- */}
           <div className='bg-main-lightBlue w-[570px] md:w-[570px] lg:w-[660px] h-[650px] md:h-[500px] lg:h-[750px] content p-4 lg:p-6 shadow-large'>
             <div className='flex justify-between items-center'>
               <p className='text-main-grey font-bold md:text-2xl lg:text-4xl'>きじ</p>
-              <LinkVerTodosArticulos />
+              <SeeEveryArticleLink />
             </div>
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
               {
-                CardData.slice(0, articuloNum).map((item) => (
-                  <ArticulosTarjetas title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
+                CardData.slice(0, articleNum).map((item) => (
+                  <ArticleCards title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
                 ))
               }
             </div>
@@ -108,7 +108,7 @@ function Estudiar() {
             <div className='flex items-center justify-between'>
               <p className='font-bold md:text-2xl lg:text-4xl lg:ml-3'>ごい</p>
               <div className='flex'>
-                <a href='/estudiar/vocabulario' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulario</a>
+                <a href='/study/vocabulario' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulario</a>
                 <FaArrowRight className='ml-1' />
               </div>
             </div>
@@ -116,7 +116,7 @@ function Estudiar() {
               {
                 Vocabulario.slice(0, vocabularioNum).map((item, index) => (
                   <>
-                    <VocabularioFila palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
+                    <VocabularyRow palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {
                       index < vocabularioNum - 1 &&
                       <div className='w-full mt-1.5 h-[1px] md:h-[1px] bg-main-grey'></div>
@@ -131,4 +131,4 @@ function Estudiar() {
     </>
   )
 }
-export default Estudiar;
+export default Study;
