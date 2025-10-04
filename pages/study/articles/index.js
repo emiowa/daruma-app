@@ -6,10 +6,10 @@ import CardData from "@/data/cards.json"
 
 function Articles() {
 
-  const inicioArticleNum = 12
-  const [articleNum, setArticleNum] = useState(inicioArticleNum)
+  const ArticleNum = 12
+  const [articleNum, setArticleNum] = useState(ArticleNum)
   const handleArticleNum = () => {
-    setArticleNum(prev => prev + inicioArticleNum)
+    setArticleNum(prev => prev + ArticleNum)
   }
 
   return (

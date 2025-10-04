@@ -31,12 +31,11 @@ const LinkPageHeader = () => {
       <nav
         onMouseEnter={() => setShowNav(true)}
         onMouseLeave={() => setShowNav(false)}
-        className={`fixed top-0 left-0 w-full flex justify-center h-14 md:h-16 lg:h-24 bg-main-nav shadow-md z-40 transition-transform duration-300 ${hasScrolled && !showNav ? '-translate-y-full' : 'translate-y-0'
-          }`}
+        className={`fixed top-0 left-0 w-full flex justify-center h-14 md:h-16 lg:h-24 bg-main-nav shadow-md z-40 transition-transform duration-300 ${hasScrolled && !showNav ? '-translate-y-full' : 'translate-y-0'}`}
       >
         <div className='w-full md:w-[750px] lg:w-[980px] h-16 md:h-16 lg:h-24 flex justify-between items-center p-3'>
           <div>
-            <ButtonNav href={"inicio"} text={"inicio"} className="bg-main-yellow ml-0" />
+            <ButtonNav href={"home"} text={"inicio"} className="bg-main-yellow ml-0" />
             <ButtonNav href={"study"} text={"Vamos a estudiar japonés"} className="ml-5" />
           </div>
           <div>

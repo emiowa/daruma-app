@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 
-function Inicio() {
+function Home() {
   return (
     <>
       <Head>
@@ -14,11 +14,11 @@ function Inicio() {
       <div className='w-full'>
         {/* ------------------------------------------------saludo------------------------------------------------ */}
         {/* ------------------------------------------------chochin------------------------------------------------ */}
-        < div ></ div>
+        < div >hooooom</ div>
         {/* ------------------------------------------------articules------------------------------------------------ */}
         < div ></ div>
       </div >
     </>
   )
 }
-export default Inicio;
+export default Home;

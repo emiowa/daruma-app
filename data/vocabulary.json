@@ -5,7 +5,8 @@
     "hiragana": "ごい",
     "traduccion": "Vocabulario",
     "audio": "/sounds/goi.mp4",
-    "isAdded": true
+    "isAdded": true,
+    "level": "facil"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "hiragana": "まめちしき",
     "traduccion": "Curiosidades",
     "audio": "/sounds/goi2.mp4",
-    "isAdded": true
+    "isAdded": true,
+    "level": "dificil"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "hiragana": "きじ",
     "traduccion": "Articulos",
     "audio": "/sounds/goi.mp4",
-    "isAdded": false
+    "isAdded": false,
+    "level": "normal"
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "hiragana": "だいどころ",
     "traduccion": "Cocina",
     "audio": "/sounds/goi2.mp4",
-    "isAdded": true
+    "isAdded": true,
+    "level": "facil"
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "hiragana": "げんかん",
     "traduccion": "Entorada de la casa",
     "audio": "/sounds/goi.mp4",
-    "isAdded": false
+    "isAdded": false,
+    "level": "anadidas"
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "hiragana": "だみー",
     "traduccion": "dummy",
     "audio": "/sounds/go2.mp4",
-    "isAdded": false
+    "isAdded": false,
+    "level": "archivadas"
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "hiragana": "じゅうじつ",
     "traduccion": "compliendo",
     "audio": "/sounds/go2.mp4",
-    "isAdded": true
+    "isAdded": true,
+    "level": "archivadas"
   },
   {
     "id": 8,
@@ -61,7 +68,8 @@
     "hiragana": "ひっす",
     "traduccion": "Requerido",
     "audio": "/sounds/go2.mp4",
-    "isAdded": false
+    "isAdded": false,
+    "level": "normal"
   },
   {
     "id": 9,
@@ -69,7 +77,8 @@
     "hiragana": "たいけん",
     "traduccion": "Experiencia",
     "audio": "/sounds/go2.mp4",
-    "isAdded": false
+    "isAdded": false,
+    "level": "dificil"
   },
   {
     "id": 10,
@@ -77,6 +86,7 @@
     "hiragana": "かんこうち",
     "traduccion": "Lugar turistico",
     "audio": "/sounds/go2.mp4",
-    "isAdded": false
+    "isAdded": false,
+    "level": "dificil"
   }
 ]
