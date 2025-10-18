@@ -1,7 +1,6 @@
-
+"use client";
 
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import ArticleData from "/data/cards.json"
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
@@ -9,10 +8,12 @@ import ButtonSwichDisplay from '@/components/buttons/ButtonSwichDisplay';
 import { useState } from 'react';
 import vocabData from '@/data/vocabulary.json'
 import ButtonPager from '@/components/buttons/ButtonPager';
+import { useParams } from 'next/navigation';
 
 function IndividualArticle() {
-  const router = useRouter()
-  const { id } = router.query
+  const params = useParams();
+  const id = params.id;
+  console.log(id)
 
   const [displayFurigana, setDisplayFrigana] = useState(false)
   const [isJapanese, setIsJapanese] = useState(true)

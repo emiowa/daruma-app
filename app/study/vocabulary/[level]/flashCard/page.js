@@ -1,13 +1,15 @@
-import { useRouter } from 'next/router';
+"use client";
+
 import vocabulary from "/data/vocabulary.json"
 import { useRef, useState } from 'react';
 import { AiOutlineSound } from 'react-icons/ai';
 import { IoSwapVerticalSharp } from "react-icons/io5";
+import { useParams } from 'next/navigation';
 
 
 export default function FlashCardPage() {
-  const router = useRouter();
-  const { level } = router.query;
+  const params = useParams();
+  const level = params.level;
   const vocabList = vocabulary.filter(item => item.level === level)
   const [cards, setCards] = useState(() =>
     [...vocabList].sort(() => Math.random() - 0.5)

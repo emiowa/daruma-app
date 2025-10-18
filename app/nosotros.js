@@ -2,7 +2,7 @@
 import Head from 'next/head';
 // import "../styles/globals.css"
 
-function Nosotros() {
+export default function Nosotros() {
   return (
     <>
       <Head>
@@ -16,4 +16,3 @@ function Nosotros() {
     </>
   )
 }
-export default Nosotros;

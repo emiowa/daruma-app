@@ -1,16 +1,18 @@
-
+"use client"
 
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { useParams } from "next/navigation";
 import vocabulary from "/data/vocabulary.json"
 import { AiOutlineSound } from 'react-icons/ai';
 import { useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 function Vocabulary() {
-  const router = useRouter()
-  const { id } = router.query
-  const vocabList = vocabulary.filter(item => item.level === id)
+  const params = useParams();
+  const level = params.level;
+  const router = useRouter();
+  const vocabList = vocabulary.filter(item => item.level === level)
 
   const levels = [
     { "level": "facil", "color": "bg-main-pink" },
@@ -22,12 +24,12 @@ function Vocabulary() {
     { "text": "archivadas", "color": "bg-main-lightBlue" }
   ]
 
-  const idPage = levels.find(obj => obj.level === id)
-    || words.find(obj => obj.text === id);
+  const idPage = levels.find(obj => obj.level === level)
+    || words.find(obj => obj.text === level);
 
-  const levelButton = levels.filter((levelObj) => id !== levelObj.level);
+  const levelButton = levels.filter((levelObj) => level !== levelObj.level);
 
-  if (!id) return <p>Loading...</p>;
+  if (!level) return <p>Loading...</p>;
   const audioRef = useRef(null);
   const handlePlay = () => {
     if (audioRef.current) {
@@ -35,10 +37,7 @@ function Vocabulary() {
     }
   };
   const goToFlashCard = () => {
-    router.push({
-      pathname: '/study/vocabulary/flashCard',
-      query: { level: id }, // ← クエリでレベルを渡す
-    });
+    router.push(`/study/vocabulary/${level}/flashCard`);
   };
   return (
     <>
@@ -70,7 +69,7 @@ function Vocabulary() {
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center '>
             <div className='mt-3'>
               {vocabList.map((item) => (
-                <div key={item.id} className='flex items-center w-[600px] bg-main-white py-3 px-7  border-b border-main-grey justify-between mx-2  lg:mx-4'>
+                <div key={item.level} className='flex items-center w-[600px] bg-main-white py-3 px-7  border-b border-main-grey justify-between mx-2  lg:mx-4'>
                   <div className='flex-col text-[18px] w-44 lg:text-[15px]'>
                     <p>{item.palabra}</p>
                     <p>{item.hiragana}</p>

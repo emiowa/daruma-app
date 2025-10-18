@@ -1,3 +1,4 @@
+"use client";
 
 import ArticleCards from '@/components/study/ArticleCards';
 import Head from 'next/head';

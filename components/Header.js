@@ -1,4 +1,3 @@
-import Image from "next/image";
 import LinkPageHeader from "./links/LinkPageHeader";
 
 export default function Header() {
