@@ -10,10 +10,7 @@ import Link from 'next/link';
 function Vocabulary() {
   const router = useRouter()
   const { id } = router.query
-  console.log("id", id)
-  console.log(vocabulary)
   const vocabList = vocabulary.filter(item => item.level === id)
-  console.log(vocabList)
 
   const levels = [
     { "level": "facil", "color": "bg-main-pink" },
@@ -28,7 +25,6 @@ function Vocabulary() {
   const idPage = levels.find(obj => obj.level === id)
     || words.find(obj => obj.text === id);
 
-  console.log("idPage", idPage)
   const levelButton = levels.filter((levelObj) => id !== levelObj.level);
 
   if (!id) return <p>Loading...</p>;
@@ -37,6 +33,12 @@ function Vocabulary() {
     if (audioRef.current) {
       audioRef.current.play();
     }
+  };
+  const goToFlashCard = () => {
+    router.push({
+      pathname: '/study/vocabulary/flashCard',
+      query: { level: id }, // ← クエリでレベルを渡す
+    });
   };
   return (
     <>
@@ -54,16 +56,17 @@ function Vocabulary() {
         <div className="flex justify-between md:mt-10">
           <div className='flex'>
             {levels.map((level) => (
-              <Link href={`/study/vocabulary/${level.level}`} className={`${level.color}  w-24 text-center py-2 rounded ml-2 -mb-1 relative z-0`} key={level.level}>{level.level}</Link>
+              <Link href={`/study/vocabulary/${level.level}`} className={`${level.color}  w-24 text-center py-2 rounded ml-2 border border-black -mb-1 relative z-0`} key={level.level}>{level.level}</Link>
             ))}
           </div>
           <div className='flex'>
             {words.map((word) => (
-              <Link href={`/study/vocabulary/${word.text}`} className={`${word.color} w-24 text-center py-2 rounded ml-2 -mb-1 relative z-0`} key={word.text}>{word.text}</Link>
+              <Link href={`/study/vocabulary/${word.text}`} className={`${word.color} w-24 text-center py-2 rounded ml-2 -mb-1 border border-black relative z-0`} key={word.text}>{word.text}</Link>
             ))}
           </div>
         </div>
         <div className={`${idPage.color} z-10 w-[570px] md:w-[720px] relative lg:w-[1000px] content md:pt-14 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large`}>
+          <button className='absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm' onClick={goToFlashCard}>Flash Card →</button>
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center '>
             <div className='mt-3'>
               {vocabList.map((item) => (

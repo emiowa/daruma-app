@@ -88,5 +88,23 @@
     "audio": "/sounds/go2.mp4",
     "isAdded": false,
     "level": "dificil"
+  },
+  {
+    "id": 11,
+    "palabra": "机",
+    "hiragana": "つくえ",
+    "traduccion": "mesa",
+    "audio": "/sounds/go2.mp4",
+    "isAdded": false,
+    "level": "dificil"
+  },
+  {
+    "id": 12,
+    "palabra": "椅子",
+    "hiragana": "いす",
+    "traduccion": "silla",
+    "audio": "/sounds/go2.mp4",
+    "isAdded": false,
+    "level": "dificil"
   }
 ]
