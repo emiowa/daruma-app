@@ -109,7 +109,7 @@ function Study() {
             <div className='flex items-center justify-between'>
               <p className='font-bold md:text-2xl lg:text-4xl lg:ml-3'>ごい</p>
               <div className='flex'>
-                <a href='/study/vocabulary/selectLevel' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulary</a>
+                <a href='/study/vocabulary/anadidas' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulario</a>
                 <FaArrowRight className='ml-1' />
               </div>
             </div>

@@ -13,7 +13,6 @@ import { useParams } from 'next/navigation';
 function IndividualArticle() {
   const params = useParams();
   const id = params.id;
-  console.log(id)
 
   const [displayFurigana, setDisplayFrigana] = useState(false)
   const [isJapanese, setIsJapanese] = useState(true)
