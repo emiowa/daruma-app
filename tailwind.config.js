@@ -11,7 +11,6 @@ const colors = {
     pink: "#FF746B",
     nav: "#2C94B3",
     yellow: "#E4B036",
-    blue: "D1B3D4",
     purple: "#D1B3D4"
   },
 }
