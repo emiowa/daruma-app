@@ -9,10 +9,12 @@ import { useState } from 'react';
 import vocabData from '@/data/vocabulary.json'
 import ButtonPager from '@/components/buttons/ButtonPager';
 import { useParams } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function IndividualArticle() {
   const params = useParams();
   const id = params.id;
+  const router = useRouter()
 
   const [displayFurigana, setDisplayFrigana] = useState(false)
   const [isJapanese, setIsJapanese] = useState(true)
@@ -31,6 +33,10 @@ function IndividualArticle() {
 
   if (!id) return <p>Loading...</p>;
   if (!data) return <p>記事が見つかりません</p>;
+
+  const goToTest = () => {
+    router.push(`/study/article/test/${id}`);
+  };
 
   return (
     <>
@@ -73,7 +79,7 @@ function IndividualArticle() {
             <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
           <ButtonPager>
-            <div className='flex'>
+            <div className='flex' onClick={goToTest}>
               <div>Tomar el test</div>
               <div className='ml-3'>→</div>
             </div>
