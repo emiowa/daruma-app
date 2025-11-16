@@ -16,12 +16,16 @@ function Test() {
   const quizData = data.quiz
   const total = quizData.length
   const currentQuiz = quizData[quizNum]
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleClickAnswer = () => {
-
+  const handleClickAnswer = (index) => {
+    setSelectedIndex(index);
   }
 
-
+  const handleClickNext = () => {
+    setQuizNum(prev => prev + 1)
+    setSelectedIndex(null)
+  }
 
   return (
     <>
@@ -71,7 +75,18 @@ function Test() {
           <div className='flex flex-wrap w-full gap-4 mt-5'>
             {currentQuiz.choices.map((item, index) => {
               return (
-                <ButtonPager key={index} className="basis-[calc(50%-0.5rem)] ">
+                <ButtonPager
+                  key={index}
+                  className={
+                    `basis-[calc(50%-0.5rem)] ` +
+                    (selectedIndex === index
+                      ? index === currentQuiz.correct
+                        ? "bg-green-400"
+                        : "bg-red-400"
+                      : "bg-white")
+                  }
+                  onClick={() => handleClickAnswer(index)}
+                >
                   <div className='text-center'>{item}</div>
                 </ButtonPager>
               )
@@ -85,7 +100,7 @@ function Test() {
               <div>Anterior</div>
             </div>
           </ButtonPager>
-          <ButtonPager className="flex">
+          <ButtonPager className="flex" onClick={() => { handleClickNext() }}>
             <div className='mr-4'>Siguente</div>
             <div className='text-center'>→</div>
           </ButtonPager>
