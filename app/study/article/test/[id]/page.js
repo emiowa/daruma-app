@@ -16,6 +16,13 @@ function Test() {
   const quizData = data.quiz
   const total = quizData.length
   const currentQuiz = quizData[quizNum]
+
+  const handleClickAnswer = () => {
+
+  }
+
+
+
   return (
     <>
       <Head>
@@ -71,7 +78,19 @@ function Test() {
             })}
           </div>
         </div>
-      </div>
+        <div className='flex mt-8 justify-between'>
+          <ButtonPager className="flex">
+            <div className='flex' >
+              <div className='mr-4'>←</div>
+              <div>Anterior</div>
+            </div>
+          </ButtonPager>
+          <ButtonPager className="flex">
+            <div className='mr-4'>Siguente</div>
+            <div className='text-center'>→</div>
+          </ButtonPager>
+        </div >
+      </div >
     </>
   )
 }

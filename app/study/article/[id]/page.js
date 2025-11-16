@@ -78,8 +78,8 @@ function IndividualArticle() {
             <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
             <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
-          <ButtonPager>
-            <div className='flex' onClick={goToTest}>
+          <ButtonPager onClick={goToTest}>
+            <div className='flex' >
               <div>Tomar el test</div>
               <div className='ml-3'>→</div>
             </div>
