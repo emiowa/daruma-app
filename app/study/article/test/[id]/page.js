@@ -21,9 +21,12 @@ function Test() {
   const total = quizData.length
   const currentQuiz = quizData[quizNum]
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [isLocked, setIsLocked] = useState(false)
 
   const handleClickAnswer = (index) => {
-    setSelectedIndex(index);
+    if (isLocked) return
+    setSelectedIndex(index)
+    setIsLocked(true)
   }
 
   const handleClickNext = () => {
@@ -33,6 +36,7 @@ function Test() {
       setQuizNum(prev => prev + 1)
       setSelectedIndex(null)
     }
+    setIsLocked(false)
   }
 
   const goToArticle = () => {
@@ -121,7 +125,7 @@ function Test() {
               </div >
             </div>
             :
-            // ---------------------------------------Quiz-------------------------------------------
+            // --------------------------------------Quiz option--------------------------------------
             <div className='flex flex-col items-center w-full'>
               <div className="text-[20px] mt-8">{currentQuiz.question}</div>
               <div className='flex flex-wrap w-full gap-4 mt-5'>
@@ -135,7 +139,7 @@ function Test() {
                           ? index === currentQuiz.correct
                             ? "bg-green-400"
                             : "bg-red-400"
-                          : "bg-white")
+                          : isLocked ? "bg-gray-200 text-gray-500" : "bg-white")
                       }
                       onClick={() => handleClickAnswer(index)}
                     >
