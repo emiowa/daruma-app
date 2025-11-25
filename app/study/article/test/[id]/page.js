@@ -30,6 +30,7 @@ function Test() {
   }
 
   const handleClickNext = () => {
+    if (selectedIndex === null) { return }
     if (quizNum === total - 1) {
       setResult(true)
     } else {
@@ -150,12 +151,7 @@ function Test() {
               </div>
               {/* _________________________________page button___________________________________ */}
               <div className='flex w-full mt-8 justify-between'>
-                <ButtonPager className="flex">
-                  <div className='flex' >
-                    <div className='mr-4'>←</div>
-                    <div>Anterior</div>
-                  </div>
-                </ButtonPager>
+                <div></div>
                 <ButtonPager className="flex" onClick={() => { handleClickNext() }}>
                   <div className='mr-4'>Siguente</div>
                   <div className='text-center'>→</div>

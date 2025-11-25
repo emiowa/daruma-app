@@ -5,10 +5,12 @@ import { useRef, useState } from 'react';
 import { AiOutlineSound } from 'react-icons/ai';
 import { IoSwapVerticalSharp } from "react-icons/io5";
 import { useParams } from 'next/navigation';
-
+import ButtonPager from "@/components/buttons/ButtonPager";
+import { useRouter } from "next/navigation";
 
 export default function FlashCardPage() {
   const params = useParams();
+  const router = useRouter()
   const level = params.level;
   const vocabList = vocabulary.filter(item => item.level === level)
   const [cards, setCards] = useState(() =>
@@ -25,7 +27,6 @@ export default function FlashCardPage() {
     setCards((prev) => {
       setDisplayAnswer(false)
       const newCards = prev.slice(1);
-      console.log("newCards", newCards)
       if (newCards.length === 0) {
         return [...vocabList].sort(() => Math.random() - 0.5);
       }
@@ -39,7 +40,6 @@ export default function FlashCardPage() {
     displayAnswer ? nextCard() : openCard()
   }
 
-
   const audioRef = useRef(null);
   const handlePlay = () => {
     if (audioRef.current) {
@@ -49,7 +49,6 @@ export default function FlashCardPage() {
 
   const current = cards[0];
   if (!current) return <p>Loading...</p>;
-  console.log("display", displayAnswer)
   const Japanese = (
     <div className=" flex flex-col justify-center text-[18px] w-44 lg:text-[15px] h-36">
       <p className='h-8'>{displayFurigana ? current.hiragana : ""}</p>
@@ -78,6 +77,10 @@ export default function FlashCardPage() {
     setJapaniseAbove(prev => !prev)
   }
 
+  const handleBackToVocabulary = () => {
+    router.push(`/study/vocabulary/${level}`)
+  }
+
   return (
     <div className="mt-16">
       <div className={`bg-main-lightBlue z-10 w-[570px] md:w-[650px] relative lg:w-[1000px] content md:pt-14 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large`}>
@@ -96,6 +99,10 @@ export default function FlashCardPage() {
           {CardButton}
         </div>
       </div>
+      <ButtonPager className="flex mt-6 w-36" onClick={() => handleBackToVocabulary()}>
+        <div className='text-center'>←</div>
+        <div className='mr-4'>Regresar</div>
+      </ButtonPager>
     </div>
   );
 }
