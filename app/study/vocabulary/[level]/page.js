@@ -3,10 +3,10 @@
 import Head from 'next/head';
 import { useParams } from "next/navigation";
 import vocabulary from "/data/vocabulary.json"
-import { AiOutlineSound } from 'react-icons/ai';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import ButtonAudioPlay from '@/components/buttons/ButtonAudioPlay';
 
 function Vocabulary() {
   const params = useParams();
@@ -27,12 +27,6 @@ function Vocabulary() {
   const levelButton = levels.filter((levelObj) => level !== levelObj.level);
 
   if (!level) return <p>Loading...</p>;
-  const audioRef = useRef(null);
-  const handlePlay = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
-  };
 
   const goToFlashCard = () => {
     router.push(`/study/vocabulary/${level}/flashCard`);
@@ -43,7 +37,6 @@ function Vocabulary() {
   }
 
   const handleClickLevel = (item) => {
-    console.log("clicked:", item)
     setIsTransferPopup(false)
   }
   const ref = useRef(null);
@@ -62,7 +55,7 @@ function Vocabulary() {
 
   const Popup = () => {
     return (
-      <div className='w-[330px] h-14 px-5 absolute flex justify-between items-center bg-main-background border border-black -right-8 top-0 rounded-lg'>
+      <div className='w-[330px] h-14 px-5 absolute flex justify-between items-center bg-main-background border border-black -right-8 top-0 rounded-lg' ref={ref}>
         {levels
           .filter(item => item.level !== isTransferPopup.level)
           .map((item) => (
@@ -70,7 +63,6 @@ function Vocabulary() {
               key={item.level}
               className={`w-[85px] h-10 rounded-lg border flex justify-center items-center border-black ${item.color}`}
               onClick={() => handleClickLevel(item.level)}
-              ref={ref}
             >
               {item.level}
             </div>
@@ -110,10 +102,7 @@ function Vocabulary() {
                     <p>{item.traduccion}</p>
                   </div>
                   <div className='flex w-40 justify-between'>
-                    <button onClick={handlePlay} className='w-12 h-12 rounded-full border-main-grey border border-solid relative shadow-small'>
-                      <AiOutlineSound className='text-xl text-main-grey absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' />
-                    </button>
-                    <audio ref={audioRef} src={item.audio} preload='auto' />
+                    <ButtonAudioPlay audio={item.audio} className={"w-12 h-12"} />
                     {/* {levelButton.map((item, i) => (
                       <button key={i} className='bg-main-pink w-14 h-8 rounded'>{item.level}</button>
                       ))} */}

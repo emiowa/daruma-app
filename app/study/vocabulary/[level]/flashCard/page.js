@@ -2,11 +2,11 @@
 
 import vocabulary from "/data/vocabulary.json"
 import { useRef, useState } from 'react';
-import { AiOutlineSound } from 'react-icons/ai';
 import { IoSwapVerticalSharp } from "react-icons/io5";
 import { useParams } from 'next/navigation';
 import ButtonPager from "@/components/buttons/ButtonPager";
 import { useRouter } from "next/navigation";
+import ButtonAudioPlay from "@/components/buttons/ButtonAudioPlay";
 
 export default function FlashCardPage() {
   const params = useParams();
@@ -54,10 +54,7 @@ export default function FlashCardPage() {
       <p className='h-8'>{displayFurigana ? current.hiragana : ""}</p>
       <p className='text-[25px]'>{current.palabra}</p>
       <div className='flex justify-center mt-2'>
-        <button onClick={handlePlay} className='w-8 h-8 rounded-full border-main-grey border border-solid relative shadow-small'>
-          <AiOutlineSound className='text-xl text-main-grey absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' />
-        </button>
-        <audio ref={audioRef} src={current.audio} preload='auto' />
+        <ButtonAudioPlay audio={current.audio} className={"w-8 h-8 text-xl text-main-grey"} />
         <button className='w-8 h-8 ml-3 rounded-full border-main-grey border border-solid relative shadow-small' onClick={showFurigana}>あ</button>
       </div>
     </div>
