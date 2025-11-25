@@ -76,7 +76,7 @@ function Vocabulary() {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" />
         <title >Vocabulary</title>
         <meta name='description' content='記事' />
       </Head>
