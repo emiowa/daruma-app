@@ -30,7 +30,7 @@ function Articles() {
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center'>
             {
               CardData.slice(0, articleNum).map((item) => (
-                <ArticleCards title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} />
+                <ArticleCards key={item.title} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} />
               ))
             }
           </div>

@@ -99,7 +99,7 @@ function Study() {
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
               {
                 CardData.slice(0, articleNum).map((item) => (
-                  <ArticleCards title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
+                  <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
                 ))
               }
             </div>
@@ -116,13 +116,13 @@ function Study() {
             <div className='lg:mt-8'>
               {
                 Vocabulary.slice(0, vocabularyNum).map((item, index) => (
-                  <>
+                  <div key={item.palabra}>
                     <VocabularyRow palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {
                       index < vocabularyNum - 1 &&
                       <div className='w-full mt-1.5 h-[1px] md:h-[1px] bg-main-grey'></div>
                     }
-                  </>
+                  </div>
                 ))
               }
             </div>
