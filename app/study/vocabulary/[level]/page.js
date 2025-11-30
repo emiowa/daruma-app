@@ -103,9 +103,6 @@ function Vocabulary() {
                   </div>
                   <div className='flex w-40 justify-between'>
                     <ButtonAudioPlay audio={item.audio} className={"w-12 h-12"} />
-                    {/* {levelButton.map((item, i) => (
-                      <button key={i} className='bg-main-pink w-14 h-8 rounded'>{item.level}</button>
-                      ))} */}
                     <div className='relative'>
                       <div
                         className='flex justify-center items-center w-12 h-12 rounded-full border-main-grey border border-solid relative shadow-small'

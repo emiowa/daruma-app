@@ -40,13 +40,6 @@ export default function FlashCardPage() {
     displayAnswer ? nextCard() : openCard()
   }
 
-  const audioRef = useRef(null);
-  const handlePlay = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
-  };
-
   const current = cards[0];
   if (!current) return <p>Loading...</p>;
   const Japanese = (
@@ -89,7 +82,7 @@ export default function FlashCardPage() {
               <IoSwapVerticalSharp onClick={changePosition} />
               <span className='w-56 h-[0.1px] bg-main-grey'></span>
             </div>
-            <div className={!displayAnswer && "opacity-0"}>
+            <div className={!displayAnswer ? "opacity-0" : ""}>
               {japaneseAbove ? Spanish : Japanese}
             </div>
           </div>
