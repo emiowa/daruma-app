@@ -22,11 +22,15 @@ function Test() {
   const currentQuiz = quizData[quizNum]
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isLocked, setIsLocked] = useState(false)
+  const [isCrrect, setIsCorrect] = useState(0)
 
   const handleClickAnswer = (index) => {
     if (isLocked) return
     setSelectedIndex(index)
     setIsLocked(true)
+    if (currentQuiz.correct === index) {
+      setIsCorrect(prev => prev + 1)
+    }
   }
 
   const handleClickNext = () => {
@@ -45,6 +49,7 @@ function Test() {
   };
 
   const goToTest = () => {
+    setIsCorrect(0)
     setQuizNum(0)
     setResult(false)
     setSelectedIndex(null)
@@ -102,11 +107,11 @@ function Test() {
                 <div className='mt-4 w-[250px]'>
                   <div className='flex justify-between'>
                     <div>Respuestas correctas:</div>
-                    <div>2</div>
+                    <div>{isCrrect}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
                     <div>Respuestas incorrectas:</div>
-                    <div>5</div>
+                    <div>{total - isCrrect}</div>
                   </div>
                 </div>
               </div>
