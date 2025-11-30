@@ -136,11 +136,15 @@ function Test() {
                       key={index}
                       className={
                         `basis-[calc(50%-0.5rem)] ` +
-                        (selectedIndex === index
-                          ? index === currentQuiz.correct
-                            ? "bg-green-400"
-                            : "bg-red-400"
-                          : isLocked ? "bg-gray-200 text-gray-500" : "bg-white")
+                        (
+                          !isLocked
+                            ? ""
+                            : index === currentQuiz.correct
+                              ? "bg-green-300"
+                              : selectedIndex === index
+                                ? "bg-red-400"
+                                : "bg-gray-200 text-gray-500"
+                        )
                       }
                       onClick={() => handleClickAnswer(index)}
                     >
@@ -152,7 +156,10 @@ function Test() {
               {/* _________________________________page button___________________________________ */}
               <div className='flex w-full mt-8 justify-between'>
                 <div></div>
-                <ButtonPager className="flex" onClick={() => { handleClickNext() }}>
+                <ButtonPager
+                  className={`flex ${!isLocked && "bg-gray-200 text-gray-500"}`}
+                  onClick={() => { handleClickNext() }}
+                >
                   <div className='mr-4'>Siguente</div>
                   <div className='text-center'>→</div>
                 </ButtonPager>

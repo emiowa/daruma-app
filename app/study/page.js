@@ -116,7 +116,7 @@ function Study() {
             <div className='lg:mt-8'>
               {
                 Vocabulary.slice(0, vocabularyNum).map((item, index) => (
-                  <div key={item.palabra}>
+                  <div key={item.id}>
                     <VocabularyRow palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {
                       index < vocabularyNum - 1 &&

@@ -89,7 +89,7 @@ function IndividualArticle() {
           <div className='absolute top-4 left-4'>Vocabulary:</div>
           <div className='ml-16 flex flex-wrap [&>*:nth-child(-n+2)]:mt-0'>
             {vocabList.map((item) =>
-              <div className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
+              <div key={item.id} className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
                 <div className=''>
                   <div className=''>{item.palabra}</div>
                   <div className=''>{item.traduccion}</div>
