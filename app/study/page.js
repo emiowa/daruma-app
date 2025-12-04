@@ -99,7 +99,7 @@ function Study() {
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
               {
                 CardData.slice(0, articleNum).map((item) => (
-                  <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
+                  <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} leido={item.leido} page="main" />
                 ))
               }
             </div>

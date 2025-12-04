@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { RubyText } from "@/lib/renderRuby"
 
 
-const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) => {
+const ArticleCards = ({ titleRuby, imageUrl, leido, id, label, star, page }) => {
 
   return (
     <>
@@ -22,7 +22,7 @@ const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) =
                 fill
                 className="object-cover"
               />
-              {checked &&
+              {leido &&
                 <FaRegCircleCheck className='absolute top-2 lg:w-4 lg:h-4 right-2 z-10 bg-[#82B590] rounded-full ' />
               }
             </div>
@@ -57,7 +57,7 @@ const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) =
                 fill
                 className="object-cover"
               />
-              {checked &&
+              {leido &&
                 <FaRegCircleCheck className='absolute top-2 lg:w-6 lg:h-6 right-2 z-10 bg-[#82B590] rounded-full ' />
               }
             </div>

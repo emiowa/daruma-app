@@ -21,6 +21,7 @@ function Articles() {
   const handleClickFilterToggle = () => {
     setIsFilterOpen(prev => !prev)
   }
+
   const filterDetail = [
     { id: "0", title: "Por tema", list: ["Cultura", "Viajes", "Comida"] },
     { id: "1", title: "Por nivel de dificultad", list: ["Dificultad baja", "Dificultad media", "Dificultad alta"] },
@@ -33,6 +34,43 @@ function Articles() {
       list: []
     }))
   );
+
+  const levelToStar = {
+    "Dificultad baja": 1,
+    "Dificultad media": 2,
+    "Dificultad alta": 3,
+  };
+
+  const estadoToText = {
+    "Leido": true,
+    "No leido": false
+  };
+
+
+  useEffect(() => {
+    let filtered = CardData;
+    //tema--------------------------------------------------------------
+    const temas = selectedList[0].list;
+    if (temas.length > 0) {
+      filtered = filtered.filter(card => temas.includes(card.label.text));
+    }
+    // level------------------------------------------------------------
+    const niveles = selectedList[1].list;
+    if (niveles.length > 0) {
+      const targetStars = niveles.map(n => levelToStar[n]);
+
+      filtered = filtered.filter(card =>
+        targetStars.includes(card.star)
+      );
+    }
+    //leido o no -------------------------------------------------------
+    const estados = selectedList[2].list;
+    if (estados.length > 0) {
+      const targetText = estados.map(n => estadoToText[n])
+      filtered = filtered.filter(card => targetText.includes(card.leido));
+    }
+    setCurrentCardsList(filtered);
+  }, [selectedList]);
 
   const toggleListItem = (id, value) => {
     setSelectedList(prev =>
@@ -113,7 +151,7 @@ function Articles() {
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center'>
             {
               currentCardsList.slice(0, articleNum).map((item) => (
-                <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} />
+                <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} leido={item.leido} />
               ))
             }
           </div>

@@ -320,9 +320,9 @@
       "SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 "
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "cultura",
+      "text": "Cultura",
       "bg": "bg-main-orange"
     },
     "star": 2,
@@ -702,7 +702,7 @@
     ],
     "spanishText": "spanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanish",
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1026,7 +1026,7 @@
     ],
     "spanishText": "spanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanish",
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1079,7 +1079,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1114,7 +1114,7 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1149,7 +1149,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1184,9 +1184,9 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "cultura",
+      "text": "Cultura",
       "bg": "bg-main-orange"
     },
     "star": 2,
@@ -1241,7 +1241,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1272,7 +1272,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1303,7 +1303,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1338,7 +1338,7 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1373,7 +1373,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1408,9 +1408,9 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "cultura",
+      "text": "Cultura",
       "bg": "bg-main-orange"
     },
     "star": 2
@@ -1443,7 +1443,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1474,7 +1474,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1505,7 +1505,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1540,7 +1540,7 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1575,7 +1575,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1610,7 +1610,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1645,7 +1645,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1676,7 +1676,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1707,7 +1707,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1742,7 +1742,7 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1777,7 +1777,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1812,7 +1812,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1847,7 +1847,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "viaje",
       "bg": "bg-main-pink"
@@ -1882,7 +1882,7 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1913,7 +1913,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
@@ -1944,7 +1944,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1979,7 +1979,7 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
       "text": "comida",
       "bg": "bg-main-yellow"
