@@ -23,7 +23,7 @@ function Articles() {
   }
 
   const filterDetail = [
-    { id: "0", title: "Por tema", list: ["Cultura", "Viajes", "Comida"] },
+    { id: "0", title: "Por tema", list: ["Cultura", "Viaje", "Comida"] },
     { id: "1", title: "Por nivel de dificultad", list: ["Dificultad baja", "Dificultad media", "Dificultad alta"] },
     { id: "2", title: "Estado", list: ["Leido", "No leido"] }
   ];
@@ -80,19 +80,26 @@ function Articles() {
         return {
           ...item,
           list: exists
-            ? item.list.filter(v => v !== value) // すでにある → 削除
-            : [...item.list, value]              // ない → 追加
+            ? item.list.filter(v => v !== value)
+            : [...item.list, value]
         };
       })
     );
   };
+  const handleClickClear = () => {
+    setSelectedList(
+      filterDetail.map(item => ({
+        id: item.id,
+        list: []
+      }))
+    );
+  }
 
   const handleClickFilterItem = (id, value) => {
     toggleListItem(id, value)
   }
   const Filter = () => {
     return (
-
       <div className='absolute top-8 -left-5 w-[430px] h-[250px] bg-gray-300 z-40 py-3 px-5'>
         {filterDetail.map((item) => {
           return (
@@ -118,6 +125,7 @@ function Articles() {
             </div>
           )
         })}
+        <button className='absolute bottom-2 right-3 bg-main-nav py-1 px-3 text-white rounded-lg' onClick={() => handleClickClear()}>Borrar</button>
       </div>
     )
   }
