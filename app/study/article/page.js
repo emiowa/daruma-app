@@ -2,7 +2,7 @@
 
 import ArticleCards from '@/components/study/ArticleCards';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CardData from "@/data/cards.json"
 import { SlArrowDown } from "react-icons/sl";
 import { SlArrowUp } from "react-icons/sl";
@@ -18,6 +18,8 @@ function Articles() {
 
   const [currentCardsList, setCurrentCardsList] = useState(CardData)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const filterRef = useRef(null)
+
   const handleClickFilterToggle = () => {
     setIsFilterOpen(prev => !prev)
   }
@@ -46,6 +48,20 @@ function Articles() {
     "No leido": false
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      // Filter が open 中 ＆ Filter 以外をクリックしたら閉じる
+      if (isFilterOpen && filterRef.current && !filterRef.current.contains(e.target)) {
+        setIsFilterOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isFilterOpen]);
 
   useEffect(() => {
     let filtered = CardData;
@@ -153,7 +169,9 @@ function Articles() {
               <SlArrowDown onClick={() => handleClickFilterToggle()} className='ml-6 mt-1' />
             }
             {isFilterOpen &&
-              <Filter />
+              <div ref={filterRef}>
+                <Filter />
+              </div>
             }
           </div>
           <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center'>
