@@ -5,7 +5,7 @@ import ArticleData from "/data/cards.json"
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
 import ButtonSwichDisplay from '@/components/buttons/ButtonSwichDisplay';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import vocabData from '@/data/vocabulary.json'
 import ButtonPager from '@/components/buttons/ButtonPager';
 import { useParams } from 'next/navigation';
@@ -21,10 +21,25 @@ function IndividualArticle() {
 
   const data = ArticleData.find(item => item.id === Number(id))
   const vocabAry = data.vocabulary
-  const vocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
+  const originalVocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
+  const [vocabList, setVocabList] = useState(originalVocabList)
 
+  //このvocablistのisAddedを変更すればいい
   const handleTraduccion = () => {
     setIsJapanese(prev => !prev)
+  }
+
+  const handleClickToggleVocabList = (id) => {
+    const newVocabList = vocabList.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          isAdded: !item.isAdded
+        }
+      }
+      return item
+    })
+    setVocabList(newVocabList)
   }
 
   const handleDisplayFurigana = () => {
@@ -94,7 +109,7 @@ function IndividualArticle() {
                   <div className=''>{item.palabra}</div>
                   <div className=''>{item.traduccion}</div>
                 </div>
-                <button className='w-[30px] h-[30px] rounded-full border border-black'>{item.isAdded ? "+" : "-"}</button>
+                <button className='w-[30px] h-[30px] rounded-full border border-black' onClick={() => handleClickToggleVocabList(item.id)}>{item.isAdded ? "-" : "+"}</button>
               </div>
             )}
           </div>
