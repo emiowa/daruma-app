@@ -56,6 +56,7 @@ function Test() {
     setQuizNum(0)
     setResult(false)
     setSelectedIndex(null)
+    setIsLocked(false)
   };
 
   return (
