@@ -8,6 +8,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import ButtonPager from '@/components/buttons/ButtonPager';
 import { useRouter } from "next/navigation";
+import { useEffect } from "react"
 
 function Test() {
   const params = useParams();
@@ -33,14 +34,16 @@ function Test() {
     }
   }
 
+  console.log(isLocked)
+
   const handleClickNext = () => {
-    if (selectedIndex === null) { return }
+    if (selectedIndex === null) return
     if (quizNum === total - 1) {
       setResult(true)
-    } else {
-      setQuizNum(prev => prev + 1)
-      setSelectedIndex(null)
+      return
     }
+    setQuizNum(prev => prev + 1)
+    setSelectedIndex(null)
     setIsLocked(false)
   }
 
@@ -143,10 +146,10 @@ function Test() {
                         `basis-[calc(50%-0.5rem)] ` +
                         (
                           !isLocked
-                            ? ""
+                            ? "bg-main-white"
                             : index === currentQuiz.correct
                               ? "bg-green-300"
-                              : selectedIndex === index
+                              : index === selectedIndex
                                 ? "bg-red-400"
                                 : "bg-gray-200 text-gray-500"
                         )

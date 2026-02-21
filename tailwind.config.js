@@ -8,6 +8,7 @@ const colors = {
     background: '#F6EFDD',
     white: "#FDFBF5",
     grey: "#2C4B56",
+    lightGrey: "#D9D9D9",
     pink: "#FF746B",
     nav: "#2C94B3",
     yellow: "#E4B036",
