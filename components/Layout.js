@@ -13,7 +13,8 @@ export default function Layout({ children }) {
         <meta name="description" content="私たちはグラン戸田住人" />
       </Head>
       <Header />
-      <div className="flex-grow p-6 pt-24 md:pt-24 lg:pt-40 flex justify-center">{children}</div>
+      {/* <div className="flex-grow p-6 pt-24 md:pt-24 lg:pt-40 flex justify-center">{children}</div> */}
+      <div className="">{children}</div>
       <Footer />
     </div>
   );
