@@ -8,7 +8,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 import ButtonPager from '@/components/buttons/ButtonPager';
 import { useRouter } from "next/navigation";
-import { useEffect } from "react"
 
 function Test() {
   const params = useParams();

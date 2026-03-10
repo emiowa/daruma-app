@@ -40,8 +40,8 @@ const LinkPageHeader = () => {
             <ButtonNav href={"study"} text={"Vamos a estudiar japonés"} className="ml-5" />
           </div>
           <div>
-            <ButtonNav href={"iniciar-sesion"} text={"iniciar sesión"} />
-            <ButtonNav href={"registrarse"} text={"Registrarse"} className={"ml-5 "} />
+            <ButtonNav href={"login"} text={"iniciar sesión"} />
+            <ButtonNav href={"register"} text={"Registrarse"} className={"ml-5 "} />
           </div>
         </div>
       </nav>

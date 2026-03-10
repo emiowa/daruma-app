@@ -1,14 +1,30 @@
 
-import ButtonNav from '@/components/buttons/ButtonNav';
+
 import ButtonPager from '@/components/buttons/ButtonPager';
 import InputArea from '@/components/Header/InputArea';
 import Head from 'next/head';
 // import "../styles/globals.css"
 
-function Iniciarsession() {
-  const input = ["EMAIL", "CONTRASEÑA"]
-  const help = ["¿Olvidaste tu contraseña?", "Soy un usuario nuevo"]
-  const title = "Iniciarsession"
+function Registrarse() {
+  const input = [
+    {
+      name: "name",
+      label: "USER NAME",
+      type: "text"
+    },
+    {
+      name: "email",
+      label: "EMAIL",
+      type: "email"
+    },
+    {
+      name: "password",
+      label: "CONTRASEÑA",
+      type: "password"
+    }
+  ];
+  const help = [{ text: "Ya tengo una cuenta", link: "/login" }]
+  const title = "Registrarse"
   return (
     <>
       <Head>
@@ -23,9 +39,9 @@ function Iniciarsession() {
             src="/images/daruma_logo_transparent.png"
             width={450}
             height={450}
-            className='absolute top-3 right-12'
+            className='absolute top-3'
           />
-          <div className='absolute w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute  right-12 w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
             <InputArea input={input} help={help} title={title} />
           </div>
         </div>
@@ -33,4 +49,4 @@ function Iniciarsession() {
     </>
   )
 }
-export default Iniciarsession;
+export default Registrarse;
