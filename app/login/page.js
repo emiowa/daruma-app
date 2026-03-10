@@ -1,8 +1,13 @@
 
-import ButtonNav from '@/components/buttons/ButtonNav';
-import ButtonPager from '@/components/buttons/ButtonPager';
+"use client";
+
 import InputArea from '@/components/Header/InputArea';
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import {
+  validateEmail,
+  validatePassword
+} from "@/lib/validators";
 // import "../styles/globals.css"
 
 function Login() {
@@ -10,16 +15,24 @@ function Login() {
     {
       name: "email",
       label: "EMAIL",
-      type: "email"
+      type: "email",
+      validate: validateEmail
     },
     {
       name: "password",
       label: "CONTRASEÑA",
-      type: "password"
+      type: "password",
+      validate: validatePassword
     }
   ];
   const help = [{ text: "¿Olvidaste tu contraseña?", link: "/" }, { text: "Soy un usuario nuevo", link: "/registrarse" }]
   const title = "Iniciarsession"
+  const router = useRouter();
+
+  const handleLogin = async (values) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    router.push("/home");
+  };
   return (
     <>
       <Head>
@@ -37,7 +50,11 @@ function Login() {
             className='absolute top-3 right-12'
           />
           <div className='absolute w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
-            <InputArea input={input} help={help} title={title} />
+            <InputArea
+              input={input}
+              help={help}
+              title={title}
+              onSubmit={handleLogin} />
           </div>
         </div>
       </div>

@@ -1,13 +1,16 @@
 import Link from 'next/link';
 import React from 'react';
 
-const ButtonInicio = ({ text, className }) => {
+const ButtonInicio = ({ text, type, disabled, className }) => {
 
   return (
-    <>
-      <button className={`p-1 md:p-2 lg:p-3 content bg-main-white shadow-small lg:text-[18px] ${className}`}>{text}</button>
+    <button
+      type={type}
+      disabled={disabled}
+      className={`${className} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}    >
+      {text}
+    </button>
 
-    </>
   );
 };
 export default ButtonInicio;
