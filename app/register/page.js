@@ -1,7 +1,6 @@
 "use client";
 
 import AuthForm from '@/components/Auth/AuthForm';
-import Head from 'next/head';
 import {
   validateName,
   validateEmail,

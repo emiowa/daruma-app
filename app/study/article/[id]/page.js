@@ -1,6 +1,5 @@
 "use client";
 
-import Head from 'next/head';
 import ArticleData from "/data/cards.json"
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
@@ -55,12 +54,6 @@ function IndividualArticle() {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />
-        <title >article_individual</title>
-        <meta name='description' content='記事' />
-      </Head>
       <div>
         <div className='w-full md:mt-20 text-main-grey font-bold md:text-3xl lg:text-7xl text-center'>{data.title}</div>
         <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between'>

@@ -2,7 +2,6 @@
 "use client";
 
 import AuthForm from '@/components/Auth/AuthForm';
-import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import {
   validateEmail,
@@ -44,11 +43,6 @@ function Login() {
   };
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />        <title >study</title>
-        <meta name='description' content='私たちはグラン戸田住人' />
-      </Head>
       <div className='pt-32 pl-12 w-full h-full'>
         <div className='relative '>
           <img

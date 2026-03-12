@@ -1,5 +1,4 @@
 "use client";
-import Head from 'next/head';
 import { useParams } from 'next/navigation';
 import ArticleData from "/data/cards.json"
 import { FaRegStar, FaStar } from 'react-icons/fa';
@@ -60,12 +59,6 @@ function Test() {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />
-        <title >study</title>
-        <meta name='description' content='私たちはグラン戸田住人' />
-      </Head>
       <div className='flex-col'>
         <div className='text-center text-[30px]'>{data.title}</div>
         <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex items-center justify-between'>

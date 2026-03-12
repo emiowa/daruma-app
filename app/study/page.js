@@ -1,6 +1,5 @@
 "use client";
 
-import Head from 'next/head';
 import { IoEyeOutline, IoBookOutline } from "react-icons/io5";
 import { VscFlame } from "react-icons/vsc";
 import ButtonAudioFunFactData from '@/components/buttons/ButtonAudioFunFactData';
@@ -24,12 +23,6 @@ function Study() {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />
-        <title >study</title>
-        <meta name='description' content='私たちはグラン戸田住人' />
-      </Head>
       <div className='w-full md:w-[720px] lg:w-[1000px]' >
         <div className='flex justify-center h-40 md:h-48 lg:h-64'>
           {/* --------------------------------------points-------------------------------------- */}

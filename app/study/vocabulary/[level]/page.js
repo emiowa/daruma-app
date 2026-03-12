@@ -1,6 +1,5 @@
 "use client"
 
-import Head from 'next/head';
 import { useParams } from "next/navigation";
 import vocabulary from "/data/vocabulary.json"
 import { useEffect, useRef, useState } from 'react';
@@ -74,12 +73,6 @@ function Vocabulary() {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />
-        <title >Vocabulary</title>
-        <meta name='description' content='記事' />
-      </Head>
       <div className='relative'>
         <div className='w-full text-main-grey font-bold md:text-6xl lg:text-7xl space-y-3'>
           <div>ご</div>

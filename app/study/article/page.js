@@ -1,7 +1,6 @@
 "use client";
 
 import ArticleCards from '@/components/study/ArticleCards';
-import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import CardData from "@/data/cards.json"
 import { SlArrowDown } from "react-icons/sl";
@@ -149,12 +148,6 @@ function Articles() {
   return (
 
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />
-        <title >Articles</title>
-        <meta name='description' content='記事' />
-      </Head>
       <>
         <div className='md:mt-20 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large relative'>
           <div className='text-main-grey font-bold md:text-6xl lg:text-7xl absolute md:-top-16 lg:-top-[75px] md:left-8 space-y-3'>
