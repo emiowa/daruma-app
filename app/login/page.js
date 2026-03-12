@@ -41,6 +41,7 @@ function Login() {
     }
     router.push("/home");
   };
+
   return (
     <>
       <div className='pt-32 pl-12 w-full h-full'>

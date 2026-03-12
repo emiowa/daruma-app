@@ -2,19 +2,39 @@
 
 import React, { useEffect, useState } from 'react';
 import ButtonNav from '../buttons/ButtonNav';
+import { supabase } from '@/lib/supabase';
 
 const Header = () => {
 
   const [showNav, setShowNav] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 0); // スクロールしたか
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+
+    // 2. 状態変化の監視
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      subscription.unsubscribe(); // 忘れずに解除
+    };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      console.log("👤 ユーザー情報が更新されました:", user.user_metadata?.name);
+    } else {
+      console.log("ℹ️ ユーザーは現在ログアウトしています");
+    }
+  }, [user]);
 
   return (
     <div className="bg-main-background">
@@ -41,8 +61,22 @@ const Header = () => {
               <ButtonNav href={"study"} text={"Vamos a estudiar japonés"} className="ml-5" />
             </div>
             <div>
-              <ButtonNav href={"login"} text={"iniciar sesión"} />
-              <ButtonNav href={"register"} text={"Registrarse"} className={"ml-5 "} />
+              {user ?
+                <button
+                  onClick={async () => {
+                    await supabase.auth.signOut();
+                    console.log("ログアウトボタンが押されました");
+                  }}
+                  className="text-white ml-5"
+                >
+                  Salir (Test)
+                </button>
+                :
+                <div>
+                  <ButtonNav href={"login"} text={"iniciar sesión"} />
+                  <ButtonNav href={"register"} text={"Registrarse"} className={"ml-5 "} />
+                </div>
+              }
             </div>
           </div>
         </nav>

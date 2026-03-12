@@ -16,7 +16,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es"> {/* スペイン語圏向けなら "es"、日本語なら "ja" */}
+    <html lang="es">
       <body>
         <Layout>
           {children}
