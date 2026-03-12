@@ -5,7 +5,7 @@ import { useState } from 'react';
 import ButtonInicio from '../buttons/ButtonInicio';
 
 
-const InputArea = ({ input, help, title, onSubmit }) => {
+const AuthForm = ({ input = [], help = [], title, onSubmit }) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +54,6 @@ const InputArea = ({ input, help, title, onSubmit }) => {
               onChange={(e) => handleChange(item.name, e.target.value)}
               disabled={isLoading}
             />
-            {item.InputArea}
             <span className="text-red-500 text-sm h-5">
               {errors[item.name] || ""}
             </span>
@@ -84,4 +83,4 @@ const InputArea = ({ input, help, title, onSubmit }) => {
 }
 
 
-export default InputArea;
+export default AuthForm;

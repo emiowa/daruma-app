@@ -1,7 +1,7 @@
 
 "use client";
 
-import InputArea from '@/components/Header/InputArea';
+import AuthForm from '@/components/Auth/AuthForm';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import {
@@ -9,6 +9,7 @@ import {
   validatePassword
 } from "@/lib/validators";
 // import "../styles/globals.css"
+import { supabase } from "@/lib/supabase";
 
 function Login() {
   const input = [
@@ -30,7 +31,15 @@ function Login() {
   const router = useRouter();
 
   const handleLogin = async (values) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password
+    });
+    if (error) {
+      console.log(error.message);
+      return;
+    }
     router.push("/home");
   };
   return (
@@ -50,7 +59,7 @@ function Login() {
             className='absolute top-3 right-12'
           />
           <div className='absolute w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
-            <InputArea
+            <AuthForm
               input={input}
               help={help}
               title={title}

@@ -1,14 +1,14 @@
 "use client";
 
-import InputArea from '@/components/Header/InputArea';
+import AuthForm from '@/components/Auth/AuthForm';
 import Head from 'next/head';
-// import "../styles/globals.css"
 import {
   validateName,
   validateEmail,
   validatePassword
 } from "@/lib/validators";
 import { useRouter } from 'next/navigation';
+import { supabase } from "@/lib/supabase";
 
 function Registrarse() {
 
@@ -36,16 +36,25 @@ function Registrarse() {
   const router = useRouter();
 
   const handleRegister = async (values) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const { data, error } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+      options: {
+        data: {
+          name: values.name
+        }
+      }
+    });
+    if (error) {
+      console.error("Error Code:", error.status);
+      console.error("Error Message:", error.message);
+      return;
+    }
+    console.log("Success! User ID:", data.user.id);
     router.push("/register-success");
   };
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />        <title >study</title>
-        <meta name='description' content='私たちはグラン戸田住人' />
-      </Head>
       <div className='pt-32 pl-12 w-full h-full'>
         <div className='relative '>
           <img
@@ -56,7 +65,7 @@ function Registrarse() {
             className='absolute top-3'
           />
           <div className='absolute  right-12 w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
-            <InputArea
+            <AuthForm
               input={input}
               help={help}
               title={"Registrarse"}
