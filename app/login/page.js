@@ -9,8 +9,10 @@ import {
 } from "@/lib/validators";
 // import "../styles/globals.css"
 import { supabase } from "@/lib/supabase";
+import React, { useState } from 'react';
 
 function Login() {
+  const [serverError, setServerError] = useState("");
   const input = [
     {
       name: "email",
@@ -37,6 +39,11 @@ function Login() {
     });
     if (error) {
       console.log(error.message);
+      if (error.message === "Invalid login credentials") {
+        setServerError("El correo o la contraseña son incorrectos.");
+      } else {
+        setServerError("Ocurrió un error al intentar iniciar sesión.");
+      }
       return;
     }
     router.push("/home");
@@ -51,14 +58,16 @@ function Login() {
             src="/images/daruma_logo_transparent.png"
             width={450}
             height={450}
-            className='absolute top-3 right-12'
+            className='absolute top-8 right-12'
           />
-          <div className='absolute w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}
               title={title}
-              onSubmit={handleLogin} />
+              onSubmit={handleLogin}
+              apiError={serverError}
+            />
           </div>
         </div>
       </div>

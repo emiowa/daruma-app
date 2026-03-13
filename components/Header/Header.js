@@ -36,6 +36,15 @@ const Header = () => {
     }
   }, [user]);
 
+  const handleClickLogout = async () => {
+    // ポップアップを出す
+    const ok = window.confirm("¿Estás seguro de que quieres cerrar sesión?");
+    if (ok) {
+      await supabase.auth.signOut();
+      console.log("ログアウトボタンが押されました");
+    }
+  };
+
   return (
     <div className="bg-main-background">
       <div className="flex justify-between">
@@ -62,15 +71,15 @@ const Header = () => {
             </div>
             <div>
               {user ?
-                <button
-                  onClick={async () => {
-                    await supabase.auth.signOut();
-                    console.log("ログアウトボタンが押されました");
-                  }}
-                  className="text-white ml-5"
-                >
-                  Salir (Test)
-                </button>
+                <div className="flex">
+                  <div>{user.user_metadata?.name}</div>
+                  <button
+                    onClick={() => handleClickLogout()}
+                    className="text-white ml-5"
+                  >
+                    Salir (Test)
+                  </button>
+                </div>
                 :
                 <div>
                   <ButtonNav href={"login"} text={"iniciar sesión"} />

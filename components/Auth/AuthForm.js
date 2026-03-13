@@ -5,7 +5,7 @@ import { useState } from 'react';
 import ButtonInicio from '../buttons/ButtonInicio';
 
 
-const AuthForm = ({ input = [], help = [], title, onSubmit }) => {
+const AuthForm = ({ input = [], help = [], title, onSubmit, apiError }) => {
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +59,11 @@ const AuthForm = ({ input = [], help = [], title, onSubmit }) => {
             </span>
           </div>
         ))}
+        {apiError && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-2 py- rounded text-sm w-80">
+            {apiError}
+          </div>
+        )}
 
         {/* Help links */}
         {help.map((item) => (

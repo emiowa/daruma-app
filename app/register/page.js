@@ -8,8 +8,10 @@ import {
 } from "@/lib/validators";
 import { useRouter } from 'next/navigation';
 import { supabase } from "@/lib/supabase";
+import { useState } from 'react';
 
 function Registrarse() {
+  const [serverError, setServerError] = useState("");
 
   const input = [
     {
@@ -45,11 +47,14 @@ function Registrarse() {
       }
     });
     if (error) {
-      console.error("Error Code:", error.status);
-      console.error("Error Message:", error.message);
+      // エラーメッセージを日本語（またはスペイン語）に翻訳してセット
+      if (error.message.includes("already registered")) {
+        setServerError("Este correo ya está registrado.");
+      } else {
+        setServerError("Ocurrió un error. Inténtalo de nuevo.");
+      }
       return;
     }
-    console.log("Success! User ID:", data.user.id);
     router.push("/register-success");
   };
   return (
@@ -61,14 +66,16 @@ function Registrarse() {
             src="/images/daruma_logo_transparent.png"
             width={450}
             height={450}
-            className='absolute top-3'
+            className='absolute top-8'
           />
-          <div className='absolute  right-12 w-[380px] h-[480px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute  right-12 w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}
               title={"Registrarse"}
-              onSubmit={handleRegister} />
+              onSubmit={handleRegister}
+              apiError={serverError}
+            />
           </div>
         </div>
       </div>
