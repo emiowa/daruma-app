@@ -59,8 +59,8 @@ function Registrarse() {
   };
   return (
     <>
-      <div className='pt-32 pl-12 w-full h-full'>
-        <div className='relative '>
+      <div className='w-full h-full flex items-center justify-center min-h-[calc(100vh-100px)]'>
+        <div className='relative w-[640px] h-[550px]'>
           <img
             alt='daruma_icon'
             src="/images/daruma_logo_transparent.png"
@@ -68,7 +68,7 @@ function Registrarse() {
             height={450}
             className='absolute top-8'
           />
-          <div className='absolute  right-12 w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute  right-4  w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}
