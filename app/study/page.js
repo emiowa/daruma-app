@@ -1,5 +1,5 @@
+"use client";
 
-import Head from 'next/head';
 import { IoEyeOutline, IoBookOutline } from "react-icons/io5";
 import { VscFlame } from "react-icons/vsc";
 import ButtonAudioFunFactData from '@/components/buttons/ButtonAudioFunFactData';
@@ -23,12 +23,6 @@ function Study() {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="" type="image/svg+xml" />
-        <title >study</title>
-        <meta name='description' content='私たちはグラン戸田住人' />
-      </Head>
       <div className='w-full md:w-[720px] lg:w-[1000px]' >
         <div className='flex justify-center h-40 md:h-48 lg:h-64'>
           {/* --------------------------------------points-------------------------------------- */}
@@ -98,7 +92,7 @@ function Study() {
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
               {
                 CardData.slice(0, articleNum).map((item) => (
-                  <ArticleCards title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} checked={item.checked} page="main" />
+                  <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} leido={item.leido} page="main" />
                 ))
               }
             </div>
@@ -108,20 +102,20 @@ function Study() {
             <div className='flex items-center justify-between'>
               <p className='font-bold md:text-2xl lg:text-4xl lg:ml-3'>ごい</p>
               <div className='flex'>
-                <a href='/study/vocabulary/selectLevel' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulary</a>
+                <a href='/study/vocabulary/facil' className='underline md:text-[11px] text-[11px] lg:text-[14px]'>Ver mi vocabulario</a>
                 <FaArrowRight className='ml-1' />
               </div>
             </div>
             <div className='lg:mt-8'>
               {
                 Vocabulary.slice(0, vocabularyNum).map((item, index) => (
-                  <>
+                  <div key={item.id}>
                     <VocabularyRow palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {
                       index < vocabularyNum - 1 &&
                       <div className='w-full mt-1.5 h-[1px] md:h-[1px] bg-main-grey'></div>
                     }
-                  </>
+                  </div>
                 ))
               }
             </div>

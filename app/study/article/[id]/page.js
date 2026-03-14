@@ -1,28 +1,44 @@
+"use client";
 
-
-import Head from 'next/head';
-import { useRouter } from 'next/router';
 import ArticleData from "/data/cards.json"
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import { RubyText } from "@/lib/renderRuby"
 import ButtonSwichDisplay from '@/components/buttons/ButtonSwichDisplay';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import vocabData from '@/data/vocabulary.json'
 import ButtonPager from '@/components/buttons/ButtonPager';
+import { useParams } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function IndividualArticle() {
+  const params = useParams();
+  const id = params.id;
   const router = useRouter()
-  const { id } = router.query
 
   const [displayFurigana, setDisplayFrigana] = useState(false)
   const [isJapanese, setIsJapanese] = useState(true)
 
   const data = ArticleData.find(item => item.id === Number(id))
   const vocabAry = data.vocabulary
-  const vocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
+  const originalVocabList = vocabData.filter((vocab) => vocabAry.includes(vocab.id))
+  const [vocabList, setVocabList] = useState(originalVocabList)
 
+  //このvocablistのisAddedを変更すればいい
   const handleTraduccion = () => {
     setIsJapanese(prev => !prev)
+  }
+
+  const handleClickToggleVocabList = (id) => {
+    const newVocabList = vocabList.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          isAdded: !item.isAdded
+        }
+      }
+      return item
+    })
+    setVocabList(newVocabList)
   }
 
   const handleDisplayFurigana = () => {
@@ -32,14 +48,12 @@ function IndividualArticle() {
   if (!id) return <p>Loading...</p>;
   if (!data) return <p>記事が見つかりません</p>;
 
+  const goToTest = () => {
+    router.push(`/study/article/test/${id}`);
+  };
+
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="" type="image/svg+xml" />
-        <title >article_individual</title>
-        <meta name='description' content='記事' />
-      </Head>
       <div>
         <div className='w-full md:mt-20 text-main-grey font-bold md:text-3xl lg:text-7xl text-center'>{data.title}</div>
         <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between'>
@@ -72,8 +86,8 @@ function IndividualArticle() {
             <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
             <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
-          <ButtonPager>
-            <div className='flex'>
+          <ButtonPager onClick={goToTest}>
+            <div className='flex' >
               <div>Tomar el test</div>
               <div className='ml-3'>→</div>
             </div>
@@ -83,12 +97,12 @@ function IndividualArticle() {
           <div className='absolute top-4 left-4'>Vocabulary:</div>
           <div className='ml-16 flex flex-wrap [&>*:nth-child(-n+2)]:mt-0'>
             {vocabList.map((item) =>
-              <div className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
+              <div key={item.id} className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
                 <div className=''>
                   <div className=''>{item.palabra}</div>
                   <div className=''>{item.traduccion}</div>
                 </div>
-                <button className='w-[30px] h-[30px] rounded-full border border-black'>{item.isAdded ? "+" : "-"}</button>
+                <button className='w-[30px] h-[30px] rounded-full border border-black' onClick={() => handleClickToggleVocabList(item.id)}>{item.isAdded ? "-" : "+"}</button>
               </div>
             )}
           </div>

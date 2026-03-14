@@ -49,7 +49,7 @@
     "palabra": "dummy",
     "hiragana": "だみー",
     "traduccion": "dummy",
-    "audio": "/sounds/go2.mp4",
+    "audio": "/sounds/goi2.mp4",
     "isAdded": false,
     "level": "archivadas"
   },
@@ -58,7 +58,7 @@
     "palabra": "充実した",
     "hiragana": "じゅうじつ",
     "traduccion": "compliendo",
-    "audio": "/sounds/go2.mp4",
+    "audio": "/sounds/goi2.mp4",
     "isAdded": true,
     "level": "archivadas"
   },
@@ -67,7 +67,7 @@
     "palabra": "必須",
     "hiragana": "ひっす",
     "traduccion": "Requerido",
-    "audio": "/sounds/go2.mp4",
+    "audio": "/sounds/goi2.mp4",
     "isAdded": false,
     "level": "normal"
   },
@@ -76,7 +76,7 @@
     "palabra": "体験",
     "hiragana": "たいけん",
     "traduccion": "Experiencia",
-    "audio": "/sounds/go2.mp4",
+    "audio": "/sounds/goi2.mp4",
     "isAdded": false,
     "level": "dificil"
   },
@@ -85,7 +85,25 @@
     "palabra": "観光地",
     "hiragana": "かんこうち",
     "traduccion": "Lugar turistico",
-    "audio": "/sounds/go2.mp4",
+    "audio": "/sounds/goi2.mp4",
+    "isAdded": false,
+    "level": "dificil"
+  },
+  {
+    "id": 11,
+    "palabra": "机",
+    "hiragana": "つくえ",
+    "traduccion": "mesa",
+    "audio": "/sounds/goi2.mp4",
+    "isAdded": false,
+    "level": "dificil"
+  },
+  {
+    "id": 12,
+    "palabra": "椅子",
+    "hiragana": "いす",
+    "traduccion": "silla",
+    "audio": "/sounds/goi2.mp4",
     "isAdded": false,
     "level": "dificil"
   }
