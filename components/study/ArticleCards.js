@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { RubyText } from "@/lib/renderRuby"
 
 
-const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) => {
+const ArticleCards = ({ titleRuby, imageUrl, leido, id, label, star, page }) => {
 
   return (
     <>
@@ -22,7 +22,7 @@ const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) =
                 fill
                 className="object-cover"
               />
-              {checked &&
+              {leido &&
                 <FaRegCircleCheck className='absolute top-2 lg:w-4 lg:h-4 right-2 z-10 bg-[#82B590] rounded-full ' />
               }
             </div>
@@ -43,7 +43,7 @@ const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) =
               </div>
               <RubyText parts={titleRuby} className={'text-[11px] font-bold mt-2 lg:mt-5 lg:text-[14px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
-                <Link href={`/study/articles/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
+                <Link href={`/study/article/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
               </div>
             </div>
@@ -57,7 +57,7 @@ const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) =
                 fill
                 className="object-cover"
               />
-              {checked &&
+              {leido &&
                 <FaRegCircleCheck className='absolute top-2 lg:w-6 lg:h-6 right-2 z-10 bg-[#82B590] rounded-full ' />
               }
             </div>
@@ -78,7 +78,7 @@ const ArticleCards = ({ titleRuby, imageUrl, checked, id, label, star, page }) =
               </div>
               <RubyText parts={titleRuby} isFurigana className={'text-[11px] font-bold mt-2 lg:mt-6 lg:text-[16px]'} />
               <div className='absolute bottom-1 lg:bottom-1 right-2  text-sm flex '>
-                <Link href={`/study/articles/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
+                <Link href={`/study/article/${id}`} className='underline text-[9px] lg:text-[13px]'>Leer artículo</Link>
                 <FaArrowRight className='icons-m ml-1 text-[13px]' />
               </div>
             </div>

@@ -320,9 +320,9 @@
       "SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 SPANISH3 "
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "cultura",
+      "text": "Cultura",
       "bg": "bg-main-orange"
     },
     "star": 2,
@@ -331,6 +331,58 @@
       3,
       5,
       6
+    ],
+    "quiz": [
+      {
+        "question": "日本の交通手段で最も一般的なのは？",
+        "choices": [
+          "correct",
+          "電車",
+          "タクシー",
+          "自転車"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "PASMO や Suica は何のためのカード？",
+        "choices": [
+          "買い物",
+          "交通系IC",
+          "ゲーム",
+          "correct"
+        ],
+        "correct": 3
+      },
+      {
+        "question": "3問目ですね",
+        "choices": [
+          "はい",
+          "correct",
+          "そうかも",
+          "どうだろ"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "まあ４つ目かな？",
+        "choices": [
+          "買い物４４４４",
+          "交通系IC４４４４",
+          "correct",
+          "病院４４４４"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "まあ5つ目かな？",
+        "choices": [
+          "買い物5555",
+          "交通系IC5555",
+          "ゲーム5555",
+          "correct"
+        ],
+        "correct": 3
+      }
     ]
   },
   {
@@ -650,9 +702,9 @@
     ],
     "spanishText": "spanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanish",
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 2
@@ -974,9 +1026,9 @@
     ],
     "spanishText": "spanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanishspanish spanish spanish spanish spanish",
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1,
@@ -1027,7 +1079,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1062,9 +1114,9 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
@@ -1097,15 +1149,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 1,
+    "id": 121,
     "title": "広島の有名な島",
     "titleRuby": [
       [
@@ -1132,9 +1184,9 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "cultura",
+      "text": "Cultura",
       "bg": "bg-main-orange"
     },
     "star": 2,
@@ -1162,7 +1214,7 @@
     ]
   },
   {
-    "id": 2,
+    "id": 7,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1189,15 +1241,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 2
   },
   {
-    "id": 3,
+    "id": 8,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1220,15 +1272,15 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 4,
+    "id": 9,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1251,7 +1303,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1259,7 +1311,7 @@
     "star": 3
   },
   {
-    "id": 5,
+    "id": 10,
     "title": "広島の有名な島",
     "titleRuby": [
       [
@@ -1286,15 +1338,15 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 6,
+    "id": 11,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1321,15 +1373,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 1,
+    "id": 12,
     "title": "広島の有名な島",
     "titleRuby": [
       [
@@ -1356,15 +1408,15 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "cultura",
+      "text": "Cultura",
       "bg": "bg-main-orange"
     },
     "star": 2
   },
   {
-    "id": 2,
+    "id": 13,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1391,15 +1443,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 2
   },
   {
-    "id": 3,
+    "id": 14,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1422,15 +1474,15 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 4,
+    "id": 15,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1453,7 +1505,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1461,7 +1513,7 @@
     "star": 3
   },
   {
-    "id": 5,
+    "id": 16,
     "title": "広島の有名な島",
     "titleRuby": [
       [
@@ -1488,15 +1540,15 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 6,
+    "id": 17,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1523,15 +1575,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 6,
+    "id": 18,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1558,15 +1610,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 2,
+    "id": 233,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1593,15 +1645,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 2
   },
   {
-    "id": 3,
+    "id": 19,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1624,15 +1676,15 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 4,
+    "id": 20,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1655,7 +1707,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1663,7 +1715,7 @@
     "star": 3
   },
   {
-    "id": 5,
+    "id": 21,
     "title": "広島の有名な島",
     "titleRuby": [
       [
@@ -1690,15 +1742,15 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 6,
+    "id": 22,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1725,15 +1777,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 6,
+    "id": 23,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1760,15 +1812,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 6,
+    "id": 24,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1795,15 +1847,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "viaje",
+      "text": "Viaje",
       "bg": "bg-main-pink"
     },
     "star": 3
   },
   {
-    "id": 2,
+    "id": 25,
     "title": "日本の桜の木",
     "titleRuby": [
       [
@@ -1830,15 +1882,15 @@
       ]
     ],
     "imageUrl": "/images/sakura.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 2
   },
   {
-    "id": 3,
+    "id": 26,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1861,15 +1913,15 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
   },
   {
-    "id": 4,
+    "id": 27,
     "title": "納豆って知っていますか？",
     "titleRuby": [
       [
@@ -1892,7 +1944,7 @@
       ]
     ],
     "imageUrl": "/images/natto.png",
-    "checked": true,
+    "leido": true,
     "label": {
       "text": "idioma",
       "bg": "bg-main-lightBlue"
@@ -1900,7 +1952,7 @@
     "star": 3
   },
   {
-    "id": 5,
+    "id": 28,
     "title": "広島の有名な島",
     "titleRuby": [
       [
@@ -1927,9 +1979,9 @@
       ]
     ],
     "imageUrl": "/images/hiroshima.png",
-    "checked": false,
+    "leido": false,
     "label": {
-      "text": "comida",
+      "text": "Comida",
       "bg": "bg-main-yellow"
     },
     "star": 1
