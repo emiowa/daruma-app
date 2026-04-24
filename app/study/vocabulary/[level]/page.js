@@ -226,7 +226,7 @@ function Vocabulary() {
                       {isTransferPopup && isTransferPopup.id === item.id && <Popup currentItem={item} />}
                     </div>
                     <div
-                      className='flex justify-center items-center w-10 h-10 rounded-full border border-main-grey shadow-small cursor-pointer hover:bg-red-50 text-red-500'
+                      className={`flex justify-center items-center w-12 h-12 rounded-full border border-main-grey shadow-small cursor-pointer hover:bg-red-50 ${item.level === "archivadas" && "text-red-600"}`}
                       onClick={() => {
                         if (level === 'archivadas') {
                           // アーカイブの中なら、削除確認ポップアップを開く
