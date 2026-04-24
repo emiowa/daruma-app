@@ -5,7 +5,6 @@ import { FaArrowRight } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import Link from 'next/link';
-// 前に作った「文字列をパースする」RubyTextをインポート
 import RubyText from "@/components/RubyText";
 
 // title を受け取るように変更
@@ -19,7 +18,7 @@ const ArticleCards = ({ title, imageUrl, leido, id, label, star, page }) => {
           alt={title}
           fill
           className="object-cover"
-          sizes="md:w-[146px] lg:w-[195px]"
+          sizes="md:w-[146px] lg:w-[195px]っf"
         />
         {leido &&
           <FaRegCircleCheck className={`absolute top-2 ${isMain ? 'lg:w-4 lg:h-4' : 'lg:w-6 lg:h-6'} right-2 z-10 bg-[#82B590] rounded-full `} />
