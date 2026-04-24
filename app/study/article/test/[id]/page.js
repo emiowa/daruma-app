@@ -139,11 +139,11 @@ function Test() {
               </div>
             </div>
             <div className='flex w-full mt-8 justify-center gap-4'>
-              <ButtonPager className="flex items-center" onClick={goToTest}>
+              <ButtonPager className="flex items-center bg-main-white" onClick={goToTest}>
                 <HiArrowPath className='mr-2' />
                 Volver a intentar
               </ButtonPager>
-              <ButtonPager className="flex items-center" onClick={goToArticle}>
+              <ButtonPager className="flex items-center bg-main-white" onClick={goToArticle}>
                 Finalizar <span className="ml-2">→</span>
               </ButtonPager>
             </div>
@@ -178,7 +178,7 @@ function Test() {
             </div>
             <div className='flex w-full mt-10 justify-end'>
               <ButtonPager
-                className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-main-blue text-white"}`}
+                className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-main-white"}`}
                 onClick={handleClickNext}
               >
                 Siguiente <span className="ml-4">→</span>

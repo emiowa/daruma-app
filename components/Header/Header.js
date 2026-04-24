@@ -67,7 +67,7 @@ const Header = () => {
           <div className='w-full md:w-[750px] lg:w-[980px] h-16 md:h-16 lg:h-24 flex justify-between items-center p-3'>
             <div>
               <ButtonNav href={"home"} text={"inicio"} className="bg-main-yellow ml-0" />
-              <ButtonNav href={"study"} text={"Vamos a estudiar japonés"} className="ml-5" />
+              <ButtonNav href={"study"} text={"Estudiar"} className="ml-5" />
             </div>
             <div>
               {user ?

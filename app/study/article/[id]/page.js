@@ -217,7 +217,7 @@ function IndividualArticle() {
               defaultText={"Sacar furigana"}
             />
           </div>
-          <ButtonPager onClick={goToTest}>
+          <ButtonPager onClick={goToTest} className="bg-main-white">
             <div className='flex items-center' >
               <div>Tomar el test</div>
               <div className='ml-3'>→</div>

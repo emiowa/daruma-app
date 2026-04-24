@@ -95,7 +95,7 @@ export default function FlashCardPage() {
     return (
       <div className="mt-16 text-center">
         <p className="mb-8">No hay vocabulario en este nivel.</p>
-        <ButtonPager onClick={handleBackToVocabulary}>Regresar</ButtonPager>
+        <ButtonPager className="bg-main-white" onClick={handleBackToVocabulary}>Regresar</ButtonPager>
       </div>
     );
   }
@@ -158,7 +158,7 @@ export default function FlashCardPage() {
         </div>
       </div>
 
-      <ButtonPager className="flex mt-8 w-36" onClick={handleBackToVocabulary}>
+      <ButtonPager className="flex mt-8 w-36 bg-main-white" onClick={handleBackToVocabulary}>
         <div className='text-center mr-2'>←</div>
         <div>Regresar</div>
       </ButtonPager>
