@@ -79,6 +79,7 @@ function Vocabulary() {
   const filteredVocabList = allVocabs.filter(item => item.level === level);
   const idPage = levels.find(obj => obj.level === level) || levels[0];
   const ref = useRef(null);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -115,10 +116,27 @@ function Vocabulary() {
       .eq('user_id', user.id)
       .eq('vocabulary_id', vId);
   };
+  const handleClickDelete = async (vId) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // フロントエンドの表示を即座に消す
+    const updatedList = allVocabs.filter(item => item.id !== vId);
+    setAllVocabs(updatedList);
+    cachedVocabs = updatedList;
+    setItemToDelete(null); // ポップアップを閉じる
+
+    // Supabaseから物理削除
+    await supabase
+      .from('user_vocabulary_progress')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('vocabulary_id', vId);
+  };
 
   const Popup = ({ currentItem }) => {
     return (
-      <div className='w-[330px] h-14 px-5 absolute flex justify-between items-center bg-main-background border border-black -right-8 top-0 rounded-lg z-50' ref={ref}>
+      <div className='w-[250px] h-24 px-5 absolute flex justify-between items-center bg-main-background border border-black -right-16 -top-6 rounded-lg z-50' ref={ref}>
         {levels
           .filter(l =>
             l.level !== level &&
@@ -127,7 +145,7 @@ function Vocabulary() {
           .map((l) => (
             <div
               key={l.level}
-              className={`w-[85px] h-10 rounded-lg border flex justify-center items-center border-black cursor-pointer text-xs ${l.color}`}
+              className={`w-14 h-14 rounded-full border flex justify-center items-center border-black cursor-pointer text-xs ${l.color}`}
               onClick={() => handleClickLevelChange(currentItem.id, l.level)}
             >
               {l.level}
@@ -164,6 +182,18 @@ function Vocabulary() {
 
       {/* メインエリア */}
       <div className={`${idPage.color} z-1 w-[570px] md:w-[720px] relative lg:w-[1000px] content md:pt-14 lg:pt-20 md:pb-10 md:px-4 lg:px-6 shadow-large min-h-[500px] rounded-b-lg`}>
+        {/* archivadasリストの時だけ表示する注意書き */}
+        {level === 'archivadas' && (
+          <div className="absolute top-16 left-10 text-main-grey text-s italic bg-white/50 px-3 py-1 rounded-full border border-black/10">
+            Las palabras en esta lista se eliminarán automáticamente después de 2 semanas.
+          </div>
+        )}
+
+        <button className='absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm hover:bg-gray-100' onClick={goToFlashCard}>
+          Flash Card →
+        </button>
+
+        <div className='flex flex-col items-center mt-4'></div>
         <button className='absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm hover:bg-gray-100' onClick={goToFlashCard}>
           Flash Card →
         </button>
@@ -186,7 +216,6 @@ function Vocabulary() {
 
                   <div className='flex w-40 justify-between items-center'>
                     <ButtonAudioPlay audio={item.audio_url} className={"w-12 h-12"} />
-
                     <div className='relative'>
                       <div
                         className='flex justify-center items-center w-12 h-12 rounded-full border-main-grey border border-solid shadow-small cursor-pointer hover:bg-gray-100'
@@ -196,12 +225,19 @@ function Vocabulary() {
                       </div>
                       {isTransferPopup && isTransferPopup.id === item.id && <Popup currentItem={item} />}
                     </div>
-
                     <div
-                      className='flex justify-center items-center w-12 h-12 rounded-full border-main-grey border border-solid shadow-small cursor-pointer hover:bg-red-50 text-red-500'
-                      onClick={() => handleClickLevelChange(item.id, 'archivadas')}
+                      className='flex justify-center items-center w-10 h-10 rounded-full border border-main-grey shadow-small cursor-pointer hover:bg-red-50 text-red-500'
+                      onClick={() => {
+                        if (level === 'archivadas') {
+                          // アーカイブの中なら、削除確認ポップアップを開く
+                          setItemToDelete(item);
+                        } else {
+                          // それ以外ならアーカイブへ移動（これは今まで通り）
+                          handleClickLevelChange(item.id, 'archivadas');
+                        }
+                      }}
                     >
-                      <FaTrashCan size={18} />
+                      <FaTrashCan size={16} />
                     </div>
                   </div>
                 </div>
@@ -213,6 +249,32 @@ function Vocabulary() {
           )}
         </div>
       </div>
+      {itemToDelete && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100] animate-in fade-in duration-200">
+          <div className="bg-white p-8 rounded-2xl shadow-2xl border border-black max-w-sm w-full mx-4">
+            <h3 className="text-xl font-bold mb-2 text-center text-red-600">
+              ¿Eliminar permanentemente?
+            </h3>
+            <p className="text-gray-600 text-sm mb-6 text-center leading-relaxed">
+              Se eliminará <strong>「{itemToDelete.palabra}」</strong> de tu lista. Esta acción no se puede deshacer.
+            </p>
+            <div className="flex space-x-3">
+              <button
+                className="flex-1 py-3 border border-black rounded-xl font-bold hover:bg-gray-100 transition-colors"
+                onClick={() => setItemToDelete(null)}
+              >
+                Cancelar
+              </button>
+              <button
+                className="flex-1 py-3 bg-red-500 text-white border border-black rounded-xl font-bold hover:bg-red-600 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-none transition-all"
+                onClick={() => handleClickDelete(itemToDelete.id)}
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
