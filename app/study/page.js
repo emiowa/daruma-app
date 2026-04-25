@@ -19,11 +19,29 @@ function Study() {
   const handleToggleLanguage = () => setIsJapanese(prev => !prev);
 
   const [articles, setArticles] = useState([]);
+  const [trivia, setTrivia] = useState()
   const [vocabList, setVocabList] = useState([]); // 語彙用のステートを追加
 
   useEffect(() => {
     const fetchData = async () => {
-      // 1. 記事データの取得（最新順に6件）
+
+      // 1. 豆知識データの取得
+      const { data, error } = await supabase
+        .from('trivia')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single(); // ★ これを追加すると、配列[0]ではなくオブジェクト{...}で直接返ってきます
+
+      if (error) {
+        // データが1件もない場合も single() はエラーを返すので注意
+        console.error('Error fetching trivia:', error.message);
+      } else {
+        // 配列ではなく単一のオブジェクトとしてセット（ステートの初期値をnullにしておく）
+        setTrivia(data);
+      }
+
+      // 2. 記事データの取得（最新順に6件）
       const { data: articlesData, error: articlesError } = await supabase
         .from('articles')
         .select('*')
@@ -36,7 +54,7 @@ function Study() {
         setArticles(articlesData || []);
       }
 
-      // 2. 語彙データの取得（最新順に5件）
+      // 3. 語彙データの取得（最新順に5件）
       const { data: vocabsData, error: vocabsError } = await supabase
         .from('vocabularies')
         .select('*')
@@ -86,17 +104,24 @@ function Study() {
             <img src="/images/sushi.png" alt="sushi" className='absolute top-0 right-0 w-42 md:w-52 lg:w-72' />
             <div className='w-[290px] md:w-[250px] lg:w-[340px]'>
               <p className='text-xl font-bold md:text-2xl lg:text-4xl'>{isJapanese ? "まめちしき" : "Curiosidades"}</p>
-              <div className='text-[10px] lg:text-[14px]'>
-                <p className='mt-5 md:mt-4 lg:mt-6'>{isJapanese ? "知っていましたか..." : "¿Sabías que...?"}</p>
-                <p className='mt-5 md:mt-4 lg:mt-6 leading-relaxed'>
-                  {isJapanese
-                    ? "女性の手は男性よりも熱く、魚の鮮度を損なう可能性があると言われているため、日本では寿司を握る女性の職人がほとんどいません。"
-                    : "Hay muy pocas chefs de sushi en Japón porque se dice que las manos de las mujeres están más calientes que las de los hombres."
-                  }
-                </p>
+              {/* key を変えることで、切り替わった瞬間に Tailwind のアニメーションを「最初から」再生させます */}
+              <div
+                key={isJapanese ? "jp" : "es"}
+                className="fade-text"
+              >
+                <div className='text-[10px] lg:text-[14px]'>
+                  <p className='mt-5 md:mt-4 lg:mt-6'>{isJapanese ? "知っていましたか..." : "¿Sabías que...?"}</p>
+                  <p className='mt-5 md:mt-4 lg:mt-6 leading-relaxed'>
+                    {isJapanese
+                      ? (trivia?.japanese || "読み込み中...")
+                      : (trivia?.spanish || "Cargando...")
+                    }
+                  </p>
+                </div>
               </div>
+
               <div className='flex text-[11px] absolute bottom-5 lg:text-[14px]'>
-                <ButtonAudioVocabulary handleToggleLanguage={handleToggleLanguage} />
+                <ButtonAudioVocabulary handleToggleLanguage={handleToggleLanguage} jp={isJapanese} />
                 <ButtonAudioFunFactData audio={"/sounds/goi.mp4"} />
               </div>
             </div>
