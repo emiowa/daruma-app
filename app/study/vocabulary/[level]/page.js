@@ -18,38 +18,46 @@ function Vocabulary() {
   const [allVocabs, setAllVocabs] = useState(cachedVocabs || []);
   const [isTransferPopup, setIsTransferPopup] = useState(null);
   const [loading, setLoading] = useState(cachedVocabs === null);
+  // ★ ユーザーのログイン状態を保持するステート
+  const [user, setUser] = useState(null);
 
   const levels = [
     { "level": "anadidas", "color": "bg-main-purple" },
     { "level": "facil", "color": "bg-main-yellow" },
     { "level": "normal", "color": "bg-main-orange" },
     { "level": "dificil", "color": "bg-main-lightBlue" },
-    { "level": "archivadas", "color": "bg-gray-400" } // 右端に寄せるアーカイブ
+    { "level": "archivadas", "color": "bg-gray-400" }
   ];
 
   useEffect(() => {
     const initializeData = async () => {
+      // ユーザー情報の取得を最初に行う
+      const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+
+      if (authError || !authUser) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
+      setUser(authUser);
+
+      // キャッシュがある場合は再取得しない
       if (cachedVocabs !== null) {
         setLoading(false);
         return;
       }
 
       setLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        setLoading(false);
-        return;
-      }
+      const now = new Date().toISOString();
 
-      const now = new Date().toISOString(); // ★ 今の時刻を取得
-
-      // 1. 2週間以上経過したアーカイブの掃除（既存処理）
+      // 1. 2週間以上経過したアーカイブの掃除
       const fourteenDaysAgo = new Date();
       fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
       await supabase
         .from('user_vocabulary_progress')
         .delete()
-        .eq('user_id', user.id)
+        .eq('user_id', authUser.id)
         .eq('level', 'archivadas')
         .lt('updated_at', fourteenDaysAgo.toISOString());
 
@@ -67,8 +75,8 @@ function Vocabulary() {
             published_at
           )
         `)
-        .eq('user_id', user.id)
-        .lte('vocabularies.published_at', now); // ★ 公開済みの単語のみに限定
+        .eq('user_id', authUser.id)
+        .lte('vocabularies.published_at', now);
 
       if (!error && data) {
         const formattedList = data.map(item => ({
@@ -110,7 +118,6 @@ function Vocabulary() {
   };
 
   const handleClickLevelChange = async (vId, targetLevel) => {
-    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
     const updatedList = allVocabs.map(item =>
@@ -126,17 +133,15 @@ function Vocabulary() {
       .eq('user_id', user.id)
       .eq('vocabulary_id', vId);
   };
+
   const handleClickDelete = async (vId) => {
-    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    // フロントエンドの表示を即座に消す
     const updatedList = allVocabs.filter(item => item.id !== vId);
     setAllVocabs(updatedList);
     cachedVocabs = updatedList;
-    setItemToDelete(null); // ポップアップを閉じる
+    setItemToDelete(null);
 
-    // Supabaseから物理削除
     await supabase
       .from('user_vocabulary_progress')
       .delete()
@@ -192,25 +197,43 @@ function Vocabulary() {
 
       {/* メインエリア */}
       <div className={`${idPage.color} z-1 w-[570px] md:w-[720px] relative lg:w-[1000px] content md:pt-14 lg:pt-20 md:pb-10 md:px-4 lg:px-6 shadow-large min-h-[500px] rounded-b-lg`}>
-        {/* archivadasリストの時だけ表示する注意書き */}
-        {level === 'archivadas' && (
-          <div className="absolute top-16 left-10 text-main-grey text-s italic bg-white/50 px-3 py-1 rounded-full border border-black/10">
-            Las palabras en esta lista se eliminarán automáticamente después de 2 semanas.
+
+        {loading ? (
+          // 1. ローディング表示
+          <div className="flex flex-col items-center mt-20">
+            <div className="animate-spin h-8 w-8 border-4 border-main-grey border-t-transparent rounded-full mb-4"></div>
+            <p className="text-main-grey italic">Cargando vocabulario...</p>
           </div>
-        )}
-
-        <button className='absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm hover:bg-gray-100' onClick={goToFlashCard}>
-          Flash Card →
-        </button>
-
-        <div className='flex flex-col items-center mt-14'>
-          {loading && allVocabs.length === 0 ? (
-            <div className="flex flex-col items-center mt-20">
-              <div className="animate-spin h-8 w-8 border-4 border-main-grey border-t-transparent rounded-full mb-4"></div>
-              <p className="text-main-grey italic">Cargando vocabulario...</p>
+        ) : !user ? (
+          // 2. 未ログイン時の表示
+          <div className="flex flex-col items-center justify-center mt-20 px-10 text-center">
+            <div className="bg-white/30 p-8 rounded-2xl border border-black/10 backdrop-blur-sm">
+              <h2 className="text-2xl font-bold mb-4 text-main-grey">¡Bienvenido!</h2>
+              <p className="text-main-grey mb-8 leading-relaxed">
+                Inicia sesión para guardar palabras en tu lista personal y hacer un seguimiento de tu progreso.
+              </p>
+              <Link
+                href="/auth/login"
+                className="inline-block bg-main-white border border-black px-10 py-3 rounded-full shadow-small hover:bg-gray-100 active:translate-y-0.5 active:shadow-none transition-all font-bold"
+              >
+                Iniciar sesión
+              </Link>
             </div>
-          ) : (
-            <>
+          </div>
+        ) : (
+          // 3. ログイン済みの表示
+          <>
+            {level === 'archivadas' && (
+              <div className="absolute top-16 left-10 text-main-grey text-s italic bg-white/50 px-3 py-1 rounded-full border border-black/10">
+                Las palabras en esta lista se eliminarán automáticamente después de 2 semanas.
+              </div>
+            )}
+
+            <button className='absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm hover:bg-gray-100' onClick={goToFlashCard}>
+              Flash Card →
+            </button>
+
+            <div className='flex flex-col items-center mt-14'>
               {filteredVocabList.map((item) => (
                 <div key={item.id} className='flex items-center w-full max-w-[800px] bg-main-white py-4 px-10 border-b border-main-grey justify-between mb-1 shadow-sm'>
                   <div className='flex flex-col w-44'>
@@ -234,10 +257,8 @@ function Vocabulary() {
                       className={`flex justify-center items-center w-12 h-12 rounded-full border border-main-grey shadow-small cursor-pointer hover:bg-red-50 ${item.level === "archivadas" && "text-red-600"}`}
                       onClick={() => {
                         if (level === 'archivadas') {
-                          // アーカイブの中なら、削除確認ポップアップを開く
                           setItemToDelete(item);
                         } else {
-                          // それ以外ならアーカイブへ移動（これは今まで通り）
                           handleClickLevelChange(item.id, 'archivadas');
                         }
                       }}
@@ -250,10 +271,12 @@ function Vocabulary() {
               {filteredVocabList.length === 0 && (
                 <p className="mt-20 text-gray-500 italic">No hay palabras en este nivel.</p>
               )}
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
+
+      {/* 削除確認ポップアップ */}
       {itemToDelete && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100] animate-in fade-in duration-200">
           <div className="bg-white p-8 rounded-2xl shadow-2xl border border-black max-w-sm w-full mx-4">
