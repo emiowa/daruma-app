@@ -167,8 +167,8 @@ function IndividualArticle() {
         {/* ラベルと難易度 */}
         <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between items-center'>
           <div className='flex items-center' >
-            <div>Tema</div>
-            <div className={`${article.label_bg} md:text-[15px] lg:text-[12px] md:px-3 lg:px-3 md:ml-5 rounded text-white`}>
+            <div>Tema:</div>
+            <div className={`${article.label_bg} md:text-[15px] lg:text-[12px] md:px-3 lg:px-3  text-white`}>
               {article.label_text}
             </div>
           </div>
