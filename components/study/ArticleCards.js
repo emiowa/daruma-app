@@ -8,13 +8,14 @@ import Link from 'next/link';
 import RubyText from "@/components/RubyText";
 
 // title を受け取るように変更
-const ArticleCards = ({ title, imageUrl, leido, id, label, star, page }) => {
+const ArticleCards = ({ title, leido, id, label, star, page }) => {
+  const ARTICLE_IMAGE_BASE = "https://algrpsbdswhjpeityrai.supabase.co/storage/v1/object/public/articles"
 
   const CardContent = ({ isMain }) => (
     <div className={`${isMain ? 'w-[170px] md:w-[146px] lg:w-[195px] h-[200px] md:h-[185px] lg:h-[260px]' : 'w-[170px] md:w-[160px] lg:w-[222px] h-[200px] md:h-[206px] lg:h-[285px]'} rounded lg:rounded-lg mb-4 bg-main-white shadow-small text-main-grey overflow-hidden`}>
       <div className={`relative w-full ${isMain ? 'h-[90px] md:h-[90px] lg:h-[120px]' : 'h-[90px] md:h-[100px] lg:h-[135px]'} overflow-hidden`}>
         <Image
-          src={imageUrl || "/images/placeholder.png"} // 画像がない時のフォールバック
+          src={`${ARTICLE_IMAGE_BASE}/article_${id}/main.png` || "/images/placeholder.png"} // 画像がない時のフォールバック
           alt={title}
           fill
           className="object-cover"

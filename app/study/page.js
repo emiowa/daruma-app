@@ -72,6 +72,7 @@ function Study() {
     fetchData();
   }, []);
 
+
   return (
     <>
       <div className='w-full md:w-[720px] lg:w-[1000px]'>
@@ -102,7 +103,7 @@ function Study() {
 
           {/* まめちしきセクション */}
           <div className='content shadow-large bg-main-white w-[450px] md:w-[510px] lg:w-[680px] ml-3 pt-3 lg:pt-5 pl-5 lg:pl-7 relative overflow-hidden'>
-            <img src="/images/sushi.png" alt="sushi" className='absolute top-0 right-0 w-42 md:w-52 lg:w-72' />
+            <img src={trivia?.image} alt="sushi" className='absolute top-0 right-0 w-42 md:w-52 lg:w-72' />
             <div className='w-[290px] md:w-[250px] lg:w-[340px]'>
               <p className='text-xl font-bold md:text-2xl lg:text-4xl'>{isJapanese ? "まめちしき" : "Curiosidades"}</p>
               {/* key を変えることで、切り替わった瞬間に Tailwind のアニメーションを「最初から」再生させます */}
@@ -123,7 +124,7 @@ function Study() {
 
               <div className='flex text-[11px] absolute bottom-5 lg:text-[14px]'>
                 <ButtonAudioVocabulary handleToggleLanguage={handleToggleLanguage} jp={isJapanese} />
-                <ButtonAudioFunFactData audio={"/sounds/goi.mp4"} />
+                <ButtonAudioFunFactData audio={trivia?.audio} />
               </div>
             </div>
           </div>

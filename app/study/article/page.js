@@ -144,7 +144,6 @@ function Articles() {
             title={item.title}
             // label オブジェクトを Supabase のカラムから作成して渡す
             label={{ text: item.label_text, bg: item.label_bg }}
-            imageUrl={item.image_url}
             star={item.star}
             leido={false} // 一旦 false
           />
