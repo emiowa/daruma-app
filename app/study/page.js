@@ -24,28 +24,28 @@ function Study() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const now = new Date().toISOString(); // 今の時刻
 
       // 1. 豆知識データの取得
-      const { data, error } = await supabase
+      const { data: triviaData, error: triviaError } = await supabase
         .from('trivia')
         .select('*')
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single(); // ★ これを追加すると、配列[0]ではなくオブジェクト{...}で直接返ってきます
+        .lte('published_at', now) // 公開日が今より前
+        .order('published_at', { ascending: false }) // 作成順ではなく公開順に変更
+        .limit(1); // .single()の代わりに.limit(1)
 
-      if (error) {
-        // データが1件もない場合も single() はエラーを返すので注意
-        console.error('Error fetching trivia:', error.message);
-      } else {
-        // 配列ではなく単一のオブジェクトとしてセット（ステートの初期値をnullにしておく）
-        setTrivia(data);
+      if (triviaError) {
+        console.error('Error fetching trivia:', triviaError.message);
+      } else if (triviaData && triviaData.length > 0) {
+        setTrivia(triviaData[0]); // 配列の1番目をセット
       }
 
-      // 2. 記事データの取得（最新順に6件）
+      // 2. 記事データの取得
       const { data: articlesData, error: articlesError } = await supabase
         .from('articles')
         .select('*')
-        .order('created_at', { ascending: false })
+        .lte('published_at', now) // 公開日が今より前
+        .order('published_at', { ascending: false }) // 公開順
         .limit(articleDisplayLimit);
 
       if (articlesError) {
@@ -54,11 +54,12 @@ function Study() {
         setArticles(articlesData || []);
       }
 
-      // 3. 語彙データの取得（最新順に5件）
+      // 3. 語彙データの取得
       const { data: vocabsData, error: vocabsError } = await supabase
         .from('vocabularies')
         .select('*')
-        .order('created_at', { ascending: false })
+        .lte('published_at', now) // 公開日が今より前
+        .order('published_at', { ascending: false }) // 公開順
         .limit(vocabularyDisplayLimit);
 
       if (vocabsError) {

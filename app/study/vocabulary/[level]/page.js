@@ -29,8 +29,6 @@ function Vocabulary() {
 
   useEffect(() => {
     const initializeData = async () => {
-      // ★ ここが重要！すでにキャッシュ（データ）があるなら、
-      // データの再取得（上書き）を絶対にさせない。
       if (cachedVocabs !== null) {
         setLoading(false);
         return;
@@ -43,7 +41,9 @@ function Vocabulary() {
         return;
       }
 
-      // 掃除処理（初回のみ）
+      const now = new Date().toISOString(); // ★ 今の時刻を取得
+
+      // 1. 2週間以上経過したアーカイブの掃除（既存処理）
       const fourteenDaysAgo = new Date();
       fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14);
       await supabase
@@ -53,14 +53,22 @@ function Vocabulary() {
         .eq('level', 'archivadas')
         .lt('updated_at', fourteenDaysAgo.toISOString());
 
-      // 全データ取得
+      // 2. 公開済みの単語のみ、ユーザーの進捗を取得
       const { data, error } = await supabase
         .from('user_vocabulary_progress')
         .select(`
           level,
-          vocabularies!inner (id, palabra, hiragana, traduccion, audio_url)
+          vocabularies!inner (
+            id,
+            palabra,
+            hiragana,
+            traduccion,
+            audio_url,
+            published_at
+          )
         `)
-        .eq('user_id', user.id);
+        .eq('user_id', user.id)
+        .lte('vocabularies.published_at', now); // ★ 公開済みの単語のみに限定
 
       if (!error && data) {
         const formattedList = data.map(item => ({
@@ -69,12 +77,14 @@ function Vocabulary() {
         }));
         setAllVocabs(formattedList);
         cachedVocabs = formattedList;
+      } else if (error) {
+        console.error("Error fetching vocabs:", error.message);
       }
       setLoading(false);
     };
 
     initializeData();
-  }, []); // 依存配列は空のまま
+  }, []);
 
   const filteredVocabList = allVocabs.filter(item => item.level === level);
   const idPage = levels.find(obj => obj.level === level) || levels[0];
@@ -193,12 +203,7 @@ function Vocabulary() {
           Flash Card →
         </button>
 
-        <div className='flex flex-col items-center mt-4'></div>
-        <button className='absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm hover:bg-gray-100' onClick={goToFlashCard}>
-          Flash Card →
-        </button>
-
-        <div className='flex flex-col items-center mt-10'>
+        <div className='flex flex-col items-center mt-14'>
           {loading && allVocabs.length === 0 ? (
             <div className="flex flex-col items-center mt-20">
               <div className="animate-spin h-8 w-8 border-4 border-main-grey border-t-transparent rounded-full mb-4"></div>

@@ -18,13 +18,16 @@ function Articles() {
   // 1. 最初に全データを取得
   useEffect(() => {
     const fetchAll = async () => {
+      const now = new Date().toISOString(); // 今この瞬間の時刻
+
       const { data, error } = await supabase
         .from('articles')
         .select('*')
-        .order('created_at', { ascending: false });
+        .lte('published_at', now) // ★ 未来の記事は出さない
+        .order('published_at', { ascending: false }); // ★ 公開順に並べる
 
       if (error) {
-        console.error(error);
+        console.error("Error fetching articles:", error.message);
       } else {
         setAllArticles(data || []);
         setCurrentCardsList(data || []);
