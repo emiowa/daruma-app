@@ -6,7 +6,7 @@ const SeeEveryArticleLink = () => {
   return (
     <>
       <a href='/study/article' className='flex text-main-grey text-sm'>
-        <div className='underline text-[11px] lg:text-[14px]'>Ver todos los artícules</div>
+        <div className='underline text-[11px] lg:text-[14px]'>Ver todos los artículos</div>
         <FaArrowRight className='icons-m ml-4' />
       </a>
     </>

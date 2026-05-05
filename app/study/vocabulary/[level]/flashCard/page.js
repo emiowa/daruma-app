@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from 'react'; // useEffectを追加
+import { useState, useEffect } from 'react'; // useEffectを追加
 import { IoSwapVerticalSharp } from "react-icons/io5";
 import { useParams, useRouter } from 'next/navigation';
 import ButtonPager from "@/components/buttons/ButtonPager";
