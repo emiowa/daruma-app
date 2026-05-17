@@ -22,7 +22,10 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl font-bold">Manage Articles</h2>
+        <h2 className="text-2xl font-bold flex">Manage Articles</h2>
+        <Link href="/admin/animation" className="bg-blue-600 text-white px-4 py-2 rounded">
+          + onomatopea
+        </Link>
         <Link href="/admin/post" className="bg-blue-600 text-white px-4 py-2 rounded">
           + New Article
         </Link>

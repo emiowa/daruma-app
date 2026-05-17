@@ -82,6 +82,9 @@ function Study() {
             <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
               <p className='text-4xl md:text-4xl lg:text-5xl'>200</p>
               <p className='text-xm md:text-xm ml-1 md:ml-1'>ポイント</p>
+              <a href="/study/animation">
+                animation
+              </a>
             </div>
             <div className='bg-main-white w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
               <div className='flex'>
