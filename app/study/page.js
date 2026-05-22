@@ -160,8 +160,12 @@ function Study() {
           <div className='bg-main-white w-[240px] md:w-[240px] lg:w-[300px] h-[400px] md:h-[400px] lg:h-[550px] ml-3 content px-3 py-5 shadow-large overflow-hidden'>
             <div className='flex items-center justify-between'>
               <p className='font-bold md:text-2xl lg:text-4xl lg:ml-3'>ごい</p>
-              <div className='flex items-center'>
-                <a href='/study/vocabulary/facil' className='underline text-[11px] lg:text-[14px]'>Ver lista</a>
+              <div className='flex items-center'><a
+                href='/study/vocabulary/facil'
+                className='inline-flex items-center text-main-grey text-base md:text-lg font-bold underline hover-float py-1 px-3 rounded-md'
+              >
+                Ver lista
+              </a>
                 <FaArrowRight className='ml-1 text-xs' />
               </div>
             </div>

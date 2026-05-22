@@ -15,3 +15,9 @@
 .fade-text {
   animation: fadeIn 0.3s ease-in-out;
 }
+
+@layer utilities {
+  .hover-float {
+    @apply transition-all duration-300 ease-out hover:-translate-y-0.5;
+  }
+}

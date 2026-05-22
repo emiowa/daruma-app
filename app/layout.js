@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import "../styles/styles.css";
 import Layout from '@/components/Layout';
+import { AuthProvider } from './context/AuthContext'; // パスは環境に合わせて調整してください
 
 export const metadata = {
   title: {
@@ -18,13 +19,18 @@ export const viewport = {
   initialScale: 1.0,
 };
 
+// ⭕️ 2つに分裂していた RootLayout を1つの正解の形にまとめました！
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>
-        <Layout>
-          {children}
-        </Layout>
+        {/* 💡 アプリ全体をAuthProviderで包みます。
+            これでヘッダーも単語リストも、ログイン情報をずっと持たせ続けられます */}
+        <AuthProvider>
+          <Layout>
+            {children}
+          </Layout>
+        </AuthProvider>
       </body>
     </html>
   );

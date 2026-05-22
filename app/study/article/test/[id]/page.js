@@ -139,11 +139,12 @@ function Test() {
               </div>
             </div>
             <div className='flex w-full mt-8 justify-center gap-4'>
-              <ButtonPager className="flex items-center bg-main-white" onClick={goToTest}>
+              {/* 💡 ついでにここにも hover-float を追加しておくと一貫性が出ます！ */}
+              <ButtonPager className="flex items-center bg-main-white hover-float" onClick={goToTest}>
                 <HiArrowPath className='mr-2' />
                 Volver a intentar
               </ButtonPager>
-              <ButtonPager className="flex items-center bg-main-white" onClick={goToArticle}>
+              <ButtonPager className="flex items-center bg-main-white hover-float" onClick={goToArticle}>
                 Finalizar <span className="ml-2">→</span>
               </ButtonPager>
             </div>
@@ -153,32 +154,39 @@ function Test() {
           <div className='flex flex-col items-center w-full'>
             <div className="text-[22px] font-bold mt-4 text-center">{currentQuiz.question}</div>
             <div className='grid grid-cols-2 w-full gap-4 mt-8'>
-              {currentQuiz.choices.map((item, index) => (
-                <ButtonPager
-                  key={index}
-                  className={
-                    `w-full h-14 ` +
-                    (
-                      !isLocked
-                        ? "bg-main-white"
-                        : index === currentQuiz.correct
-                          ? "bg-green-300 border-green-500"
-                          : index === selectedIndex
-                            ? "bg-red-400 border-red-600"
-                            : "bg-gray-200 text-gray-500 opacity-50"
-                    )
-                  }
-                  onClick={() => handleClickAnswer(index)}
-                >
-                  <div className="h-full flex justify-center items-center">
-                    <div className='text-center font-bold'>{item}</div>
-                  </div>
-                </ButtonPager>
-              ))}
+              {currentQuiz.choices.map((item, index) => {
+                // 1. ロック状態に応じた色決め
+                const statusClass = !isLocked
+                  ? "bg-main-white text-main-grey"
+                  : index === currentQuiz.correct
+                    ? "bg-green-300 border-green-500 text-black"
+                    : index === selectedIndex
+                      ? "bg-red-400 border-red-600 text-white"
+                      : "bg-gray-200 text-gray-400 opacity-50 cursor-not-allowed";
+
+                // ⭕️ 2. 修正：globals.css に登録した「hover-float」をここでスマートに呼び出す！
+                // まだ回答していない（!isLocked）ときだけ影（shadow-md）と一緒に出現させます
+                const hoverAnimationClass = !isLocked
+                  ? "hover-float shadow-md"
+                  : "transition-all duration-300";
+
+                return (
+                  <ButtonPager
+                    key={index}
+                    className={`w-full h-14 ${statusClass} ${hoverAnimationClass}`}
+                    onClick={() => handleClickAnswer(index)}
+                  >
+                    <div className="h-full flex justify-center items-center">
+                      <div className='text-center font-bold'>{item}</div>
+                    </div>
+                  </ButtonPager>
+                );
+              })}
             </div>
             <div className='flex w-full mt-10 justify-end'>
+              {/* 💡 次へボタンも、回答が終わってロックが解除された（isLocked）ときだけ浮き上がるようにすると親切です */}
               <ButtonPager
-                className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-main-white"}`}
+                className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-not-allowed cursor-default" : "bg-main-white hover-float shadow-md"}`}
                 onClick={handleClickNext}
               >
                 Siguiente <span className="ml-4">→</span>

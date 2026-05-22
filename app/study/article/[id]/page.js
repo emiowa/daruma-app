@@ -7,24 +7,35 @@ import { useEffect, useState } from 'react';
 import ButtonPager from '@/components/buttons/ButtonPager';
 import { useParams, useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+// ⭕️ 追加：共通の認証状態（Context）を呼び出す
+import { useAuth } from '@/app/context/AuthContext';
 
 function IndividualArticle() {
   const params = useParams();
   const id = params.id;
   const router = useRouter();
 
+  // ⭕️ 修正：アプリ共通の認証情報を最上部で常にキャッチする
+  const { user, authLoading } = useAuth();
+
   const [displayFurigana, setDisplayFrigana] = useState(true);
   const [isJapanese, setIsJapanese] = useState(true);
 
   const [article, setArticle] = useState(null);
-  const [vocabList, setVocabList] = useState([]); // 語彙リスト用ステート
+  const [vocabList, setVocabList] = useState([]);
+
+  // 💡 認証自体のチェックは authLoading に任せるため、こちらは純粋に記事データ取得のローディングとして扱います
   const [loading, setLoading] = useState(true);
+
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+  // 現在通信中の単語のIDを保持する（null の時は何も処理していない状態）
+  const [processingId, setProcessingId] = useState(null);
 
   useEffect(() => {
     const fetchFullArticleData = async () => {
-      if (!id) return;
+      if (!id || authLoading) return; // ⭕️ 認証状態のロードがまだ終わっていない場合は処理を待つ
 
-      // 1. 記事データを取得
       const { data: articleData, error: articleError } = await supabase
         .from('articles')
         .select('*')
@@ -38,126 +49,141 @@ function IndividualArticle() {
       }
       setArticle(articleData);
 
-      // 2. 記事に紐づく語彙IDがある場合、語彙データを取得
       if (articleData.vocabulary_ids && articleData.vocabulary_ids.length > 0) {
         const { data: vocabData, error: vocabError } = await supabase
           .from('vocabularies')
           .select('*')
           .in('id', articleData.vocabulary_ids);
-        console.log("vocabdata", vocabData)
+
         if (vocabError) {
           console.error('Error fetching vocabularies:', vocabError);
         } else if (vocabData) {
-          const { data: { user } } = await supabase.auth.getUser();
-
           let savedIds = [];
+
+          // ⭕️ 修正：自前の supabase.auth.getUser() の下りは完全削除！Contextから引き抜いた user を安全に使います
           if (user) {
-            // ログイン中なら、中間テーブル(user_vocabulary_progress)から自分が保存したID一覧を取る
             const { data: progressData } = await supabase
               .from('user_vocabulary_progress')
               .select('vocabulary_id')
               .eq('user_id', user.id);
             savedIds = progressData?.map(p => p.vocabulary_id) || [];
           }
+
           const initializedVocab = vocabData.map(v => {
-            const isAdded = savedIds.includes(v.id);
-            console.log(`単語ID ${v.id} の判定結果:`, isAdded); // 各単語の判定ログ
             return {
               ...v,
-              isAdded: isAdded
+              isAdded: savedIds.includes(v.id)
             };
           });
-          setVocabList(initializedVocab)
+          setVocabList(initializedVocab);
         }
       }
       setLoading(false);
     };
 
     fetchFullArticleData();
-  }, [id]);
+    // ⭕️ 修正：認証状態（user, authLoading）が確定したタイミングでも正しく走るように依存配列を設定
+  }, [id, user, authLoading]);
 
-  // 単語帳への追加・削除ボタンのトグル処理（フロントエンドのみ）
-  // IndividualArticle.js 内の関数を修正
+  const showToastMessage = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast(prev => ({ ...prev, show: false }));
+    }, 2500);
+  };
 
-  const handleClickToggleVocabList = async (vocabId, isAdded) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    console.log(vocabList)
+  const handleClickToggleVocabList = async (vocabId, isAdded, palabra) => {
+    // 連打防止：今すでに別の処理中なら何もしない
+    if (processingId !== null) return;
+
+    // ⭕️ 修正：Contextから常に確定したユーザー情報を見に行く
     if (!user) {
       alert("Por favor, inicia sesión para guardar vocabulario.");
       return;
     }
 
-    if (!isAdded) {
-      // -------------------------------------------------------
-      // 「＋」を押した時：user_vocabulary_progress に追加
-      // -------------------------------------------------------
-      const { error } = await supabase
-        .from('user_vocabulary_progress')
-        .insert([{
-          user_id: user.id,
-          vocabulary_id: vocabId,
-          level: 'anadidas'
-        }]);
+    // 操作開始：この単語のIDを処理中としてセット
+    setProcessingId(vocabId);
 
-      if (error) {
-        console.error("【追加失敗】理由:", error.message, error.details);
+    try {
+      if (!isAdded) {
+        const { error } = await supabase
+          .from('user_vocabulary_progress')
+          .insert([{
+            user_id: user.id,
+            vocabulary_id: vocabId,
+            level: 'anadidas'
+          }]);
+
+        if (error) {
+          console.error("【追加失敗】理由:", error.message);
+          setProcessingId(null); // 失敗時は即解除
+        } else {
+          showToastMessage(`🌟 "${palabra}" ha sido guardado.`);
+          setProcessingId(null);
+        }
       } else {
-        console.log("【追加成功】DBに書き込みました！");
-      }
-    } else {
-      // -------------------------------------------------------
-      // 「ー」を押した時：テーブルから削除
-      // -------------------------------------------------------
-      console.log("削除ボタンが押されました。対象vocabId:", vocabId);
+        const { error } = await supabase
+          .from('user_vocabulary_progress')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('vocabulary_id', Number(vocabId));
 
-      // 1. まず、今DBに保存されている「自分のデータ」を全部持ってくる
-      const { data: currentData } = await supabase
-        .from('user_vocabulary_progress')
-        .select('*')
-        .eq('user_id', user.id);
-
-      console.log("DBに今保存されているリスト:", currentData);
-
-      // 2. その中に、今回消そうとしている vocabId があるかチェック
-      const exists = currentData?.find(item => item.vocabulary_id === Number(vocabId));
-
-      if (!exists) {
-        console.error("致命的：DBの中に、一致する vocabulary_id が見つかりません！");
-        console.log("探している数字:", vocabId);
-        console.log("DBにある数字たち:", currentData?.map(d => d.vocabulary_id));
+        if (error) {
+          console.error("【削除失敗】理由:", error.message);
+          setProcessingId(null); // 失敗時は即解除
+        } else {
+          showToastMessage(`🗑️ "${palabra}" ha sido eliminado.`, 'error');
+          setProcessingId(null);
+        }
       }
 
-      // 3. 削除実行
-      const { data, error } = await supabase
-        .from('user_vocabulary_progress')
-        .delete()
-        .eq('user_id', user.id)
-        .eq('vocabulary_id', Number(vocabId))
-        .select();
+      setVocabList(prev => prev.map(v =>
+        v.id === vocabId ? { ...v, isAdded: !v.isAdded } : v
+      ));
 
-      console.log("削除結果:", data);
+    } catch (e) {
+      console.error(e);
+      setProcessingId(null);
     }
-
-    // フロントエンドの表示（＋/ー）も連動させる
-    setVocabList(prev => prev.map(v =>
-      v.id === vocabId ? { ...v, isAdded: !v.isAdded } : v
-    ));
   };
 
-  const handleTraduccion = () => setIsJapanese(prev => !prev);
+  const handleTraduccion = () => {
+    if (processingId !== null) return;
+    setIsJapanese(prev => !prev);
+  };
+
   const handleDisplayFurigana = () => {
+    if (processingId !== null) return;
     if (isJapanese) setDisplayFrigana(prev => !prev);
   };
 
-  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  // ⭕️ 修正：認証状態、または記事データのロードが終わるまではしっかりスピナーで固定
+  if (authLoading || loading) return <p className="text-center mt-20">Loading...</p>;
   if (!article) return <p className="text-center mt-20">記事が見つかりません</p>;
 
   const goToTest = () => {
+    if (processingId !== null) return;
     router.push(`/study/article/test/${id}`);
   };
 
   return (
     <>
+      {/* 画面チカっと防止。完全透明なガードレイヤー */}
+      {processingId !== null && (
+        <div className="fixed inset-0 z-[100] cursor-not-allowed bg-transparent" />
+      )}
+
+      {/* 画面上部に浮かび上がるトースト通知 */}
+      <div
+        className={`fixed top-5 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out px-6 py-3 rounded-full shadow-lg font-bold text-sm text-white flex items-center gap-2
+          ${toast.show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}
+          ${toast.type === 'success' ? 'bg-[#52c41a]' : 'bg-[#ff4d4f]'}
+        `}
+      >
+        {toast.message}
+      </div>
+
       <div className="flex flex-col items-center pb-20">
         {/* タイトル */}
         <div className='w-full md:mt-20 text-main-grey font-bold md:text-3xl lg:text-7xl text-center'>
@@ -168,7 +194,7 @@ function IndividualArticle() {
         <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between items-center'>
           <div className='flex items-center' >
             <div>Tema:</div>
-            <div className={`${article.label_bg} md:text-[15px] lg:text-[12px] md:px-3 lg:px-3  text-white`}>
+            <div className={`${article.label_bg} md:text-[16px] rounded-md ml-3 lg:text-[12px] md:px-3 lg:px-3  text-white`}>
               {article.label_text}
             </div>
           </div>
@@ -217,7 +243,7 @@ function IndividualArticle() {
               defaultText={"Sacar furigana"}
             />
           </div>
-          <ButtonPager onClick={goToTest} className="bg-main-white">
+          <ButtonPager onClick={goToTest} className="bg-main-white hover-float">
             <div className='flex items-center' >
               <div>Tomar el test</div>
               <div className='ml-3'>→</div>
@@ -230,20 +256,39 @@ function IndividualArticle() {
           <div className='absolute top-4 left-4 font-bold'>Vocabulary:</div>
           <div className='ml-16 flex flex-wrap gap-5 mt-5'>
             {vocabList.length > 0 ? (
-              vocabList.map((item) => (
-                <div key={item.id} className={`w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] transition-colors ${item.isAdded ? "bg-main-purple text-white" : "bg-main-white"}`}>
-                  <div className=''>
-                    <div className='font-bold'>{item.palabra}</div>
-                    <div className='text-sm italic'>{item.traduccion}</div>
-                  </div>
-                  <button
-                    className={`w-[30px] h-[30px] rounded-full border border-black flex items-center justify-center font-bold`}
-                    onClick={() => handleClickToggleVocabList(item.id, item.isAdded)}
+              vocabList.map((item) => {
+                // いま処理されているのが「自分（この単語）」かどうかを判定
+                const isCurrentProcessing = processingId === item.id;
+
+                return (
+                  <div
+                    key={item.id}
+                    /* 自分が処理中の場合はグレーになり、ホバーで浮かなくする（hover-floatを無効化） */
+                    className={`w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] transition-all duration-200
+                      ${isCurrentProcessing
+                        ? "bg-gray-300 text-gray-500 opacity-60 scale-95 pointer-events-none shadow-none"
+                        : item.isAdded
+                          ? "bg-main-purple text-white hover-float"
+                          : "bg-main-white text-main-grey hover-float"
+                      }
+                    `}
                   >
-                    {item.isAdded ? "-" : "+"}
-                  </button>
-                </div>
-              ))
+                    <div className=''>
+                      <div className='font-bold'>{item.palabra}</div>
+                      <div className='text-sm italic'>{item.traduccion}</div>
+                    </div>
+                    <button
+                      /* 処理中ならボタンの文字を一時的に「⌛」や「...」に変えて視覚的に伝える */
+                      className={`w-[50px] h-[50px] rounded-full border border-black flex items-center justify-center font-bold text-lg
+                        ${isCurrentProcessing ? "border-gray-400 bg-gray-200 text-gray-400" : ""}
+                      `}
+                      onClick={() => handleClickToggleVocabList(item.id, item.isAdded, item.palabra)}
+                    >
+                      {isCurrentProcessing ? "⌛" : item.isAdded ? "-" : "+"}
+                    </button>
+                  </div>
+                );
+              })
             ) : (
               <p className="mt-4 text-gray-500">No hay vocabulario registrado.</p>
             )}
