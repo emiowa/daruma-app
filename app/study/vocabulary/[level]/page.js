@@ -26,7 +26,7 @@ function Vocabulary() {
   // 認証自体のチェックは authLoading に任せるため、こちらは純粋にデータ取得のローディングとして扱います
   const [loading, setLoading] = useState(cachedVocabs === null);
 
-  // ⭕️ 追加：現在通信処理中（レベル変更や削除）の単語のIDを保持する（nullの時は何も処理していない）
+  // 現在通信処理中（レベル変更や削除）の単語のIDを保持する（nullの時は何も処理していない）
   const [processingId, setProcessingId] = useState(null);
 
   const levels = [
@@ -39,14 +39,11 @@ function Vocabulary() {
 
   useEffect(() => {
     const initializeData = async () => {
-      // ⭕️ 認証状態のロードがまだ終わっていない、または未ログインならデータを取りに行かない
       if (authLoading) return;
       if (!user) {
         setLoading(false);
         return;
       }
-
-      // キャッシュがある場合は再取得しない
       if (cachedVocabs !== null) {
         setLoading(false);
         return;
@@ -101,7 +98,6 @@ function Vocabulary() {
     };
 
     initializeData();
-    // 認証状態（user, authLoading）が確定したタイミングで発火するように依存配列を設定
   }, [user, authLoading]);
 
   const filteredVocabList = allVocabs.filter(item => item.level === level);
@@ -120,19 +116,17 @@ function Vocabulary() {
   }, []);
 
   const goToFlashCard = () => {
-    if (processingId !== null) return; // 処理中は無効化
+    if (processingId !== null) return;
     router.push(`/study/vocabulary/${level}/flashCard`);
   };
 
   const handleClicktransfer = (item) => {
-    if (processingId !== null) return; // 処理中は無効化
+    if (processingId !== null) return;
     setIsTransferPopup(item);
   };
 
   const handleClickLevelChange = async (vId, targetLevel) => {
     if (!user || processingId !== null) return;
-
-    // ⭕️ 操作開始：この単語IDを処理中にセット
     setProcessingId(vId);
 
     const updatedList = allVocabs.map(item =>
@@ -151,14 +145,12 @@ function Vocabulary() {
     } catch (err) {
       console.error(err);
     } finally {
-      // ⭕️ 操作終了：処理中を解除
       setProcessingId(null);
     }
   };
 
   const handleClickDelete = async (vId) => {
     if (!user) return;
-    // ポップアップ経由の完全削除なので、ここではprocessingIdのセットは不要（モーダルが閉じるため）
     const updatedList = allVocabs.filter(item => item.id !== vId);
     setAllVocabs(updatedList);
     cachedVocabs = updatedList;
@@ -171,21 +163,22 @@ function Vocabulary() {
       .eq('vocabulary_id', vId);
   };
 
+  // ⭕️ ポップアップのデザイン改良（ふわっと出現するアニメーションを追加）
   const Popup = ({ currentItem }) => {
     return (
-      <div className='w-[250px] h-24 px-5 absolute flex justify-between items-center bg-main-background border border-black -right-16 -top-6 rounded-lg z-50' ref={ref}>
+      <div
+        className='w-[240px] h-20 px-4 absolute flex justify-between items-center bg-main-background border border-black -right-4 -top-24 rounded-xl z-50 shadow-large animate-in fade-in zoom-in-95 duration-150'
+        ref={ref}
+      >
         {levels
-          .filter(l =>
-            l.level !== level &&
-            l.level !== "archivadas"
-          )
+          .filter(l => l.level !== level && l.level !== "archivadas")
           .map((l) => (
             <div
               key={l.level}
-              className={`w-14 h-14 rounded-full border flex justify-center items-center border-black cursor-pointer text-xs ${l.color}`}
+              className={`w-11 h-11 rounded-full border flex justify-center items-center border-black cursor-pointer text-[10px] font-bold shadow-small uppercase tracking-wider transition-all duration-150 active:scale-95 hover:brightness-105 ${l.color}`}
               onClick={() => handleClickLevelChange(currentItem.id, l.level)}
             >
-              {l.level}
+              {l.level.substring(0, 3)} {/* 💡 文字数がはみ出ないように3文字にトリミング */}
             </div>
           ))
         }
@@ -194,27 +187,27 @@ function Vocabulary() {
   };
 
   return (
-    <div className='relative'>
-      {/* ⭕️ 変更：処理中のチカっと防止用。完全透明なガードレイヤー */}
+    /* ⭕️ 横幅を1000px最大にコントロールするコンテナに変更 */
+    <div className='relative w-full max-w-[1000px] mx-auto'>
       {processingId !== null && (
         <div className="fixed inset-0 z-[100] cursor-not-allowed bg-transparent" />
       )}
 
-      <div className='w-full text-main-grey font-bold md:text-6xl lg:text-7xl space-y-3'>
+      <div className='w-full text-main-grey font-bold md:text-6xl lg:text-7xl space-y-3 pl-2'>
         <div>ご</div><div>い</div>
       </div>
 
       {/* タブメニュー */}
-      <div className='flex md:mt-10 items-end'>
+      <div className='flex md:mt-10 items-end px-2'>
         {levels.map((l, index) => (
           <Link
             key={l.level}
             href={`/study/vocabulary/${l.level}`}
             prefetch={true}
             className={`
-              ${l.color} border border-black -mb-1 relative z-0 flex justify-center items-center
-              ${index === levels.length - 1 ? "ml-auto w-16 h-10 rounded-t-lg" : "w-24 py-2 rounded-t ml-2"}
-              ${level === l.level ? "font-bold border-b-0 pb-3 h-12" : "opacity-70"}
+              ${l.color} border border-black -mb-1 relative z-0 flex justify-center items-center transition-all duration-200 rounded-t-lg
+              ${index === levels.length - 1 ? "ml-auto w-16 h-10" : "w-24 py-2 ml-1 md:ml-2"}
+              ${level === l.level ? "font-bold border-b-0 pb-3 h-12 z-10" : "opacity-70 hover:opacity-90 hover:pb-2"}
               ${processingId !== null ? "pointer-events-none" : ""} 
             `}
           >
@@ -223,20 +216,17 @@ function Vocabulary() {
         ))}
       </div>
 
-      {/* メインエリア */}
-      <div className={`${idPage.color} z-1 w-[570px] md:w-[720px] relative lg:w-[1000px] content md:pt-14 lg:pt-20 md:pb-10 md:px-4 lg:px-6 shadow-large min-h-[500px] rounded-b-lg`}>
+      {/* メインエリア：w-full max-w-[1000px] で他のページとラインを統一 */}
+      <div className={`${idPage.color} z-1 w-full relative content pt-14 md:pt-16 lg:pt-20 pb-10 px-4 md:px-8 lg:px-12 shadow-large min-h-[500px] rounded-b-xl border border-t-0 border-black`}>
 
-        {/* 認証情報の取得、またはデータの取得が終わるまではしっかりスピナーで固定 */}
         {authLoading || loading ? (
           <div className="flex flex-col items-center mt-20">
             <div className="animate-spin h-8 w-8 border-4 border-main-grey border-t-transparent rounded-full mb-4"></div>
             <p className="text-main-grey italic">Cargando vocabulario...</p>
           </div>
         ) : (
-          /* 💡 認証とデータの両方のロードが完了したあとの世界 */
           <>
             {!user ? (
-              // チェック完了後、ログインしていなければ案内を出す
               <div className="flex flex-col items-center justify-center mt-20 px-10 text-center">
                 <div className="bg-white/30 p-8 rounded-2xl border border-black/10 backdrop-blur-sm">
                   <h2 className="text-2xl font-bold mb-4 text-main-grey">¡Bienvenido!</h2>
@@ -252,58 +242,62 @@ function Vocabulary() {
                 </div>
               </div>
             ) : (
-              // チェック完了後、ログインが確認できたら即リストを表示
               <>
                 {level === 'archivadas' && (
-                  <div className="absolute top-16 left-10 text-main-grey text-s italic bg-white/50 px-3 py-1 rounded-full border border-black/10">
-                    Las palabras en esta lista se eliminarán automáticamente después de 2 semanas.
+                  <div className="absolute top-5 left-6 md:left-8 text-main-grey text-xs italic bg-white/60 px-4 py-1.5 rounded-full border border-black/10 shadow-sm">
+                    🗑️ Las palabras en esta lista se eliminarán automáticamente después de 2 semanas.
                   </div>
                 )}
 
                 {filteredVocabList && filteredVocabList.length > 0 && (
                   <button
-                    className="absolute bg-main-background w-32 h-8 top-4 right-16 shadow-small border border-black rounded text-sm hover:bg-gray-100 active:translate-y-0.5 transition-all"
+                    className="absolute bg-main-background w-32 h-8 top-4 right-6 md:right-8 shadow-small border border-black rounded-lg text-sm font-bold hover:bg-gray-100 active:translate-y-0.5 transition-all"
                     onClick={goToFlashCard}
                   >
                     Flash Card →
                   </button>
                 )}
-                <div className='flex flex-col items-center mt-14'>
+
+                <div className='flex flex-col items-center mt-10 gap-2 w-full'>
                   {filteredVocabList.map((item) => {
-                    // ⭕️ いま処理されているのが「自分（この単語カード）」かどうかを判定
                     const isCurrentProcessing = processingId === item.id;
 
                     return (
                       <div
                         key={item.id}
-                        /* ⭕️ 変更：自分が処理中の場合はグレーっぽく凹ませ、他ボタンの邪魔をさせない */
-                        className={`flex items-center w-full max-w-[800px] py-4 px-10 border-b border-main-grey justify-between mb-1 transition-all duration-200
+                        /* ⭕️ 変更：ホバーしたときにふわっと浮き上がるリッチな影エフェクトを追加 */
+                        className={`flex items-center w-full max-w-[850px] py-4 px-6 md:px-10 border border-black rounded-xl justify-between transition-all duration-200
                           ${isCurrentProcessing
-                            ? "bg-gray-200 text-gray-400 opacity-60 scale-[0.98] pointer-events-none shadow-none"
-                            : "bg-main-white shadow-sm"
+                            ? "bg-gray-200 text-gray-400 opacity-60 scale-[0.98] pointer-events-none shadow-none border-gray-300"
+                            : "bg-main-white shadow-small hover:shadow-medium hover:-translate-y-0.5"
                           }
                         `}
                       >
-                        <div className='flex flex-col w-44'>
-                          <p className='font-bold text-lg'>{item.palabra}</p>
-                          <p className='text-sm text-gray-600'>{item.hiragana}</p>
-                          <p className='text-sm italic'>{item.traduccion}</p>
+                        {/* 単語テキスト情報 */}
+                        <div className='flex flex-col flex-1 pr-4'>
+                          <p className='font-bold text-xl text-main-grey'>{item.palabra}</p>
+                          <p className='text-xs font-medium text-gray-500 mt-0.5'>{item.hiragana}</p>
+                          <p className='text-sm italic text-gray-700 mt-1 font-sans'>{item.traduccion}</p>
                         </div>
 
-                        <div className='flex w-40 justify-between items-center'>
-                          <ButtonAudioPlay audio={item.audio_url} className={"w-12 h-12"} />
+                        {/* アクションボタンコンテナ */}
+                        <div className='flex w-40 justify-between items-center flex-shrink-0'>
+                          <ButtonAudioPlay audio={item.audio_url} className="w-11 h-11 transition-transform active:scale-95 shadow-small rounded-full" />
+
+                          {/* 移動ポップアップ用ボタン */}
                           <div className='relative'>
-                            <div
-                              className={`flex justify-center items-center w-12 h-12 rounded-full border-main-grey border border-solid shadow-small cursor-pointer hover:bg-gray-100 ${isCurrentProcessing ? "text-gray-300 pointer-events-none" : ""}`}
+                            <button
+                              className={`flex justify-center items-center w-11 h-11 rounded-full bg-main-white border border-black shadow-small cursor-pointer transition-all duration-150 hover:bg-gray-50 active:scale-95 ${isCurrentProcessing ? "text-gray-300 pointer-events-none" : "text-main-grey"}`}
                               onClick={() => handleClicktransfer(item)}
                             >
-                              {/* ⭕️ 処理中ならアイコンを砂時計に変えてあげる */}
-                              {isCurrentProcessing ? "⌛" : <RiFileTransferLine size={20} />}
-                            </div>
+                              {isCurrentProcessing ? "⌛" : <RiFileTransferLine size={18} />}
+                            </button>
                             {isTransferPopup && isTransferPopup.id === item.id && <Popup currentItem={item} />}
                           </div>
-                          <div
-                            className={`flex justify-center items-center w-12 h-12 rounded-full border border-main-grey shadow-small cursor-pointer hover:bg-red-50 ${item.level === "archivadas" && "text-red-600"} ${isCurrentProcessing ? "text-gray-300 pointer-events-none" : ""}`}
+
+                          {/* 削除（アーカイブ）ボタン */}
+                          <button
+                            className={`flex justify-center items-center w-11 h-11 rounded-full bg-main-white border border-black shadow-small cursor-pointer transition-all duration-150 hover:bg-red-50 hover:text-red-600 hover:border-red-400 active:scale-95 ${item.level === "archivadas" ? "text-red-600 border-red-500 bg-red-50" : "text-main-grey"} ${isCurrentProcessing ? "text-gray-300 pointer-events-none" : ""}`}
                             onClick={() => {
                               if (level === 'archivadas') {
                                 setItemToDelete(item);
@@ -312,14 +306,16 @@ function Vocabulary() {
                               }
                             }}
                           >
-                            <FaTrashCan size={16} />
-                          </div>
+                            <FaTrashCan size={15} />
+                          </button>
                         </div>
                       </div>
                     );
                   })}
                   {filteredVocabList.length === 0 && (
-                    <p className="mt-20 text-gray-500 italic">No hay palabras en este level.</p>
+                    <div className="flex flex-col items-center justify-center mt-16 text-gray-500 bg-white/20 px-8 py-6 rounded-xl border border-dashed border-black/10">
+                      <p className="italic font-medium">No hay palabras en este nivel.</p>
+                    </div>
                   )}
                 </div>
               </>
@@ -336,7 +332,7 @@ function Vocabulary() {
               ¿Eliminar permanentemente?
             </h3>
             <p className="text-gray-600 text-sm mb-6 text-center leading-relaxed">
-              Se eliminará <strong>「{itemToDelete.palabra}」</strong> de tu lista. Esta acción no se puede deshacer.
+              Se eliminará <strong>「{itemToDelete.palabra}」</strong> de tu lista. Esta action no se puede deshacer.
             </p>
             <div className="flex space-x-3">
               <button

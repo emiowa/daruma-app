@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-// tailwind.config.js
 const colors = {
   main: {
     orange: '#F26749',
@@ -19,7 +18,21 @@ const colors = {
 }
 
 module.exports = {
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./app/**/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}", "./lib/*.js"],
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./lib/*.js"
+  ],
+  // ⭕️ 追加：Supabaseから動的に取得する可能性のある背景色をここに登録する
+  safelist: [
+    'bg-main-pink',
+    'bg-main-yellow',
+    'bg-main-orange',
+    'bg-main-blue',
+    'bg-main-purple',
+    'bg-main-mastard',
+    // 今後増えるかもしれない色もここに書いておけば絶対に消えなくなります！
+  ],
   theme: {
     extend: {
       colors: colors,
@@ -27,4 +40,3 @@ module.exports = {
   },
   plugins: [],
 }
-

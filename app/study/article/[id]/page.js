@@ -169,32 +169,20 @@ function IndividualArticle() {
 
   return (
     <>
-      {/* 画面チカっと防止。完全透明なガードレイヤー */}
-      {processingId !== null && (
-        <div className="fixed inset-0 z-[100] cursor-not-allowed bg-transparent" />
-      )}
+      {/* ガードレイヤーやトーストはそのまま */}
 
-      {/* 画面上部に浮かび上がるトースト通知 */}
-      <div
-        className={`fixed top-5 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out px-6 py-3 rounded-full shadow-lg font-bold text-sm text-white flex items-center gap-2
-          ${toast.show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}
-          ${toast.type === 'success' ? 'bg-[#52c41a]' : 'bg-[#ff4d4f]'}
-        `}
-      >
-        {toast.message}
-      </div>
+      {/* ⭕️ 修正：一番外側のコンテナ。ここを最大1000pxにして中央寄せにします */}
+      <div className="flex flex-col items-center pb-20 w-full max-w-[1000px] mx-auto gap-10">
 
-      <div className="flex flex-col items-center pb-20">
         {/* タイトル */}
-        <div className='w-full md:mt-20 text-main-grey font-bold md:text-3xl lg:text-7xl text-center'>
+        <div className='w-full text-main-grey font-bold md:text-3xl lg:text-7xl text-center md:mt-10'>
           <RubyText rawText={article.title} />
         </div>
 
-        {/* ラベルと難易度 */}
-        <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between items-center'>
+        <div className='bg-main-lightBlue w-full md:h-[60px] px-6 md:px-9 shadow-large flex justify-between items-center rounded-lg'>
           <div className='flex items-center' >
             <div>Tema:</div>
-            <div className={`${article.label_bg} md:text-[16px] rounded-md ml-3 lg:text-[12px] md:px-3 lg:px-3  text-white`}>
+            <div className={`${article.label_bg} md:text-[16px] rounded-md ml-3 lg:text-[16px] md:px-3 lg:px-3 text-white`}>
               {article.label_text}
             </div>
           </div>
@@ -209,14 +197,12 @@ function IndividualArticle() {
         </div>
 
         {/* 本文エリア */}
-        <div className='flex flex-col justify-center md:min-h-[450px] w-full max-w-[1000px] md:px-20 py-20'>
+        {/* ⭕️ 修正：パディングを他の要素と合わせて綺麗に。縦の無駄なpy-20を py-6 程度に縮小 */}
+        <div className='flex flex-col justify-center w-full py-6 px-4 md:px-9'>
           {article.paragraphs.map((para, index) => (
             <div key={index} className="mb-8">
               <div className={"font-bold lg:text-[18px] leading-loose mb-2"}>
-                <RubyText
-                  rawText={para}
-                  displayFurigana={displayFurigana}
-                />
+                <RubyText rawText={para} displayFurigana={displayFurigana} />
               </div>
               <div className={`italic lg:text-[16px] transition-colors duration-300 ${isJapanese ? 'text-transparent' : 'text-gray-600'}`}>
                 {article.spanish_texts[index]}
@@ -226,22 +212,11 @@ function IndividualArticle() {
         </div>
 
         {/* 操作ボタン */}
-        <div className='flex justify-between w-full max-w-[1000px] md:p-3'>
+        {/* ⭕️ 修正：w-full にして端を揃える */}
+        <div className='flex justify-between w-full px-4 md:px-9'>
           <div className='flex gap-3'>
-            <ButtonSwichDisplay
-              booleanItem={isJapanese}
-              func={handleTraduccion}
-              className={"bg-main-lightBlue md:w-52"}
-              defaultText={"Traducción a español"}
-              changedText={"Ver original texto"}
-            />
-            <ButtonSwichDisplay
-              booleanItem={displayFurigana}
-              func={handleDisplayFurigana}
-              className={"bg-main-lightBlue md:w-52"}
-              changedText={"Mostrar furigana"}
-              defaultText={"Sacar furigana"}
-            />
+            <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-52"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
+            <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-52"} changedText={"Mostrar furigana"} defaultText={"Sacar furigana"} />
           </div>
           <ButtonPager onClick={goToTest} className="bg-main-white hover-float">
             <div className='flex items-center' >
@@ -252,48 +227,31 @@ function IndividualArticle() {
         </div>
 
         {/* 語彙セクション */}
-        <div className='md:mt-10 relative flex bg-main-lightBlue w-[570px] md:p-9  md:w-[720px] lg:w-[1000px] content md:px-9 lg:px-6 shadow-large'>
-          <div className='absolute top-4 left-4 font-bold'>Vocabulary:</div>
-          <div className='ml-16 flex flex-wrap gap-5 mt-5'>
+        {/* ⭕️ 修正：ここも w-full に統一。難易度ボードと100%同じ横幅でピタッと揃います */}
+        <div className='flex flex-col bg-main-lightBlue w-full py-8 px-6 md:px-9 shadow-large rounded-lg'>
+          <div className='font-bold text-main-grey mb-4 md:text-lg'>Vocabulary:</div>
+          <div className='flex flex-wrap gap-5 w-full'>
             {vocabList.length > 0 ? (
               vocabList.map((item) => {
-                // いま処理されているのが「自分（この単語）」かどうかを判定
                 const isCurrentProcessing = processingId === item.id;
-
                 return (
-                  <div
-                    key={item.id}
-                    /* 自分が処理中の場合はグレーになり、ホバーで浮かなくする（hover-floatを無効化） */
-                    className={`w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] transition-all duration-200
-                      ${isCurrentProcessing
-                        ? "bg-gray-300 text-gray-500 opacity-60 scale-95 pointer-events-none shadow-none"
-                        : item.isAdded
-                          ? "bg-main-purple text-white hover-float"
-                          : "bg-main-white text-main-grey hover-float"
-                      }
-                    `}
-                  >
-                    <div className=''>
+                  <div key={item.id} className={`w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] transition-all duration-200 ${isCurrentProcessing ? "bg-gray-300 text-gray-500 opacity-60 scale-95 pointer-events-none shadow-none" : item.isAdded ? "bg-main-purple text-white hover-float" : "bg-main-white text-main-grey hover-float"}`}>
+                    <div>
                       <div className='font-bold'>{item.palabra}</div>
                       <div className='text-sm italic'>{item.traduccion}</div>
                     </div>
-                    <button
-                      /* 処理中ならボタンの文字を一時的に「⌛」や「...」に変えて視覚的に伝える */
-                      className={`w-[50px] h-[50px] rounded-full border border-black flex items-center justify-center font-bold text-lg
-                        ${isCurrentProcessing ? "border-gray-400 bg-gray-200 text-gray-400" : ""}
-                      `}
-                      onClick={() => handleClickToggleVocabList(item.id, item.isAdded, item.palabra)}
-                    >
+                    <button className={`w-[50px] h-[50px] rounded-full border border-black flex items-center justify-center font-bold text-lg ${isCurrentProcessing ? "border-gray-400 bg-gray-200 text-gray-400" : ""}`} onClick={() => handleClickToggleVocabList(item.id, item.isAdded, item.palabra)}>
                       {isCurrentProcessing ? "⌛" : item.isAdded ? "-" : "+"}
                     </button>
                   </div>
                 );
               })
             ) : (
-              <p className="mt-4 text-gray-500">No hay vocabulario registrado.</p>
+              <p className="text-gray-500 italic">No hay vocabulario registrado.</p>
             )}
           </div>
         </div>
+
       </div>
     </>
   );

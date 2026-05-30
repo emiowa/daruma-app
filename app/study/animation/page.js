@@ -324,32 +324,106 @@ export default function UserQuizPage() {
         })}
       </div>
 
-      {/* まだゲームクリアしていない（残りのボタンがある）ときだけ例文ボードを出す */}
-      {currentExample && buttons.length > 0 && (
-        <div style={{
-          marginTop: '15px',
-          padding: '15px 20px',
-          backgroundColor: '#e6f7ff',
-          border: '1px solid #91d5ff',
-          borderRadius: '8px',
-          animation: 'fadeIn 0.3s ease-out',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '4px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '18px' }}>🎉</span>
-            <strong style={{ color: '#0050b3', fontSize: '18px' }}>「{currentExample.word}」せいかい！</strong>
+      {/* ⭕️ 2. 選ぶオノマトペエリア（ここは変更なし、位置がガチッと固定されます） */}
+      <div style={{
+        minHeight: '102px',
+        marginTop: '15px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        {currentExample ? (
+          /* 正解データがある時は、中身をスッと表示 */
+          <div style={{
+            padding: '15px 20px',
+            backgroundColor: '#e6f7ff',
+            border: '1px solid #91d5ff',
+            borderRadius: '8px',
+            animation: 'fadeIn 0.3s ease-out',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4px',
+            width: '100%'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '18px' }}>🎉</span>
+              <strong style={{ color: '#0050b3', fontSize: '18px' }}>「{currentExample.word}」せいかい！</strong>
+            </div>
+            <p style={{ margin: '4px 0 0 0', color: '#002c8c', fontSize: '16px', fontWeight: '500', fontStyle: 'italic' }}>
+              使い方: {currentExample.example}
+            </p>
           </div>
-          <p style={{ margin: '4px 0 0 0', color: '#002c8c', fontSize: '16px', fontWeight: '500', fontStyle: 'italic' }}>
-            使い方: {currentExample.example}
-          </p>
-        </div>
-      )}
+        ) : (
+          /* 💡 修正：まだ1問も正解していない時に、指が青いボタンを画像まで運ぶアニメーションを表示 */
+          <div style={{
+            height: '102px',
+            padding: '15px 20px',
+            backgroundColor: '#e6f7ff',
+            border: '1px solid #91d5ff',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            overflow: 'visible' // ⭕️ 指が外にはみ出せるように
+          }}>
+            {/* ⭕️ カスタムアニメーション用のCSSをここに定義 */}
+            <style>{`
+              @keyframes putOnImage {
+                0% { transform: translate(0px, 12px) scale(1); opacity: 0; }
+                10% { opacity: 1; }
+                60% { transform: translate(100px, -40px) scale(0.85); opacity: 1; }
+                85% { transform: translate(100px, -40px) scale(0.85); opacity: 0.1; }
+                100% { transform: translate(100px, -40px) scale(0.85); opacity: 0; }
+              }
+            `}</style>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <strong style={{ color: '#0050b3', fontSize: '18px' }}>
+                下から選んでドラッグ&ドロップ！
+              </strong>
 
+              {/* ⭕️ アニメーションする「青ボタン」と「指」 */}
+              <div style={{ position: 'relative', width: '60px', height: '60px' }}>
+                <div style={{
+                  fontSize: '28px',
+                  display: 'inline-block',
+                  position: 'absolute',
+                  left: '15px',
+                  bottom: '15px',
+                  animation: 'putOnImage 3s infinite ease-out', // ⭕️ アニメーションを適用
+                  userSelect: 'none',
+                  zIndex: 20 // ⭕️ 画像の上に重なるように
+                }}>
+                  <span style={{ fontSize: '14px', position: 'absolute', left: '-30px', top: '-20px', backgroundColor: '#1890ff', color: 'white', padding: '5px 10px', borderRadius: '10px', whiteSpace: 'nowrap', fontWeight: 'bold' }}>オノマトペ</span>
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    style={{
+                      transform: 'rotate(-20deg)', // 少し傾けて本物のマウスっぽく
+                      filter: 'drop-shadow(0px 2px 3px rgba(0,0,0,0.3))' // 影をつけてくっきり
+                    }}
+                  >
+                    <path
+                      d="M4.5 3v15.5l4.5-4.5h7.5L4.5 3z"
+                      fill="#ffffff"      /* ⭕️ 中は真っ白 */
+                      stroke="#1a1a1a"    /* ⭕️ 枠はくっきり黒 */
+                      strokeWidth="2"     /* 枠の太さ */
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        )}
+      </div>
+
+      {/* ⭕️ 2. 選ぶオノマトペエリア（ここは変更なし、位置がガチッと固定されます） */}
       <div style={{ marginTop: '25px', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-        <h3>選ぶオノマトペ</h3>
         <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', marginTop: '10px', minHeight: '50px' }}>
+
+          {/* まだ残っているボタン（青色）をループ表示 */}
           {buttons.map((btn) => {
             const isActive = activeBtn?.id === btn.id;
             const translateX = isActive ? dragOffset.currentX - dragOffset.startX - dragOffset.x : 0;
@@ -360,14 +434,22 @@ export default function UserQuizPage() {
               </div>
             );
           })}
+
+          {/* 全問正解した瞬間（青ボタンが全部消えた時）に【追加する】テキストとボタン */}
           {buttons.length === 0 && (
-            <div style={{ width: '100%', textAlign: 'center' }}>
-              <p style={{ color: '#52c41a', fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>🎉 全問正解！すごーい！</p>
-              <button onClick={handleBackToList} style={{ backgroundColor: '#52c41a', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '4px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', marginTop: '5px' }}>
+            <div style={{ width: '100%', textAlign: 'center', marginTop: '10px' }}>
+              <p style={{ color: '#52c41a', fontWeight: 'bold', fontSize: '20px', margin: '10px 0' }}>
+                🎉 全問正解 🎉
+              </p>
+              <button
+                onClick={handleBackToList}
+                style={{ backgroundColor: '#52c41a', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '4px', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', marginTop: '5px' }}
+              >
                 ちがうクイズでもあそぶ ➔
               </button>
             </div>
           )}
+
         </div>
       </div>
     </div>
