@@ -27,7 +27,7 @@ function Login() {
       validate: validatePassword
     }
   ];
-  const help = [{ text: "¿Olvidaste tu contraseña?", link: "/" }, { text: "Soy un usuario nuevo", link: "/registrarse" }]
+  const help = [{ text: "¿Olvidaste tu contraseña?", link: "/forgot-password" }, { text: "Soy un usuario nuevo", link: "/register" }]
   const title = "Iniciarsession"
   const router = useRouter();
 
