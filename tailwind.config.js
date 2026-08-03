@@ -14,7 +14,18 @@ const colors = {
     yellow: "#E4B036",
     purple: "#D1B3D4",
     blue: "#6D92E2",
-    mastard: "#E2C16D"
+    mastard: "#E2C16D",
+
+    retroYellow: "#ffc567",
+    retroRed: "#dd4136",
+    retroGreen: "#00995e",
+    retroBlue: "#058cd7",
+    retroLightBlue: "#c5eaff",
+    retroPink: "#fb7da8",
+    retroPurple: "#552cb7",
+    retroBeige: "#f7f1ef",
+    retroWhite: "#fdfbf5",
+    retroBlack: "#0e0f12",
   },
 }
 
@@ -23,6 +34,9 @@ module.exports = {
   theme: {
     extend: {
       colors: colors,
+      fontFamily: {
+        pixel: ['var(--font-pixel)'],
+      },
     },
   },
   plugins: [],

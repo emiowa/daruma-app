@@ -23,15 +23,15 @@ function Study() {
 
   return (
     <>
-      <div className='w-full md:w-[720px] lg:w-[1000px]' >
+      <div className='w-full md:w-[720px] lg:w-[1000px] mt-40 mx-auto' >
         <div className='flex justify-center h-40 md:h-48 lg:h-64'>
           {/* --------------------------------------points-------------------------------------- */}
-          <div className='bg-main-orange md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>
+          <div className='bg-main-retroRed md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>
             <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
               <p className='text-4xl md:text-4xl lg:text-5xl'>200</p>
               <p className='text-xm md:text-xm ml-1 md:ml-1'>ポイント</p>
             </div>
-            <div className='bg-main-white w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
+            <div className='bg-main-retroWhite w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
               <div className='flex'>
                 <IoEyeOutline className='text-[15px] md:text-[15px] lg:text-[18px] lg:mt-[2px]' />
                 <p className='ml-1 text-[10px] md:text-[10px] lg:text-[14px] font-semibold'>Artículos leídos: 10</p>
@@ -49,7 +49,7 @@ function Study() {
             </div>
           </div>
           {/* --------------------------------------tips-------------------------------------- */}
-          <div className='content shadow-large  bg-main-white w-[450px] md:w-[510px] lg:w-[680px] ml-3 pt-3 lg:pt-5 pl-5 lg:pl-7 md:pl-4 relative overflow-hidden'>
+          <div className='content shadow-large  bg-main-retroWhite w-[450px] md:w-[510px] lg:w-[680px] ml-3 pt-3 lg:pt-5 pl-5 lg:pl-7 md:pl-4 relative overflow-hidden'>
             <img
               src="/images/sushi.png"
               alt="sushi"
@@ -84,9 +84,9 @@ function Study() {
         </div>
         <div className='flex w-full justify-center mt-8 lg:mt-20'>
           {/* --------------------------------------article-------------------------------------- */}
-          <div className='bg-main-lightBlue w-[570px] md:w-[570px] lg:w-[660px] h-[650px] md:h-[500px] lg:h-[750px] content p-4 lg:p-6 shadow-large'>
+          <div className='bg-main-retroYellow w-[570px] md:w-[570px] lg:w-[660px] h-[650px] md:h-[500px] lg:h-[750px] content p-4 lg:p-6 shadow-large'>
             <div className='flex justify-between items-center'>
-              <p className='text-main-grey font-bold md:text-2xl lg:text-4xl'>きじ</p>
+              <p className='text-main-retroBlack font-bold md:text-2xl lg:text-4xl'>きじ</p>
               <SeeEveryArticleLink />
             </div>
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
@@ -98,7 +98,7 @@ function Study() {
             </div>
           </div>
           {/* --------------------------------------vocabulary-------------------------------------- */}
-          <div className='bg-main-white w-[240px] md:w-[240px] lg:w-[300px] h-[400px] md:h-[400px] lg:h-[550px] ml-3 content px-3 py-5 shadow-large'>
+          <div className='bg-main-retroWhite w-[240px] md:w-[240px] lg:w-[300px] h-[400px] md:h-[400px] lg:h-[550px] ml-3 content px-3 py-5 shadow-large'>
             <div className='flex items-center justify-between'>
               <p className='font-bold md:text-2xl lg:text-4xl lg:ml-3'>ごい</p>
               <div className='flex'>
@@ -113,7 +113,7 @@ function Study() {
                     <VocabularyRow palabra={item.palabra} hiragana={item.hiragana} traduccion={item.traduccion} audio={item.audio} />
                     {
                       index < vocabularyNum - 1 &&
-                      <div className='w-full mt-1.5 h-[1px] md:h-[1px] bg-main-grey'></div>
+                      <div className='w-full mt-1.5 h-[1px] md:h-[1px] bg-main-retroBlack'></div>
                     }
                   </div>
                 ))

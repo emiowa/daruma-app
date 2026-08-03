@@ -27,8 +27,8 @@ function Login() {
       validate: validatePassword
     }
   ];
-  const help = [{ text: "¿Olvidaste tu contraseña?", link: "/" }, { text: "Soy un usuario nuevo", link: "/registrarse" }]
-  const title = "Iniciarsession"
+  const help = [{ text: "¿Olvidaste tu contraseña?", link: "/" }, { text: "Soy un usuario nuevo", link: "/register" }]
+  const title = "Iniciar sesión"
   const router = useRouter();
 
   const handleLogin = async (values) => {
@@ -59,8 +59,11 @@ function Login() {
             width={450}
             height={450}
             className='absolute top-8 right-4'
+            style={{ 
+              imageRendering: 'pixelated',  // Essential for sharp pixel art
+            }}
           />
-          <div className='absolute w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute w-[400px] h-[510px] border border-black bg-main-retroGreen rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}

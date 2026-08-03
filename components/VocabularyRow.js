@@ -13,7 +13,7 @@ const VocabularyRow = ({ palabra, hiragana, traduccion, audio }) => {
           <p>{hiragana}</p>
           <p>{traduccion}</p>
         </div>
-        <ButtonAudioPlay audio={audio} className={"w-8 h-8 text-xl text-main-background bg-main-orange"} />
+        <ButtonAudioPlay audio={audio} className={"w-8 h-8 text-xl text-main-background bg-main-retroRed"} />
       </div>
     </div>
   );

@@ -127,7 +127,7 @@ function Articles() {
                       key={i}
                       className={`mr-4 last:mr-0 border rounded-full border-black py-1 px-2
                         ${selectedList[item.id].list.includes(i)
-                          ? "bg-gray-600 text-white"
+                          ? "bg-gray-600 text-retroWhite"
                           : "bg-gray-100"
                         }`}
                       onClick={() => { handleClickFilterItem(item.id, i) }}
@@ -140,7 +140,7 @@ function Articles() {
             </div>
           )
         })}
-        <button className='absolute bottom-2 right-3 bg-main-nav py-1 px-3 text-white rounded-lg' onClick={() => handleClickClear()}>Borrar</button>
+        <button className='absolute bottom-2 right-3 bg-main-nav py-1 px-3 text-retroWhite rounded-lg' onClick={() => handleClickClear()}>Borrar</button>
       </div>
     )
   }
@@ -149,8 +149,8 @@ function Articles() {
 
     <>
       <>
-        <div className='md:mt-20 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large relative'>
-          <div className='text-main-grey font-bold md:text-6xl lg:text-7xl absolute md:-top-16 lg:-top-[75px] md:left-8 space-y-3'>
+        <div className='mt-60 bg-main-retroYellow w-[570px] md:w-[720px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large relative mx-auto'>
+          <div className='text-main-retroBlack font-bold md:text-6xl lg:text-7xl absolute md:-top-16 lg:-top-[75px] md:left-8 space-y-3'>
             <div>き</div>
             <div>じ</div>
           </div>

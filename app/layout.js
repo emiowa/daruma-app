@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import "../styles/styles.css";
 import Layout from '@/components/Layout';
+import localFont from 'next/font/local'
 
 export const metadata = {
   title: {
@@ -18,9 +19,14 @@ export const viewport = {
   initialScale: 1.0,
 };
 
+const pixelFont = localFont({
+  src: './fonts/Jersey25-Regular.ttf',
+  variable: '--font-pixel',
+})
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
+    <html lang="es" className={pixelFont.variable}>
       <body>
         <Layout>
           {children}

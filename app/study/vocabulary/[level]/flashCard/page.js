@@ -47,8 +47,8 @@ export default function FlashCardPage() {
       <p className='h-8'>{displayFurigana ? current.hiragana : ""}</p>
       <p className='text-[25px]'>{current.palabra}</p>
       <div className='flex justify-center mt-2'>
-        <ButtonAudioPlay audio={current.audio} className={"w-8 h-8 text-xl text-main-grey"} />
-        <button className='w-8 h-8 ml-3 rounded-full border-main-grey border border-solid relative shadow-small' onClick={showFurigana}>あ</button>
+        <ButtonAudioPlay audio={current.audio} className={"w-8 h-8 text-xl text-main-retroBlack"} />
+        <button className='w-8 h-8 ml-3 rounded-full border-main-retroBlack border border-solid relative shadow-small' onClick={showFurigana}>あ</button>
       </div>
     </div>
   )
@@ -60,7 +60,7 @@ export default function FlashCardPage() {
   )
 
   const CardButton = (
-    <button onClick={handleCardButton} className=' w-36 h-9 mt-8 bg-main-yellow shadow-small rounded border border-black'>{displayAnswer ? "Siguente pregunta" : "Ver la respuesta"}</button>
+    <button onClick={handleCardButton} className=' w-36 h-9 mt-8 bg-main-retroYellow shadow-small rounded border border-main-retroBlack'>{displayAnswer ? "Siguente pregunta" : "Ver la respuesta"}</button>
   )
 
   const changePosition = () => {
@@ -73,14 +73,14 @@ export default function FlashCardPage() {
 
   return (
     <div className="mt-16">
-      <div className={`bg-main-lightBlue z-10 w-[570px] md:w-[650px] relative lg:w-[1000px] content md:pt-14 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large`}>
+      <div className={`bg-main-retroLightBlue z-10 w-[570px] md:w-[650px] relative lg:w-[1000px] content md:pt-14 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large`}>
         <div className='md:my-3 lg:mt-12 flex flex-col items-center '>
-          <div key={current.id} className='flex flex-col text-center items-center w-[600px] rounded shadow-small bg-main-white py-5 px-7 border border-main-grey justify-between mx-2  lg:mx-4'>
+          <div key={current.id} className='flex flex-col text-center items-center w-[600px] rounded shadow-small bg-main-retroWhite py-5 px-7 border border-main-retroBlack justify-between mx-2  lg:mx-4'>
             {japaneseAbove ? Japanese : Spanish}
             <div className='w-[550px] flex justify-around items-center'>
-              <span className='w-56 h-[0.1px] bg-main-grey'></span>
+              <span className='w-56 h-[0.1px] bg-main-retroBlack'></span>
               <IoSwapVerticalSharp onClick={changePosition} />
-              <span className='w-56 h-[0.1px] bg-main-grey'></span>
+              <span className='w-56 h-[0.1px] bg-main-retroBlack'></span>
             </div>
             <div className={!displayAnswer ? "opacity-0" : ""}>
               {japaneseAbove ? Spanish : Japanese}

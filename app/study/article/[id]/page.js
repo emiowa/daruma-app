@@ -55,8 +55,8 @@ function IndividualArticle() {
   return (
     <>
       <div>
-        <div className='w-full md:mt-20 text-main-grey font-bold md:text-3xl lg:text-7xl text-center'>{data.title}</div>
-        <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between'>
+        <div className='w-full md:mt-20 text-main-retroBlack font-bold md:text-3xl lg:text-7xl text-center'>{data.title}</div>
+        <div className='md:mt-10 bg-main-retroLightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex justify-between'>
           <div className='flex justify-between items-center ' >
             <div>Tema</div>
             <div className={`${data.label.bg} md:text-[15px] lg:text-[12px] md:px-3 lg:px-3 md:ml-5 rounded`}>{data.label.text}</div>
@@ -83,8 +83,8 @@ function IndividualArticle() {
         </div>
         <div className='flex justify-between md:p-3'>
           <div className='flex'>
-            <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
-            <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
+            <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-retroLightBlue md:w-40"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
+            <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-retroLightBlue md:w-40 md:ml-3"} changedText={"Sacar furigana"} defaultText={"Mostrar furigana"} />
           </div>
           <ButtonPager onClick={goToTest}>
             <div className='flex' >
@@ -93,11 +93,11 @@ function IndividualArticle() {
             </div>
           </ButtonPager>
         </div>
-        <div className='md:mt-10 relative flex bg-main-lightBlue w-[570px] md:p-9  md:w-[720px] lg:w-[1000px] content md:px-9 lg:px-6 shadow-large'>
+        <div className='md:mt-10 relative flex bg-main-retroLightBlue w-[570px] md:p-9  md:w-[720px] lg:w-[1000px] content md:px-9 lg:px-6 shadow-large'>
           <div className='absolute top-4 left-4'>Vocabulary:</div>
           <div className='ml-16 flex flex-wrap [&>*:nth-child(-n+2)]:mt-0'>
             {vocabList.map((item) =>
-              <div key={item.id} className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-white"}`}>
+              <div key={item.id} className={`ml-5 mt-5 w-[250px] flex items-center justify-between shadow-large rounded h-[75px] px-5 py-3 text-[18px] ${item.isAdded ? "bg-main-purple" : "bg-main-retroWhite"}`}>
                 <div className=''>
                   <div className=''>{item.palabra}</div>
                   <div className=''>{item.traduccion}</div>

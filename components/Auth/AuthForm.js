@@ -70,7 +70,7 @@ const AuthForm = ({ input = [], help = [], title, onSubmit, apiError }) => {
           <div key={item.text} className="w-full mb-1">
             <a
               href={item.link}
-              className="text-blue-500 text-sm mt-1 border-b-[1px] border-blue-500 mb-4"
+              className="text-main-retroYellow text-sm mt-1 border-b-[1px] border-main-retroYellow mb-4"
             >
               {item.text}
             </a>
@@ -79,7 +79,7 @@ const AuthForm = ({ input = [], help = [], title, onSubmit, apiError }) => {
         <ButtonInicio
           type="submit"
           text={isLoading ? "Cargando..." : title}
-          className="bg-main-yellow text-white mt-5 p-1 md:p-2 lg:p-3 content "
+          className="bg-main-retroYellow text-main-retroBlack mt-5 p-1 md:p-2 lg:p-3 content "
           disabled={isLoading}
         />
       </form>

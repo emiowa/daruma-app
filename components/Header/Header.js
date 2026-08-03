@@ -5,92 +5,94 @@ import ButtonNav from '../buttons/ButtonNav';
 import { supabase } from '@/lib/supabase';
 
 const Header = () => {
-
-  const [showNav, setShowNav] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [user, setUser] = useState(null)
+  const [visible, setVisible] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 0); // スクロールしたか
+      // Cualquier scroll hacia abajo oculta el navbar
+      if (window.scrollY > 10) {
+        setVisible(false);
+      } else {
+        // Volvimos arriba del todo
+        setVisible(true);
+      }
     };
+
+    const handleMouseMove = (e) => {
+      // Si el cursor está cerca del borde superior, mostrar navbar
+      if (e.clientY < 80) {
+        setVisible(true);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+
     supabase.auth.getUser().then(({ data }) => setUser(data.user));
 
-    // 2. 状態変化の監視
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      subscription.unsubscribe(); // 忘れずに解除
+      window.removeEventListener('mousemove', handleMouseMove);
+      subscription.unsubscribe();
     };
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      console.log("👤 ユーザー情報が更新されました:", user.user_metadata?.name);
-    } else {
-      console.log("ℹ️ ユーザーは現在ログアウトしています");
-    }
-  }, [user]);
-
   const handleClickLogout = async () => {
-    // ポップアップを出す
     const ok = window.confirm("¿Estás seguro de que quieres cerrar sesión?");
     if (ok) {
       await supabase.auth.signOut();
-      console.log("ログアウトボタンが押されました");
     }
   };
 
   return (
-    <div className="bg-main-background">
-      <div className="flex justify-between">
-        <div
-          onMouseEnter={() => setShowNav(true)}
-          onMouseLeave={() => setShowNav(false)}
-          className="fixed p-2 top-0 z-50 w-16 md:w-20 lg:w-28 h-16 md:h-20 lg:h-28 left-1/2 transform -translate-x-1/2 rounded-full bg-main-nav cursor-pointer"
-        >
-          <img
-            className=' absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 md:w-12 lg:w-20'
-            alt='daruma_icon'
-            src='/images/daruma_logo_transparent.png'
-          />
-        </div>
-        <nav
-          onMouseEnter={() => setShowNav(true)}
-          onMouseLeave={() => setShowNav(false)}
-          className={`fixed top-0 left-0 w-full flex justify-center h-14 md:h-16 lg:h-24 bg-main-nav shadow-md z-40 transition-transform duration-300 ${hasScrolled && !showNav ? '-translate-y-full' : 'translate-y-0'}`}
-        >
-          <div className='w-full md:w-[750px] lg:w-[980px] h-16 md:h-16 lg:h-24 flex justify-between items-center p-3'>
-            <div>
-              <ButtonNav href={"home"} text={"inicio"} className="bg-main-yellow ml-0" />
-              <ButtonNav href={"study"} text={"Vamos a estudiar japonés"} className="ml-5" />
-            </div>
-            <div>
-              {user ?
-                <div className="flex">
-                  <div>{user.user_metadata?.name}</div>
-                  <button
-                    onClick={() => handleClickLogout()}
-                    className="text-white ml-5"
-                  >
-                    Salir (Test)
-                  </button>
-                </div>
-                :
-                <div>
-                  <ButtonNav href={"login"} text={"iniciar sesión"} />
-                  <ButtonNav href={"register"} text={"Registrarse"} className={"ml-5 "} />
-                </div>
-              }
-            </div>
-          </div>
-        </nav>
+    <nav
+      className={`
+        fixed top-4 left-1/2 -translate-x-1/2 z-50
+        w-[80%] h-14 md:h-16 lg:h-20 border border-main-retroBlack shadow-small
+        bg-main-retroBlue rounded-full shadow-lg
+        flex items-center justify-between px-6 md:px-10
+        transition-all duration-300
+        ${visible ? 'opacity-100 -translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-8 pointer-events-none'}
+      `}
+    >
+      {/* Left links */}
+      <div className="flex items-center gap-4">
+        <ButtonNav href={"home"} text={"Inicio"} />
+        <ButtonNav href={"study"} text={"Estudiar"} />
       </div>
-    </div>
+
+      {/* Center logo */}
+      <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+        <img
+          className="w-10 md:w-12 lg:w-16"
+          alt="daruma_icon"
+          src="/images/daruma_logo_transparent.png"
+        />
+      </div>
+
+      {/* Right links */}
+      <div className="flex items-center gap-4">
+        {user ? (
+          <>
+            <span className="text-retroWhite text-sm">{user.user_metadata?.name}</span>
+            <button onClick={handleClickLogout} className="text-retroWhite text-sm">
+              Salir
+            </button>
+          </>
+        ) : (
+          <>
+            <ButtonNav href={"login"} text={"Iniciar sesión"} />
+            <ButtonNav href={"register"} text={"Registrarse"} />
+          </>
+        )}
+      </div>
+    </nav>
   );
 };
+
 export default Header;

@@ -67,8 +67,11 @@ function Registrarse() {
             width={450}
             height={450}
             className='absolute top-8'
+            style={{ 
+              imageRendering: 'pixelated',  // Essential for sharp pixel art
+            }}
           />
-          <div className='absolute  right-4  w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute  right-4  w-[400px] h-[510px] border border-black bg-main-retroGreen rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}

@@ -323,7 +323,7 @@
     "leido": true,
     "label": {
       "text": "Cultura",
-      "bg": "bg-main-orange"
+      "bg": "bg-main-retroRed"
     },
     "star": 2,
     "vocabulary": [
@@ -705,7 +705,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 2
   },
@@ -1029,7 +1029,7 @@
     "leido": true,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1,
     "vocabulary": [
@@ -1082,7 +1082,7 @@
     "leido": true,
     "label": {
       "text": "idioma",
-      "bg": "bg-main-lightBlue"
+      "bg": "bg-main-retroLightBlue"
     },
     "star": 3
   },
@@ -1117,7 +1117,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1187,7 +1187,7 @@
     "leido": true,
     "label": {
       "text": "Cultura",
-      "bg": "bg-main-orange"
+      "bg": "bg-main-retroRed"
     },
     "star": 2,
     "vocabulary": [
@@ -1244,7 +1244,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 2
   },
@@ -1275,7 +1275,7 @@
     "leido": true,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1306,7 +1306,7 @@
     "leido": true,
     "label": {
       "text": "idioma",
-      "bg": "bg-main-lightBlue"
+      "bg": "bg-main-retroLightBlue"
     },
     "star": 3
   },
@@ -1341,7 +1341,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1411,7 +1411,7 @@
     "leido": true,
     "label": {
       "text": "Cultura",
-      "bg": "bg-main-orange"
+      "bg": "bg-main-retroRed"
     },
     "star": 2
   },
@@ -1446,7 +1446,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 2
   },
@@ -1477,7 +1477,7 @@
     "leido": true,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1508,7 +1508,7 @@
     "leido": true,
     "label": {
       "text": "idioma",
-      "bg": "bg-main-lightBlue"
+      "bg": "bg-main-retroLightBlue"
     },
     "star": 3
   },
@@ -1543,7 +1543,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1648,7 +1648,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 2
   },
@@ -1679,7 +1679,7 @@
     "leido": true,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1710,7 +1710,7 @@
     "leido": true,
     "label": {
       "text": "idioma",
-      "bg": "bg-main-lightBlue"
+      "bg": "bg-main-retroLightBlue"
     },
     "star": 3
   },
@@ -1745,7 +1745,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1885,7 +1885,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 2
   },
@@ -1916,7 +1916,7 @@
     "leido": true,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   },
@@ -1947,7 +1947,7 @@
     "leido": true,
     "label": {
       "text": "idioma",
-      "bg": "bg-main-lightBlue"
+      "bg": "bg-main-retroLightBlue"
     },
     "star": 3
   },
@@ -1982,7 +1982,7 @@
     "leido": false,
     "label": {
       "text": "Comida",
-      "bg": "bg-main-yellow"
+      "bg": "bg-main-retroYellow"
     },
     "star": 1
   }

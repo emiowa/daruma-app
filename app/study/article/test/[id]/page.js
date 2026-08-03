@@ -61,7 +61,7 @@ function Test() {
     <>
       <div className='flex-col'>
         <div className='text-center text-[30px]'>{data.title}</div>
-        <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex items-center justify-between'>
+        <div className='md:mt-10 bg-main-retroLightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex items-center justify-between'>
           <div>pregunta {quizNum + 1} / {total}</div>
           <div className="flex w-64">
             {Array.from({ length: total }).map((_, index) => (
@@ -98,7 +98,7 @@ function Test() {
           {result ?
             // --------------------------------------Result-----------------------------------------
             <div className='w-full flex flex-col justify-center items-center'>
-              <div className='md:mt-10 bg-main-lightBlue w-[200px] md:w-[400px] lg:w-[1000px] content md:h-[180px] md:p-6 shadow-large flex flex-col items-center justify-center '>
+              <div className='md:mt-10 bg-main-retroLightBlue w-[200px] md:w-[400px] lg:w-[1000px] content md:h-[180px] md:p-6 shadow-large flex flex-col items-center justify-center '>
                 <div className='text-[23px]'>Resultados</div>
                 <div className='mt-4 w-[250px]'>
                   <div className='flex justify-between'>
@@ -139,7 +139,7 @@ function Test() {
                         `basis-[calc(50%-0.5rem)] ` +
                         (
                           !isLocked
-                            ? "bg-main-white"
+                            ? "bg-main-retroWhite"
                             : index === currentQuiz.correct
                               ? "bg-green-300"
                               : index === selectedIndex
