@@ -172,7 +172,7 @@ function IndividualArticle() {
       {/* ガードレイヤーやトーストはそのまま */}
 
       {/* ⭕️ 修正：一番外側のコンテナ。ここを最大1000pxにして中央寄せにします */}
-      <div className="flex flex-col items-center pb-20 w-full max-w-[1000px] mx-auto gap-10">
+      <div className="flex flex-col items-center pb-20 w-full max-w-[1000px] mx-auto gap-10 mt-36">
 
         {/* タイトル */}
         <div className='w-full text-main-grey font-bold md:text-3xl lg:text-7xl text-center md:mt-10'>

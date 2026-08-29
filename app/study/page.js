@@ -75,7 +75,7 @@ function Study() {
 
   return (
     <>
-      <div className='w-full md:w-[720px] lg:w-[1000px]'>
+      <div className='w-full md:w-[720px] lg:w-[1000px] mt-36 mx-auto'>
         <div className='flex justify-center h-40 md:h-48 lg:h-64'>
           {/* ポイントセクション */}
           <div className='bg-main-orange md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>

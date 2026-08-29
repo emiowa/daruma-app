@@ -85,7 +85,7 @@ function Test() {
   };
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center mt-36'>
       {/* タイトルはルビなしの素のテキストとして表示（またはRubyTextを使う） */}
       <div className='text-center text-[30px] font-bold'>{article.title.replace(/\[.*?\]/g, '')}</div>
 

@@ -188,7 +188,7 @@ function Vocabulary() {
 
   return (
     /* ⭕️ 横幅を1000px最大にコントロールするコンテナに変更 */
-    <div className='relative w-full max-w-[1000px] mx-auto'>
+    <div className='relative w-full max-w-[1000px] mx-auto mt-36'>
       {processingId !== null && (
         <div className="fixed inset-0 z-[100] cursor-not-allowed bg-transparent" />
       )}
