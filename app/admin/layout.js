@@ -1,3 +1,3 @@
 export default function Layout({ children }) {
-  return <section>{children}</section>;
+  return <section className="mt-40">{children}</section>;
 }

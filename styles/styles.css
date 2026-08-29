@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .content {
-  @apply rounded-md border border-solid border-main-grey
+  @apply rounded-md border border-solid border-main-retroBlack
+}
+
+.navbarButton {
+  @apply rounded-full border border-solid border-main-retroBlack
 }
 
 .icons-s {
@@ -21,10 +25,10 @@
 
 @layer utilities {
   .shadow-large {
-    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 4px 4px 0px 0px #0e0f12;
   }
 
   .shadow-small {
-    box-shadow: 2.5px 2.5px 0px 0px rgba(0, 0, 0, 0.7);
+    box-shadow: 2.5px 2.5px 0px 0px #0e0f12;
   }
 }

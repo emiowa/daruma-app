@@ -78,7 +78,7 @@ function Registrarse() {
 
   return (
     <>
-      <div className='w-full h-full flex items-center justify-center min-h-[calc(100vh-100px)]'>
+      <div className='w-full h-full mt-36 flex items-center justify-center min-h-[calc(100vh-100px)]'>
         <div className='relative w-[640px] h-[550px]'>
           <img
             alt='daruma_icon'
@@ -86,8 +86,11 @@ function Registrarse() {
             width={450}
             height={450}
             className='absolute top-8'
+            style={{ 
+              imageRendering: 'pixelated',  // Essential for sharp pixel art
+            }}
           />
-          <div className='absolute right-4 w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute  right-4  w-[400px] h-[510px] border border-black bg-main-retroGreen rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}

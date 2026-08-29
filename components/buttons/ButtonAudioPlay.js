@@ -12,7 +12,7 @@ const ButtonAudioPlay = ({ audio, className }) => {
   };
   return (
     <>
-      <button onClick={handlePlay} className={`${className} rounded-full border-main-grey border border-solid relative shadow-small`}>
+      <button onClick={handlePlay} className={`${className} rounded-full border-main-retroBlack border border-solid relative shadow-small`}>
         <AiOutlineSound className='text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' />
       </button>
       <audio ref={audioRef} src={audio} preload='auto' />

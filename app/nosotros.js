@@ -3,6 +3,8 @@
 
 export default function Nosotros() {
   return (
-    <div className='bg-main-background'>    </div>
+    <div className='bg-main-background'>
+      <p>Hola</p>
+    </div>
   )
 }

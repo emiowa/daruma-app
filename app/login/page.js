@@ -28,7 +28,7 @@ function Login() {
     }
   ];
   const help = [{ text: "¿Olvidaste tu contraseña?", link: "/forgot-password" }, { text: "Soy un usuario nuevo", link: "/register" }]
-  const title = "Iniciarsession"
+  const title = "Iniciar sesión"
   const router = useRouter();
 
   const handleLogin = async (values) => {
@@ -51,7 +51,7 @@ function Login() {
 
   return (
     <>
-      <div className='w-full h-full flex items-center justify-center min-h-[calc(100vh-100px)]'>
+      <div className='w-full h-full mt-36 flex items-center justify-center min-h-[calc(100vh-100px)]'>
         <div className='relative w-[640px] h-[550px]'>
           <img
             alt='daruma_icon'
@@ -59,8 +59,11 @@ function Login() {
             width={450}
             height={450}
             className='absolute top-8 right-4'
+            style={{ 
+              imageRendering: 'pixelated',  // Essential for sharp pixel art
+            }}
           />
-          <div className='absolute w-[400px] h-[510px] border border-black bg-main-lightGrey rounded-2xl shadow-large p-4'>
+          <div className='absolute w-[400px] h-[510px] border border-black bg-main-retroGreen rounded-2xl shadow-large p-4'>
             <AuthForm
               input={input}
               help={help}

@@ -1,7 +1,8 @@
 import "../styles/globals.css";
 import "../styles/styles.css";
 import Layout from '@/components/Layout';
-import { AuthProvider } from './context/AuthContext'; // パスは環境に合わせて調整してください
+import localFont from 'next/font/local'
+import { AuthProvider } from '@/app/context/AuthContext';
 
 export const metadata = {
   title: {
@@ -19,10 +20,14 @@ export const viewport = {
   initialScale: 1.0,
 };
 
-// ⭕️ 2つに分裂していた RootLayout を1つの正解の形にまとめました！
+const pixelFont = localFont({
+  src: './fonts/Jersey25-Regular.ttf',
+  variable: '--font-pixel',
+})
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
+    <html lang="es" className={pixelFont.variable}>
       <body>
         {/* 💡 アプリ全体をAuthProviderで包みます。
             これでヘッダーも単語リストも、ログイン情報をずっと持たせ続けられます */}

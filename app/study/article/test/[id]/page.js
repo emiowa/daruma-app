@@ -85,7 +85,7 @@ function Test() {
   };
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center mt-36'>
       {/* タイトルはルビなしの素のテキストとして表示（またはRubyTextを使う） */}
       <div className='text-center text-[30px] font-bold'>{article.title.replace(/\[.*?\]/g, '')}</div>
 
@@ -186,7 +186,7 @@ function Test() {
             <div className='flex w-full mt-10 justify-end'>
               {/* 💡 次へボタンも、回答が終わってロックが解除された（isLocked）ときだけ浮き上がるようにすると親切です */}
               <ButtonPager
-                className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-not-allowed cursor-default" : "bg-main-white hover-float shadow-md"}`}
+                className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-default" : "bg-main-white hover-float shadow-md"}`}
                 onClick={handleClickNext}
               >
                 Siguiente <span className="ml-4">→</span>

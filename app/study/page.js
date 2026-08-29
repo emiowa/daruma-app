@@ -75,7 +75,7 @@ function Study() {
 
   return (
     <>
-      <div className='w-full md:w-[720px] lg:w-[1000px]'>
+      <div className='w-full md:w-[720px] lg:w-[1000px] mt-36 mx-auto'>
         <div className='flex justify-center h-40 md:h-48 lg:h-64'>
           {/* ポイントセクション */}
           <div className='bg-main-orange md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>
@@ -86,7 +86,7 @@ function Study() {
                 animation
               </a>
             </div>
-            <div className='bg-main-white w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
+            <div className='bg-main-retroWhite w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
               <div className='flex'>
                 <IoEyeOutline className='lg:mt-[2px]' />
                 <p className='ml-1 text-[10px] lg:text-[14px] font-semibold'>Artículos leídos: 10</p>
@@ -137,7 +137,7 @@ function Study() {
           {/* きじ（記事一覧） */}
           <div className='bg-main-lightBlue w-[570px] md:w-[570px] lg:w-[660px] h-[650px] md:h-[500px] lg:h-[750px] content p-4 lg:p-6 shadow-large'>
             <div className='flex justify-between items-center'>
-              <p className='text-main-grey font-bold md:text-2xl lg:text-4xl'>きじ</p>
+              <p className='text-main-retroBlack font-bold md:text-2xl lg:text-4xl'>きじ</p>
               <SeeEveryArticleLink />
             </div>
             <div className='flex flex-wrap gap-3 mt-3 lg:mt-12'>
