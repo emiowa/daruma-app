@@ -7,22 +7,33 @@ import { validatePassword } from "@/lib/validators";
 import { supabase } from "@/lib/supabase";
 
 function UpdatePassword() {
-  const [serverError, setServerError] = useState("");
+  const [isRecoveryValid, setIsRecoveryValid] = useState(false);
+  const [checking, setChecking] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const checkAndClearSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-
-      // パスワードリセットの「証拠リンク（recoveryトークン）」を持たずに、
-      // ただ普通にログインしている状態でこのページを踏んだ場合は、バグ防止のためログアウトさせる
-      if (session && !window.location.hash.includes("type=recovery")) {
-        await supabase.auth.signOut();
-        router.refresh();
+    // 認証状態の変化を監視（メールリンクからの自動ログイン完了を待つ）
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY' || session) {
+        setIsRecoveryValid(true);
       }
+      setChecking(false);
+    });
+
+    // 初期セッションの存在チェック
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setIsRecoveryValid(true);
+      }
+      setChecking(false);
     };
-    checkAndClearSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    checkSession();
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const input = [
@@ -34,12 +45,10 @@ function UpdatePassword() {
     }
   ];
 
-  const help = []; // ここは不要なので空配列
+  const help = [];
 
   const handleUpdatePassword = async (values) => {
     try {
-      setServerError("");
-
       // 1. パスワードを更新する
       const { error: updateError } = await supabase.auth.updateUser({
         password: values.password
@@ -47,23 +56,43 @@ function UpdatePassword() {
 
       if (updateError) {
         console.error("Supabase update password error:", updateError);
-        setServerError(updateError.message || "No se pudo actualizar la contraseña.");
-        return;
+        return updateError.message || "No se pudo actualizar la contraseña.";
       }
 
-      // ⭕️ 【超重要】ここで強制ログアウトを実行！
-      // これにより、メールアドレス②の古いセッションや、一時的なログイン状態がすべて綺麗に消滅します。
+      // 2. 正常終了したらログアウトしてログイン画面へ
       await supabase.auth.signOut();
-
-      // 2. ユーザーに通知して、クリーンな状態でログイン画面へ飛ばす
       alert("¡Contraseña actualizada con éxito! Por seguridad, inicia sesión con tu nueva contraseña.");
       router.push("/login");
 
     } catch (err) {
       console.error("Fatal network error:", err);
-      setServerError("Error de red. Inténtalo de nuevo.");
+      return "Error de red. Inténtalo de nuevo.";
     }
   };
+
+  if (checking) {
+    return (
+      <div className='w-full h-screen flex items-center justify-center bg-main-background text-main-grey font-bold'>
+        Cargando...
+      </div>
+    );
+  }
+
+  if (!isRecoveryValid) {
+    return (
+      <div className='w-full h-screen flex flex-col items-center justify-center bg-main-background p-4 text-center'>
+        <p className='text-red-500 font-bold mb-4'>
+          El enlace ha expirado o no es válido.
+        </p>
+        <button
+          onClick={() => router.push('/forgot-password')}
+          className='bg-main-blue text-white px-4 py-2 rounded-xl font-bold'
+        >
+          Solicitud de restablecimiento
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className='w-full h-full flex items-center justify-center min-h-[calc(100vh-100px)] bg-main-background'>
@@ -81,7 +110,6 @@ function UpdatePassword() {
             help={help}
             title={"Nueva contraseña"}
             onSubmit={handleUpdatePassword}
-            apiError={serverError}
           />
         </div>
       </div>
