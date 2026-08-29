@@ -2,190 +2,265 @@
 
 import ArticleCards from '@/components/study/ArticleCards';
 import { useEffect, useRef, useState } from 'react';
-import CardData from "@/data/cards.json"
-import { SlArrowDown } from "react-icons/sl";
-import { SlArrowUp } from "react-icons/sl";
-
+import { SlArrowDown, SlArrowUp } from "react-icons/sl";
+import { supabase } from '@/lib/supabase';
 
 function Articles() {
+  const ArticleNum = 12;
+  const [articleNum, setArticleNum] = useState(ArticleNum);
 
-  const ArticleNum = 12
-  const [articleNum, setArticleNum] = useState(ArticleNum)
-  const handleArticleNum = () => {
-    setArticleNum(prev => prev + ArticleNum)
-  }
+  // 状態管理
+  const [allArticles, setAllArticles] = useState([]);
+  const [currentCardsList, setCurrentCardsList] = useState([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const [currentCardsList, setCurrentCardsList] = useState(CardData)
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
-  const filterRef = useRef(null)
+  // ⭕️ 確実な解決策：星マークにホバーしているかどうかをReactのStateで管理
+  const [isStarHovered, setIsStarHovered] = useState(false);
 
-  const handleClickFilterToggle = () => {
-    setIsFilterOpen(prev => !prev)
-  }
+  const filterRef = useRef(null);
 
+  // 1. ページ初期化時にSupabaseから全記事データを取得
+  useEffect(() => {
+    const fetchAll = async () => {
+      setLoading(true);
+      const now = new Date().toISOString();
+
+      try {
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*')
+          .lte('published_at', now)
+          .order('published_at', { ascending: false });
+
+        if (error) {
+          console.error("Error fetching articles:", error.message);
+          setAllArticles([]);
+          setCurrentCardsList([]);
+        } else {
+          const safeData = Array.isArray(data) ? data : [];
+          setAllArticles(safeData);
+          setCurrentCardsList(safeData);
+        }
+      } catch (err) {
+        console.error("Unexpected error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAll();
+  }, []);
+
+  // フィルターの設定
   const filterDetail = [
-    { id: "0", title: "Por tema", list: ["Cultura", "Viaje", "Comida"] },
-    { id: "1", title: "Por nivel de dificultad", list: ["Dificultad baja", "Dificultad media", "Dificultad alta"] },
-    { id: "2", title: "Estado", list: ["Leido", "No leido"] }
+    { id: 0, title: "Por tema", list: ["Cultura", "Viaje", "Comida", "Turismo", "Metrópolis", "Naturaleza", "Onsen"] },
+    { id: 1, title: "Por nivel de dificultad", list: ["Dificultad baja", "Dificultad media", "Dificultad alta"] },
+    { id: 2, title: "Estado", list: ["Leido", "No leido"] }
   ];
 
   const [selectedList, setSelectedList] = useState(
-    filterDetail.map(item => ({
-      id: item.id,
-      list: []
-    }))
+    filterDetail.map(item => ({ id: item.id, list: [] }))
   );
 
-  const levelToStar = {
-    "Dificultad baja": 1,
-    "Dificultad media": 2,
-    "Dificultad alta": 3,
-  };
+  const levelToStar = { "Dificultad baja": 1, "Dificultad media": 2, "Dificultad alta": 3 };
 
-  const estadoToText = {
-    "Leido": true,
-    "No leido": false
-  };
+  // 2. ユーザーがフィルターを選択したときの絞り込み処理
+  useEffect(() => {
+    if (loading || !allArticles || !Array.isArray(allArticles) || allArticles.length === 0) {
+      setCurrentCardsList([]);
+      return;
+    }
 
+    let filtered = [...allArticles];
+
+    const { list: temas } = selectedList[0] || { list: [] };
+    if (temas.length > 0) {
+      filtered = filtered.filter(card => card && temas.includes(card.label_text));
+    }
+
+    const { list: niveles } = selectedList[1] || { list: [] };
+    if (niveles.length > 0) {
+      const targetStars = niveles.map(n => levelToStar[n]);
+      filtered = filtered.filter(card => card && targetStars.includes(card.star));
+    }
+
+    setCurrentCardsList(filtered);
+    setArticleNum(ArticleNum);
+  }, [selectedList, allArticles, loading]);
+
+  // フィルターポップアップの外部クリック閉じ処理
   useEffect(() => {
     const handleClickOutside = (e) => {
-      // Filter が open 中 ＆ Filter 以外をクリックしたら閉じる
       if (isFilterOpen && filterRef.current && !filterRef.current.contains(e.target)) {
         setIsFilterOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isFilterOpen]);
 
-  useEffect(() => {
-    let filtered = CardData;
-    //tema--------------------------------------------------------------
-    const temas = selectedList[0].list;
-    if (temas.length > 0) {
-      filtered = filtered.filter(card => temas.includes(card.label.text));
-    }
-    // level------------------------------------------------------------
-    const niveles = selectedList[1].list;
-    if (niveles.length > 0) {
-      const targetStars = niveles.map(n => levelToStar[n]);
-
-      filtered = filtered.filter(card =>
-        targetStars.includes(card.star)
-      );
-    }
-    //leido o no -------------------------------------------------------
-    const estados = selectedList[2].list;
-    if (estados.length > 0) {
-      const targetText = estados.map(n => estadoToText[n])
-      filtered = filtered.filter(card => targetText.includes(card.leido));
-    }
-    setCurrentCardsList(filtered);
-  }, [selectedList]);
+  const handleArticleNum = () => setArticleNum(prev => prev + ArticleNum);
+  const handleClickFilterToggle = () => setIsFilterOpen(prev => !prev);
 
   const toggleListItem = (id, value) => {
-    setSelectedList(prev =>
-      prev.map(item => {
-        if (item.id !== id) return item;
-        const exists = item.list.includes(value);
-        return {
-          ...item,
-          list: exists
-            ? item.list.filter(v => v !== value)
-            : [...item.list, value]
-        };
-      })
-    );
+    setSelectedList(prev => prev.map(item => {
+      if (item.id !== id) return item;
+      const exists = item.list.includes(value);
+      return { ...item, list: exists ? item.list.filter(v => v !== value) : [...item.list, value] };
+    }));
   };
-  const handleClickClear = () => {
-    setSelectedList(
-      filterDetail.map(item => ({
-        id: item.id,
-        list: []
-      }))
-    );
-  }
 
-  const handleClickFilterItem = (id, value) => {
-    toggleListItem(id, value)
-  }
-  const Filter = () => {
-    return (
-      <div className='absolute top-8 -left-5 w-[430px] h-[250px] bg-gray-300 z-40 py-3 px-5'>
-        {filterDetail.map((item) => {
-          return (
-            <div key={item.title} className='pb-5 text-[15px]'>
-              <div className='font-bold'>{item.title}:</div>
-              <div className='flex mt-1'>
-                {item.list.map((i) => {
-                  return (
-                    <div
-                      key={i}
-                      className={`mr-4 last:mr-0 border rounded-full border-black py-1 px-2
-                        ${selectedList[item.id].list.includes(i)
-                          ? "bg-gray-600 text-retroWhite"
-                          : "bg-gray-100"
-                        }`}
-                      onClick={() => { handleClickFilterItem(item.id, i) }}
-                    >
-                      {i}
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )
-        })}
-        <button className='absolute bottom-2 right-3 bg-main-nav py-1 px-3 text-retroWhite rounded-lg' onClick={() => handleClickClear()}>Borrar</button>
-      </div>
-    )
-  }
+  const handleClickClear = () => setSelectedList(filterDetail.map(item => ({ id: item.id, list: [] })));
 
   return (
+    <div className='bg-main-lightBlue w-full max-w-[1000px] content pt-20 md:pt-24 lg:pt-28 pb-10 px-4 md:px-8 shadow-large relative rounded-xl border border-black mx-auto mt-10'>
 
-    <>
-      <>
-        <div className='mt-60 bg-main-retroYellow w-[570px] md:w-[720px] lg:w-[1000px] content md:pt-28 lg:pt-32 md:pb-10 md:px-4 lg:px-6 shadow-large relative mx-auto'>
-          <div className='text-main-retroBlack font-bold md:text-6xl lg:text-7xl absolute md:-top-16 lg:-top-[75px] md:left-8 space-y-3'>
-            <div>き</div>
-            <div>じ</div>
-          </div>
-          <div className='flex absolute -top-8 left-36'>
-            <div>Filter</div>
-            {isFilterOpen ?
-              <SlArrowUp onClick={() => handleClickFilterToggle()} className='ml-6 mt-1' />
-              :
-              <SlArrowDown onClick={() => handleClickFilterToggle()} className='ml-6 mt-1' />
-            }
-            {isFilterOpen &&
-              <div ref={filterRef}>
-                <Filter />
-              </div>
-            }
-          </div>
-          <div className='flex flex-wrap gap-3 mt-3 lg:mt-12 justify-center'>
-            {
-              currentCardsList.slice(0, articleNum).map((item) => (
-                <ArticleCards key={item.id} title={item.title} titleRuby={item.titleRuby} id={item.id} label={item.label} imageUrl={item.imageUrl} star={item.star} leido={item.leido} />
-              ))
-            }
-          </div>
-          {currentCardsList.length > articleNum &&
-            <div className='flex justify-center relative' onClick={() => handleArticleNum()}>
-              <div className='md:m-9 md:w-12 md:h-12 border border-solid border-black rounded-full'>
-                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black text-2xl">
-                  +
-                </span>
-              </div>
+      {/* アニメーション用CSS */}
+      <style>{`
+        @keyframes filterPop {
+          0% { transform: scale(0.95) translateY(-5px); opacity: 0; }
+          100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .filter-animation {
+          animation: filterPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
+
+      {/* タイトル「きじ」 */}
+      <div className='text-main-grey font-bold md:text-6xl lg:text-7xl absolute md:-top-16 lg:-top-[75px] left-4 md:left-8 space-y-3 pl-2'>
+        <div>き</div><div>じ</div>
+      </div>
+
+      {/* フィルター ＆ 星マークホバーガイドエリア */}
+      <div className='absolute -top-11 right-4 md:right-8 z-30 flex items-center gap-3 md:gap-4'>
+
+        {/* ⭐ 星マークホバーガイド */}
+        {!loading && (
+          /* ⭕️ 修正：onMouseEnter（マウスが乗った）と onMouseLeave（離れた）を明示的にセット */
+          <div
+            className="hidden sm:flex relative cursor-help select-none"
+            onMouseEnter={() => setIsStarHovered(true)}
+            onMouseLeave={() => setIsStarHovered(false)}
+          >
+
+            {/* 画面に常に見えている星マークボタン */}
+            <div className={`flex items-center justify-center bg-main-white border border-black px-3 py-1 rounded-lg text-sm text-yellow-500 shadow-small transition-all duration-150 ${isStarHovered ? 'scale-105 bg-gray-50' : ''}`}>
+              <span className="text-yellow-500 text-base font-bold select-none">★</span>
             </div>
-          }
+
+            {/* ⭕️ 修正：JavaScriptの条件分岐（isStarHovered && ...）に変更
+               これにより、ホバーしていない間はHTMLごと「絶対に存在しない」状態になるため、最初から表示されるバグが100%治ります */}
+            {isStarHovered && (
+              <div className="absolute w-[210px] p-4 bg-gray-600 border border-black rounded-xl right-0 top-11 z-50 shadow-large origin-top-right filter-animation">
+                <h4 className="text-[13px] font-bold text-main-background mb-2 pb-1 border-b border-white/20">
+                  Guía de Nivel:
+                </h4>
+                <div className="text-[12px] text-white space-y-1.5 font-medium leading-relaxed">
+                  <p>⭐<span className="ml-1 text-white"> = Artículos Fáciles</span></p>
+                  <p>⭐⭐<span className="ml-1 text-white"> = Nivel Medio</span></p>
+                  <p>⭐⭐⭐<span className="ml-1 text-white"> = Artículos Difíciles</span></p>
+                </div>
+              </div>
+            )}
+
+          </div>
+        )}
+
+        {/* フィルター展開ボタン */}
+        <button
+          onClick={handleClickFilterToggle}
+          className={`flex items-center gap-3 bg-main-white px-4 py-1.5 border border-black rounded-lg text-sm font-bold shadow-small transition-all active:scale-95 hover:bg-gray-50`}
+        >
+          <span>Filter</span>
+          {isFilterOpen ? <SlArrowUp className='text-xs' /> : <SlArrowDown className='text-xs' />}
+        </button>
+
+        {isFilterOpen && (
+          <div
+            ref={filterRef}
+            className='filter-animation absolute right-0 top-10 w-[320px] md:w-[430px] bg-main-white border-2 border-black z-40 py-4 px-5 rounded-xl shadow-large'
+          >
+            {filterDetail.map((item) => (
+              <div key={item.id} className='pb-4 text-[14px] md:text-[15px] border-b border-gray-100 mb-3 last:border-0 last:mb-0'>
+                <div className='font-bold text-main-grey'>{item.title}:</div>
+                <div className='flex flex-wrap mt-2 gap-2'>
+                  {item.list.map((i) => {
+                    const isSelected = selectedList[item.id]?.list.includes(i);
+                    return (
+                      <div
+                        key={i}
+                        className={`cursor-pointer border rounded-full py-1 px-3 text-[11px] md:text-[12px] font-medium shadow-xs transition-all duration-150 active:scale-95
+                          ${isSelected
+                            ? "bg-main-purple text-white border-main-purple font-bold"
+                            : "bg-main-background text-main-grey border-gray-300 hover:bg-gray-100"
+                          }
+                        `}
+                        onClick={() => toggleListItem(item.id, i)}
+                      >
+                        {i}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            <div className="flex justify-end mt-2">
+              <button
+                className='bg-main-background border border-black py-1 px-4 text-main-grey font-bold rounded-lg text-xs hover:bg-red-50 hover:text-red-600 hover:border-red-400 active:scale-95 transition-all shadow-small'
+                onClick={handleClickClear}
+              >
+                Borrar
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 記事カード一覧表示エリア（Gridシステム） */}
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-20">
+          <div className="animate-spin h-8 w-8 border-4 border-main-grey border-t-transparent rounded-full mb-4"></div>
+          <p className="text-main-grey italic">Cargando artículos...</p>
         </div>
-      </>
-    </>
-  )
+      ) : (
+        <>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 md:mt-6 lg:mt-8 w-full justify-items-center'>
+            {Array.isArray(currentCardsList) && currentCardsList.slice(0, articleNum).map((item) => {
+              if (!item) return null;
+              return (
+                <div key={item.id} className="w-full flex justify-center">
+                  <ArticleCards
+                    id={item.id}
+                    title={item.title}
+                    label={{ text: item.label_text, bg: item.label_bg }}
+                    star={item.star}
+                    leido={false}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {(!currentCardsList || currentCardsList.length === 0) && (
+            <div className="text-center py-20 text-gray-500 italic bg-white/20 rounded-xl border border-dashed border-black/10 w-full max-w-[800px] mx-auto mt-4">
+              No se encontraron artículos con estos filtros.
+            </div>
+          )}
+
+          {currentCardsList && currentCardsList.length > articleNum && (
+            <div className='flex justify-center mt-10'>
+              <button
+                className='w-12 h-12 border border-black rounded-full bg-main-white flex items-center justify-center text-2xl font-bold shadow-small hover-float active:scale-95 active:shadow-none transition-all'
+                onClick={handleArticleNum}
+              >
+                +
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
 }
+
 export default Articles;

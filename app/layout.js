@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "../styles/styles.css";
 import Layout from '@/components/Layout';
 import localFont from 'next/font/local'
+import { AuthProvider } from '@/app/context/AuthContext';
 
 export const metadata = {
   title: {
@@ -28,9 +29,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es" className={pixelFont.variable}>
       <body>
-        <Layout>
-          {children}
-        </Layout>
+        {/* 💡 アプリ全体をAuthProviderで包みます。
+            これでヘッダーも単語リストも、ログイン情報をずっと持たせ続けられます */}
+        <AuthProvider>
+          <Layout>
+            {children}
+          </Layout>
+        </AuthProvider>
       </body>
     </html>
   );

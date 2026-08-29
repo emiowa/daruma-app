@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 function Registrarse() {
   const [serverError, setServerError] = useState("");
+  const router = useRouter();
 
   const input = [
     {
@@ -33,30 +34,48 @@ function Registrarse() {
       validate: validatePassword
     }
   ];
-  const help = [{ text: "Ya tengo una cuenta", link: "/login" }]
-  const router = useRouter();
+
+  const help = [{ text: "Ya tengo una cuenta", link: "/login" }];
 
   const handleRegister = async (values) => {
-    const { data, error } = await supabase.auth.signUp({
-      email: values.email,
-      password: values.password,
-      options: {
-        data: {
-          name: values.name
+    try {
+      setServerError(""); // ⚡️ リクエスト前に前の方のエラーを綺麗にクリアする
+
+      const { data, error } = await supabase.auth.signUp({
+        email: values.email,
+        password: values.password,
+        options: {
+          data: {
+            name: values.name
+          }
         }
+      });
+      // TODO リリース前に必ず削除する。
+      if (error) {
+        console.error("Supabase signUp error:", error);
+
+        // ⭕️ 修正：エラーメッセージの内容に応じて、親切なスペイン語に翻訳してセット
+        if (error.message.includes("already registered")) {
+          setServerError("Este correo ya está registrado.");
+        } else if (error.status === 422 || error.message.includes("rate limit") || error.message.includes("security")) {
+          // 🔒 422制限やセキュリティブロックを検知したとき
+          setServerError("Por seguridad, espera unos minutos antes de intentar otra vez.");
+        } else {
+          // その他の予期せぬエラーは、Supabaseの生のメッセージ（英語）をそのまま出して開発しやすくする
+          setServerError(error.message || "Ocurrió un error. Inténtalo de nuevo.");
+        }
+        return;
       }
-    });
-    if (error) {
-      // エラーメッセージを日本語（またはスペイン語）に翻訳してセット
-      if (error.message.includes("already registered")) {
-        setServerError("Este correo ya está registrado.");
-      } else {
-        setServerError("Ocurrió un error. Inténtalo de nuevo.");
-      }
-      return;
+
+      // サインアップ成功時
+      router.push("/register-success");
+
+    } catch (err) {
+      console.error("Fatal network error:", err);
+      setServerError("Error de red. Inténtalo de nuevo.");
     }
-    router.push("/register-success");
   };
+
   return (
     <>
       <div className='w-full h-full flex items-center justify-center min-h-[calc(100vh-100px)]'>
@@ -77,12 +96,13 @@ function Registrarse() {
               help={help}
               title={"Registrarse"}
               onSubmit={handleRegister}
-              apiError={serverError}
+              apiError={serverError} // 💡 ここで確実に連携
             />
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
+
 export default Registrarse;

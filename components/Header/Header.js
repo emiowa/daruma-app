@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import ButtonNav from '../buttons/ButtonNav';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '../../app/context/AuthContext';
 
 const Header = () => {
   const [visible, setVisible] = useState(true);
@@ -47,6 +48,16 @@ const Header = () => {
     if (ok) {
       await supabase.auth.signOut();
     }
+  };
+
+  const handleMinimizeDaruma = () => {
+    setIsMinimized(true);
+    sessionStorage.setItem('daruma_minimized', 'true');
+  };
+
+  const handleRestoreDaruma = () => {
+    setIsMinimized(false);
+    sessionStorage.setItem('daruma_minimized', 'false');
   };
 
   return (

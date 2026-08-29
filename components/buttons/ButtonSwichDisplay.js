@@ -7,7 +7,7 @@ const ButtonSwichDisplay = ({ booleanItem, func, className, defaultText, changed
   return (
     <>
       <div>
-        <button onClick={() => func()} className={`p-1 md:p-2 lg:p-3 content shadow-small md:text-[13px] lg:text-[18px] ${className}`}>
+        <button onClick={() => func()} className={`p-1 md:p-2 lg:p-3 content shadow-small md:text-[13px] lg:text-[18px] hover-float ${className}`}>
           {booleanItem ? defaultText : changedText}
         </button>
       </div>
