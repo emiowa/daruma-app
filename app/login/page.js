@@ -50,7 +50,7 @@ function Login() {
   };
 
   return (
-    <div className='w-full h-full mt-36 flex items-center justify-center min-h-[calc(100vh-100px)]'>
+    <div className='w-full h-full flex items-center justify-center min-h-[calc(100vh-100px)]'>
       <div className='relative w-[640px] h-[550px]'>
         <img
           alt='daruma_icon'

@@ -11,16 +11,13 @@ const ArticleCards = ({ title, leido, id, label, star, page }) => {
   const isMain = page === "main";
 
   return (
-    // ⭕️ カード全体を Link で包む
     <Link
       href={`/study/article/${id}`}
       className={`
         block transition-all duration-300 ease-out transform
-        /* 👇 修正：ホバー時、上に浮き上がりつつ、元々の影を「 drop-shadow」で右下に強調 */
         hover:-translate-y-1.5 hover:drop-shadow-[6px_6px_8px_rgba(0,0,0,0.15)]
         ${isMain ? 'w-[170px] md:w-[146px] lg:w-[195px] h-[200px] md:h-[185px] lg:h-[260px]' : 'w-[170px] md:w-[160px] lg:w-[222px] h-[200px] md:h-[206px] lg:h-[285px]'} 
         rounded lg:rounded-lg mb-4 bg-main-white
-        /* 👇 元々の右下の影 */
         shadow-small
         text-main-grey overflow-hidden
       `}
@@ -32,11 +29,14 @@ const ArticleCards = ({ title, leido, id, label, star, page }) => {
           alt={title}
           fill
           className="object-cover"
-          // sizesのタイポも修正済み
           sizes={isMain ? "(max-width: 768px) 170px, (max-width: 1024px) 146px, 195px" : "(max-width: 768px) 170px, (max-width: 1024px) 160px, 222px"}
         />
+
+        {/* ⭕️ 既読（leido = true）の場合に右上に緑のチェックアイコンを表示 */}
         {leido && (
-          <FaRegCircleCheck className={`absolute top-2 ${isMain ? 'lg:w-4 lg:h-4' : 'lg:w-6 lg:h-6'} right-2 z-10 bg-[#82B590] rounded-full text-white`} />
+          <div className="absolute top-2 right-2 z-10 flex items-center justify-center bg-green-500 rounded-full text-white p-0.5 shadow-md border border-white/80">
+            <FaRegCircleCheck className={`${isMain ? 'w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5' : 'w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6'}`} />
+          </div>
         )}
       </div>
 

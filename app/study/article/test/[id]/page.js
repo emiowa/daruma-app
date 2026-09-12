@@ -3,22 +3,25 @@
 import { useParams, useRouter } from 'next/navigation';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import { HiArrowPath } from "react-icons/hi2";
-import { useState, useEffect } from 'react'; // useEffectを追加
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ButtonPager from '@/components/buttons/ButtonPager';
-import { supabase } from '@/lib/supabase'; // Supabaseをインポート
+import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext'; // ⭕️ useAuth をインポート
 
 function Test() {
   const params = useParams();
   const id = params.id;
   const router = useRouter();
 
+  const { user, authLoading } = useAuth(); // ⭕️ ユーザー情報を取得
+
   const [article, setArticle] = useState(null);
   const [quizNum, setQuizNum] = useState(0);
   const [result, setResult] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isLocked, setIsLocked] = useState(false);
-  const [isCorrectCount, setIsCorrectCount] = useState(0); // 変数名を少し分かりやすく変更
+  const [isCorrectCount, setIsCorrectCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   // -----------------------------------------------------------
@@ -29,11 +32,10 @@ function Test() {
       if (!id) return;
       const { data, error } = await supabase
         .from('articles')
-        .select('title, quiz_data') // 必要なものだけ取得
+        .select('title, quiz_data')
         .eq('id', id)
         .single();
 
-      console.log("取得したデータ:", data);
       if (error) {
         console.error('Error fetching quiz:', error);
       } else {
@@ -44,13 +46,40 @@ function Test() {
     fetchQuiz();
   }, [id]);
 
-  if (loading) return <p className="text-center mt-20">Cargando test...</p>;
-  if (!article || !article.quiz_data) return <p className="text-center mt-20">Test no encontrado</p>;
-
   // クイズデータのショートカット
-  const quizData = article.quiz_data;
+  const quizData = article?.quiz_data || [];
   const total = quizData.length;
   const currentQuiz = quizData[quizNum];
+
+  // -----------------------------------------------------------
+  // ⭕️ テスト結果（全問正解で合格）を Supabase に保存・更新する関数
+  // -----------------------------------------------------------
+  const saveQuizProgress = async (finalCorrectCount) => {
+    if (!user || !id) return;
+
+    // 全問正解（全問中の正解数 === 全問題数）の場合のみ合格
+    const isPassed = finalCorrectCount === total;
+
+    try {
+      const { error } = await supabase
+        .from('user_article_progress')
+        .upsert({
+          user_id: user.id,
+          article_id: Number(id),
+          quiz_passed: isPassed,
+          quiz_score: finalCorrectCount,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'user_id,article_id' });
+
+      if (error) {
+        console.error("【テスト結果保存失敗】", error.message);
+      } else {
+        console.log(`【テスト結果保存成功】 正解数: ${finalCorrectCount}/${total} (合格: ${isPassed})`);
+      }
+    } catch (e) {
+      console.error("【通信エラー】", e);
+    }
+  };
 
   const handleClickAnswer = (index) => {
     if (isLocked) return;
@@ -61,12 +90,22 @@ function Test() {
     }
   };
 
-  const handleClickNext = () => {
+  const handleClickNext = async () => {
     if (selectedIndex === null) return;
+
+    // ⭕️ 回答選択直後に正解数を正確に計算
+    const updatedCorrectCount = currentQuiz.correct === selectedIndex
+      ? isCorrectCount
+      : isCorrectCount; // handleClickAnswer で更新済み
+
+    // 最後の問題が終わった場合
     if (quizNum === total - 1) {
       setResult(true);
+      // DBに進捗状況（合格判定）を保存
+      await saveQuizProgress(isCorrectCount);
       return;
     }
+
     setQuizNum(prev => prev + 1);
     setSelectedIndex(null);
     setIsLocked(false);
@@ -84,13 +123,15 @@ function Test() {
     setIsLocked(false);
   };
 
+  if (authLoading || loading) return <p className="text-center mt-20">Cargando test...</p>;
+  if (!article || !article.quiz_data) return <p className="text-center mt-20">Test no encontrado</p>;
+
   return (
-    <div className='flex flex-col items-center mt-36'>
-      {/* タイトルはルビなしの素のテキストとして表示（またはRubyTextを使う） */}
+    <div className='flex flex-col items-center '>
       <div className='text-center text-[30px] font-bold'>{article.title.replace(/\[.*?\]/g, '')}</div>
 
       {/* 進行状況バーと難易度 */}
-      <div className='md:mt-10 bg-main-lightBlue w-[570px] md:w-[720px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex items-center justify-between'>
+      <div className='md:mt-10 bg-main-lightBlue w-[570px] lg:w-[1000px] content md:h-[60px] md:px-9 lg:px-6 shadow-large flex items-center justify-between'>
         <div>pregunta {quizNum + 1} / {total}</div>
         <div className="flex w-64">
           {Array.from({ length: total }).map((_, index) => (
@@ -107,9 +148,6 @@ function Test() {
         <div className='flex justify-between items-center' >
           <div className="text-sm">Dificultad</div>
           <div className='flex justify-between md:ml-3 text-2xl lg:text-lg text-yellow-500'>
-            {/* {Array.from({ length: 3 }).map((_, i) =>
-              i < article.star ? <FaStar key={i} className="md:ml-1" /> : <FaRegStar key={i} className="md:ml-1" />
-            )} */}
           </div>
         </div>
       </div>
@@ -125,12 +163,24 @@ function Test() {
         {result ? (
           // -------------------------------------- Result -----------------------------------------
           <div className='w-full flex flex-col justify-center items-center'>
-            <div className='md:mt-10 bg-main-lightBlue w-full max-w-[600px] content md:h-[180px] p-8 shadow-large flex flex-col items-center justify-center '>
-              <div className='text-[23px] font-bold'>Resultados</div>
-              <div className='mt-4 w-full max-w-[300px]'>
+            <div className='md:mt-10 bg-main-lightBlue w-full max-w-[600px] content md:h-[220px] p-8 shadow-large flex flex-col items-center justify-center rounded-xl border border-black'>
+              <div className='text-[23px] font-bold mb-2'>Resultados</div>
+
+              {/* ⭕️ 全問正解時の合格バッジ表示 */}
+              {isCorrectCount === total ? (
+                <div className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-bold border border-green-500 mb-2">
+                  🎓 ¡Aprobado! (全問正解で合格)
+                </div>
+              ) : (
+                <div className="bg-gray-100 text-gray-600 px-4 py-1 rounded-full text-sm font-bold border border-gray-300 mb-2">
+                  ¡Sigue intentándolo! (全問正解で合格)
+                </div>
+              )}
+
+              <div className='mt-2 w-full max-w-[300px]'>
                 <div className='flex justify-between'>
                   <div>Respuestas correctas:</div>
-                  <div className="font-bold text-green-600">{isCorrectCount}</div>
+                  <div className="font-bold text-green-600">{isCorrectCount} / {total}</div>
                 </div>
                 <div className='flex justify-between mt-2'>
                   <div>Respuestas incorrectas:</div>
@@ -138,8 +188,8 @@ function Test() {
                 </div>
               </div>
             </div>
+
             <div className='flex w-full mt-8 justify-center gap-4'>
-              {/* 💡 ついでにここにも hover-float を追加しておくと一貫性が出ます！ */}
               <ButtonPager className="flex items-center bg-main-white hover-float" onClick={goToTest}>
                 <HiArrowPath className='mr-2' />
                 Volver a intentar
@@ -155,7 +205,6 @@ function Test() {
             <div className="text-[22px] font-bold mt-4 text-center">{currentQuiz.question}</div>
             <div className='grid grid-cols-2 w-full gap-4 mt-8'>
               {currentQuiz.choices.map((item, index) => {
-                // 1. ロック状態に応じた色決め
                 const statusClass = !isLocked
                   ? "bg-main-white text-main-grey"
                   : index === currentQuiz.correct
@@ -164,8 +213,6 @@ function Test() {
                       ? "bg-red-400 border-red-600 text-white"
                       : "bg-gray-200 text-gray-400 opacity-50 cursor-not-allowed";
 
-                // ⭕️ 2. 修正：globals.css に登録した「hover-float」をここでスマートに呼び出す！
-                // まだ回答していない（!isLocked）ときだけ影（shadow-md）と一緒に出現させます
                 const hoverAnimationClass = !isLocked
                   ? "hover-float shadow-md"
                   : "transition-all duration-300";
@@ -184,7 +231,6 @@ function Test() {
               })}
             </div>
             <div className='flex w-full mt-10 justify-end'>
-              {/* 💡 次へボタンも、回答が終わってロックが解除された（isLocked）ときだけ浮き上がるようにすると親切です */}
               <ButtonPager
                 className={`flex items-center ${!isLocked ? "bg-gray-200 text-gray-400 cursor-default" : "bg-main-white hover-float shadow-md"}`}
                 onClick={handleClickNext}

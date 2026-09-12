@@ -4,6 +4,7 @@ import ArticleCards from '@/components/study/ArticleCards';
 import { useEffect, useRef, useState } from 'react';
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext'; // ⭕️ useAuthをインポート
 
 function Articles() {
   const ArticleNum = 12;
@@ -12,21 +13,24 @@ function Articles() {
   // 状態管理
   const [allArticles, setAllArticles] = useState([]);
   const [currentCardsList, setCurrentCardsList] = useState([]);
+  const [readArticleIds, setReadArticleIds] = useState([]); // ⭕️ 既読記事IDのリスト
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // ⭕️ 確実な解決策：星マークにホバーしているかどうかをReactのStateで管理
-  const [isStarHovered, setIsStarHovered] = useState(false);
+  const { user, authLoading } = useAuth(); // ⭕️ ユーザー情報の取得
 
+  const [isStarHovered, setIsStarHovered] = useState(false);
   const filterRef = useRef(null);
 
-  // 1. ページ初期化時にSupabaseから全記事データを取得
+  // 1. ページ初期化時にSupabaseから全記事データ ＋ 既読データを取得
   useEffect(() => {
     const fetchAll = async () => {
+      if (authLoading) return;
       setLoading(true);
       const now = new Date().toISOString();
 
       try {
+        // 全記事データの取得
         const { data, error } = await supabase
           .from('articles')
           .select('*')
@@ -42,14 +46,28 @@ function Articles() {
           setAllArticles(safeData);
           setCurrentCardsList(safeData);
         }
+
+        // ログイン中の場合、ユーザーの既読データ（is_read = true）を取得 ⭕️
+        if (user) {
+          const { data: progressData, error: progressError } = await supabase
+            .from('user_article_progress')
+            .select('article_id')
+            .eq('user_id', user.id)
+            .eq('is_read', true);
+
+          if (!progressError && progressData) {
+            setReadArticleIds(progressData.map(item => item.article_id));
+          }
+        }
       } catch (err) {
         console.error("Unexpected error:", err);
       } finally {
         setLoading(false);
       }
     };
+
     fetchAll();
-  }, []);
+  }, [user, authLoading]);
 
   // フィルターの設定
   const filterDetail = [
@@ -73,20 +91,33 @@ function Articles() {
 
     let filtered = [...allArticles];
 
+    // ① テーマフィルター
     const { list: temas } = selectedList[0] || { list: [] };
     if (temas.length > 0) {
       filtered = filtered.filter(card => card && temas.includes(card.label_text));
     }
 
+    // ② 難易度フィルター
     const { list: niveles } = selectedList[1] || { list: [] };
     if (niveles.length > 0) {
       const targetStars = niveles.map(n => levelToStar[n]);
       filtered = filtered.filter(card => card && targetStars.includes(card.star));
     }
 
+    // ③ 既読・未読（Estado）フィルター ⭕️
+    const { list: estados } = selectedList[2] || { list: [] };
+    if (estados.length > 0) {
+      filtered = filtered.filter(card => {
+        const isRead = readArticleIds.includes(card.id);
+        if (estados.includes("Leido") && !estados.includes("No leido")) return isRead;
+        if (estados.includes("No leido") && !estados.includes("Leido")) return !isRead;
+        return true;
+      });
+    }
+
     setCurrentCardsList(filtered);
     setArticleNum(ArticleNum);
-  }, [selectedList, allArticles, loading]);
+  }, [selectedList, allArticles, readArticleIds, loading]);
 
   // フィルターポップアップの外部クリック閉じ処理
   useEffect(() => {
@@ -113,7 +144,7 @@ function Articles() {
   const handleClickClear = () => setSelectedList(filterDetail.map(item => ({ id: item.id, list: [] })));
 
   return (
-    <div className='bg-main-lightBlue w-full max-w-[1000px] mt-52 content pt-20 md:pt-24 lg:pt-28 pb-10 px-4 md:px-8 shadow-large relative rounded-xl border border-black mx-auto'>
+    <div className='bg-main-lightBlue w-full md:w-[760px] max-w-[1000px] mt-52 content pt-20 md:pt-24 lg:pt-28 pb-10 px-4 md:px-8 shadow-large relative rounded-xl border border-black mx-auto'>
 
       {/* アニメーション用CSS */}
       <style>{`
@@ -136,20 +167,15 @@ function Articles() {
 
         {/* ⭐ 星マークホバーガイド */}
         {!loading && (
-          /* ⭕️ 修正：onMouseEnter（マウスが乗った）と onMouseLeave（離れた）を明示的にセット */
           <div
             className="hidden sm:flex relative cursor-help select-none"
             onMouseEnter={() => setIsStarHovered(true)}
             onMouseLeave={() => setIsStarHovered(false)}
           >
-
-            {/* 画面に常に見えている星マークボタン */}
             <div className={`flex items-center justify-center bg-main-white border border-black px-3 py-1 rounded-lg text-sm text-yellow-500 shadow-small transition-all duration-150 ${isStarHovered ? 'scale-105 bg-gray-50' : ''}`}>
               <span className="text-yellow-500 text-base font-bold select-none">★</span>
             </div>
 
-            {/* ⭕️ 修正：JavaScriptの条件分岐（isStarHovered && ...）に変更
-               これにより、ホバーしていない間はHTMLごと「絶対に存在しない」状態になるため、最初から表示されるバグが100%治ります */}
             {isStarHovered && (
               <div className="absolute w-[210px] p-4 bg-gray-600 border border-black rounded-xl right-0 top-11 z-50 shadow-large origin-top-right filter-animation">
                 <h4 className="text-[13px] font-bold text-main-background mb-2 pb-1 border-b border-white/20">
@@ -162,7 +188,6 @@ function Articles() {
                 </div>
               </div>
             )}
-
           </div>
         )}
 
@@ -216,7 +241,7 @@ function Articles() {
         )}
       </div>
 
-      {/* 記事カード一覧表示エリア（Gridシステム） */}
+      {/* 記事カード一覧表示エリア */}
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="animate-spin h-8 w-8 border-4 border-main-grey border-t-transparent rounded-full mb-4"></div>
@@ -227,6 +252,10 @@ function Articles() {
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 md:mt-6 lg:mt-8 w-full justify-items-center'>
             {Array.isArray(currentCardsList) && currentCardsList.slice(0, articleNum).map((item) => {
               if (!item) return null;
+
+              // ⭕️ カードが既読かどうか判定
+              const isRead = readArticleIds.includes(item.id);
+
               return (
                 <div key={item.id} className="w-full flex justify-center">
                   <ArticleCards
@@ -234,7 +263,7 @@ function Articles() {
                     title={item.title}
                     label={{ text: item.label_text, bg: item.label_bg }}
                     star={item.star}
-                    leido={false}
+                    leido={isRead} // ⭕️ 判定結果を反映
                   />
                 </div>
               );
