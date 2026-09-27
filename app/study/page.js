@@ -1,7 +1,8 @@
 "use client";
-
-import { IoEyeOutline, IoBookOutline } from "react-icons/io5";
-import { VscFlame } from "react-icons/vsc";
+import { IoEyeOutline } from "react-icons/io5"
+import { LuSprout } from "react-icons/lu";
+import { PiFlowerTulipBold } from "react-icons/pi";
+import { GiFruitTree } from "react-icons/gi";
 import ButtonAudioFunFactData from '@/components/buttons/ButtonAudioFunFactData';
 import ButtonAudioVocabulary from '@/components/buttons/ButtonAudioVocabulary';
 import SeeEveryArticleLink from '@/components/links/SeeEveryArticleLink';
@@ -32,9 +33,9 @@ function Study() {
   const [countIntermediate, setCountIntermediate] = useState(null);
 
   const levels = [
-    { label: "Principiantes", count: countBeginner, Icon: IoBookOutline },
-    { label: "Intermedio", count: countIntermediate, Icon: VscFlame },
-    { label: "Avanzados", count: countAdvanced, Icon: VscFlame },
+    { label: "Principiantes", count: countBeginner, Icon: LuSprout },
+    { label: "Intermedio", count: countIntermediate, Icon: PiFlowerTulipBold },
+    { label: "Avanzados", count: countAdvanced, Icon: GiFruitTree },
   ];
 
   useEffect(() => {
