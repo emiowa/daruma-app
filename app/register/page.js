@@ -36,11 +36,8 @@ function Registrarse() {
   ];
 
   const help = [{ text: "Ya tengo una cuenta", link: "/login" }];
-
   const handleRegister = async (values) => {
     try {
-      setServerError(""); // ⚡️ リクエスト前に前の方のエラーを綺麗にクリアする
-
       const { data, error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
@@ -50,21 +47,19 @@ function Registrarse() {
           }
         }
       });
-      // TODO リリース前に必ず削除する。
+
       if (error) {
         console.error("Supabase signUp error:", error);
+        const msg = (error.message || "").toLowerCase();
 
-        // ⭕️ 修正：エラーメッセージの内容に応じて、親切なスペイン語に翻訳してセット
-        if (error.message.includes("already registered")) {
-          setServerError("Este correo ya está registrado.");
-        } else if (error.status === 422 || error.message.includes("rate limit") || error.message.includes("security")) {
-          // 🔒 422制限やセキュリティブロックを検知したとき
-          setServerError("Por seguridad, espera unos minutos antes de intentar otra vez.");
+        // ⭕️ 修正：setServerErrorではなく、エラーメッセージの文字列を直接 return する
+        if (msg.includes("already registered") || msg.includes("already exists")) {
+          return "Este correo ya está registrado.";
+        } else if (error.status === 422 || msg.includes("rate limit") || msg.includes("security")) {
+          return "Por seguridad, espera unos minutos antes de intentar otra vez.";
         } else {
-          // その他の予期せぬエラーは、Supabaseの生のメッセージ（英語）をそのまま出して開発しやすくする
-          setServerError(error.message || "Ocurrió un error. Inténtalo de nuevo.");
+          return error.message || "Ocurrió un error. Inténtalo de nuevo.";
         }
-        return;
       }
 
       // サインアップ成功時
@@ -72,7 +67,7 @@ function Registrarse() {
 
     } catch (err) {
       console.error("Fatal network error:", err);
-      setServerError("Error de red. Inténtalo de nuevo.");
+      return "Error de red. Inténtalo de nuevo.";
     }
   };
 

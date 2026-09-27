@@ -218,6 +218,40 @@ function IndividualArticle() {
     router.push(`/study/article/test/${id}`);
   };
 
+  const ToggleButton = (
+    <button
+      type="button"
+      onClick={handleToggleRead}
+      disabled={isUpdatingRead}
+      aria-pressed={isRead}
+      className="inline-flex items-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none"
+    >
+      {/* スイッチ本体 */}
+      <div
+        className={`
+relative inline-flex h-8 w-16 shrink-0 items-center rounded-full
+border-2 border-black transition-colors duration-200 ease-in-out
+${isRead ? "bg-green-500" : "bg-gray-300"}
+`}
+      >
+        <span
+          className={`
+pointer-events-none inline-block h-6 w-6 transform rounded-full 
+bg-white border border-black shadow-small transition duration-200 ease-in-out
+${isRead ? "translate-x-8" : "translate-x-0.5"}
+`}
+        />
+      </div>
+
+      {/* テキスト表示 */}
+      <span className="font-bold text-sm text-black">
+        {isRead ? "Leído" : "Sin leer"}
+      </span>
+    </button>
+  )
+
+
+
   return (
     <>
       <div className="flex flex-col items-center md:w-[80%] pb-20 w-full max-w-[1000px] mx-auto gap-10">
@@ -226,7 +260,6 @@ function IndividualArticle() {
         <div className='w-full text-main-grey font-bold md:text-3xl lg:text-7xl text-center md:mt-10'>
           <RubyText rawText={article.title} />
         </div>
-
         <div className='bg-main-lightBlue w-full md:h-[60px] px-6 md:px-9 shadow-large flex justify-between items-center rounded-lg'>
           <div className='flex items-center' >
             <div>Tema:</div>
@@ -257,32 +290,24 @@ function IndividualArticle() {
             </div>
           ))}
         </div>
+        <div className="flex justify-end w-full">
+          {ToggleButton}
+        </div>
 
         {/* 操作ボタン */}
-        <div className='flex flex-wrap gap-4 justify-between items-center w-full px-4 md:px-9'>
+        <div className=' w-full px-4 md:px-9'>
           <div className='flex flex-wrap gap-3'>
             <ButtonSwichDisplay booleanItem={isJapanese} func={handleTraduccion} className={"bg-main-lightBlue md:w-52"} defaultText={"Traducción a español"} changedText={"Ver original texto"} />
-            <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-52"} changedText={"Mostrar furigana"} defaultText={"Sacar furigana"} />
+            <ButtonSwichDisplay booleanItem={displayFurigana} func={handleDisplayFurigana} className={"bg-main-lightBlue md:w-48"} changedText={"Mostrar furigana"} defaultText={"Sacar furigana"} />
 
-            {/* ⭕️ 既読にするトグルボタン */}
-            <button
-              onClick={handleToggleRead}
-              disabled={isUpdatingRead}
-              className={`px-4 py-2 rounded-lg font-bold text-sm border border-black shadow-small transition-all active:scale-95 ${isRead
-                ? "bg-green-500 text-white hover:bg-green-600"
-                : "bg-main-white text-main-grey hover:bg-gray-100"
-                }`}
-            >
-              {isRead ? "✓ Leído" : "Marcar como leído"}
-            </button>
+
+            <ButtonPager onClick={goToTest} className="bg-main-white hover-float">
+              <div className='flex items-center' >
+                <div>Tomar el test</div>
+                <div className='ml-3'>→</div>
+              </div>
+            </ButtonPager>
           </div>
-
-          <ButtonPager onClick={goToTest} className="bg-main-white hover-float">
-            <div className='flex items-center' >
-              <div>Tomar el test</div>
-              <div className='ml-3'>→</div>
-            </div>
-          </ButtonPager>
         </div>
 
         {/* 語彙セクション */}

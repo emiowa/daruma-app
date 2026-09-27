@@ -144,7 +144,7 @@ function Articles() {
   const handleClickClear = () => setSelectedList(filterDetail.map(item => ({ id: item.id, list: [] })));
 
   return (
-    <div className='bg-main-lightBlue w-full md:w-[760px] max-w-[1000px] mt-52 content pt-20 md:pt-24 lg:pt-28 pb-10 px-4 md:px-8 shadow-large relative rounded-xl border border-black mx-auto'>
+    <div className='bg-main-lightBlue w-full md:w-[850px] max-w-[1000px] mt-52 content pt-20 md:pt-24 lg:pt-28 pb-10 px-4 md:px-8 shadow-large relative rounded-xl border border-black mx-auto'>
 
       {/* アニメーション用CSS */}
       <style>{`
@@ -249,7 +249,7 @@ function Articles() {
         </div>
       ) : (
         <>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 md:mt-6 lg:mt-8 w-full justify-items-center'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4 md:mt-6 lg:mt-8 w-full justify-items-center'>
             {Array.isArray(currentCardsList) && currentCardsList.slice(0, articleNum).map((item) => {
               if (!item) return null;
 

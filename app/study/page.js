@@ -27,6 +27,15 @@ function Study() {
   const [readCount, setReadCount] = useState(0);
   const [trivia, setTrivia] = useState(null);
   const [vocabList, setVocabList] = useState([]);
+  const [countAdvanced, setCountAdvanced] = useState(null);
+  const [countBeginner, setCountBeginner] = useState(null);
+  const [countIntermediate, setCountIntermediate] = useState(null);
+
+  const levels = [
+    { label: "Principiantes", count: countBeginner, Icon: IoBookOutline },
+    { label: "Intermedio", count: countIntermediate, Icon: VscFlame },
+    { label: "Avanzados", count: countAdvanced, Icon: VscFlame },
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,7 +74,7 @@ function Study() {
       if (user) {
         const { data: progressData, error: progressError } = await supabase
           .from('user_article_progress')
-          .select('article_id')
+          .select('article_id, articles(star)')
           .eq('user_id', user.id)
           .eq('is_read', true);
 
@@ -73,6 +82,21 @@ function Study() {
           const ids = progressData.map(item => item.article_id);
           setReadArticleIds(ids);
           setReadCount(ids.length);
+
+          let beginner = 0;
+          let intermediate = 0;
+          let advanced = 0;
+
+          progressData.forEach(item => {
+            const star = item.articles?.star;
+            if (star === 1) beginner++;
+            else if (star === 2) intermediate++;
+            else if (star === 3) advanced++;
+          });
+
+          setCountBeginner(beginner);
+          setCountIntermediate(intermediate);
+          setCountAdvanced(advanced);
         }
       }
 
@@ -110,15 +134,15 @@ function Study() {
                 Artículos leídos: {readCount}
               </span>
             </div>
-            <div className='flex-col ml-1 mt-3 md:mt-4 lg:mt-5'>
-              <div className='flex items-center'>
-                <IoBookOutline className='lg:mt-[2px]' />
-                <span className='ml-1 text-[10px] lg:text-[14px]'>Principiantes: 8</span>
-              </div>
-              <div className='flex items-center mt-1'>
-                <VscFlame className='lg:mt-[2px]' />
-                <span className='ml-1 text-[10px] lg:text-[14px]'>Avanzados: 2</span>
-              </div>
+            <div className='flex-col ml-1 mt-2 md:mt-3 lg:mt-4'>
+              {levels.map(({ label, count, Icon }, index) => (
+                <div key={label} className={`flex items-center `}>
+                  <Icon className='lg:mt-[2px]' />
+                  <span className='ml-1 text-[10px] lg:text-[14px]'>
+                    {label}: {count}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
