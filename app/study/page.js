@@ -123,29 +123,39 @@ function Study() {
     <div className='w-full md:w-[720px] lg:w-[1000px] mx-auto'>
       <div className='flex justify-center h-40 md:h-48 lg:h-64'>
         {/* ポイントセクション */}
-        <div className='bg-main-orange md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 flex flex-col md:gap-6'>
-          <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
-            <span className='text-4xl md:text-4xl lg:text-5xl font-bold'>200</span>
-            <span className='text-xs md:text-sm ml-1 mb-1'>ポイント</span>
-          </div>
-          <div className='bg-main-retroWhite w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
-            <div className='flex items-center'>
-              <IoEyeOutline className='lg:mt-[2px]' />
-              <span className='ml-1 text-[10px] lg:text-[14px] font-semibold'>
-                Artículos leídos: {readCount}
-              </span>
-            </div>
-            <div className='flex-col ml-1 mt-2 md:mt-3 lg:mt-4'>
-              {levels.map(({ label, count, Icon }, index) => (
-                <div key={label} className={`flex items-center `}>
-                  <Icon className='lg:mt-[2px]' />
-                  <span className='ml-1 text-[10px] lg:text-[14px]'>
-                    {label}: {count}
+        <div className='bg-main-orange md:w-[210px] lg:w-[280px] content shadow-large md:pt-9 lg:pt-12 md:px-2 '>
+
+          {user &&
+            <div className=" flex flex-col md:gap-6">
+              <div className='flex text-[rgb(246,239,221)] items-end ml-2'>
+                <span className='text-4xl md:text-4xl lg:text-5xl font-bold'>200</span>
+                <span className='text-xs md:text-sm ml-1 mb-1'>ポイント</span>
+              </div>
+              <div className='bg-main-retroWhite w-full h-16 md:h-20 lg:h-28 shadow-small content p-2'>
+                <div className='flex items-center'>
+                  <IoEyeOutline className='lg:mt-[2px]' />
+                  <span className='ml-1 text-[10px] lg:text-[14px] font-semibold'>
+                    Artículos leídos: {readCount}
                   </span>
                 </div>
-              ))}
+                <div className='flex-col ml-1 mt-2 md:mt-3 lg:mt-4'>
+                  {levels.map(({ label, count, Icon }, index) => (
+                    <div key={label} className={`flex items-center `}>
+                      <Icon className='lg:mt-[2px]' />
+                      <span className='ml-1 text-[10px] lg:text-[14px]'>
+                        {label}: {count}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          }
+          {/* ログイン前の表示 */}
+          {!user &&
+            <div className="text-white">
+              ログインしてポイントを集めよう
+            </div>}
         </div>
 
         {/* まめちしきセクション */}
